@@ -1,6 +1,20 @@
 # Project Template: React/Rails API
 
 ## Description
+Hikers has many hikers hikes
+Hikes has many hikers hikes
+Hike belongs to hiker
+Hikers Hike belongs to hiker, belongs to hike
+Comments belongs to hikerhike
+
+rails g resource Hiker hikername
+rails g resource Hike name
+rails g Hikershike hiker:belongs_to hike_belongs_to
+rails g resource Comment
+
+
+
+
 
 This project is scaffolded so that you can build a React frontend and Rails
 backend together, and easily deploy them to Heroku.
