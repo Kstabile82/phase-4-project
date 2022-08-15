@@ -1,5 +1,5 @@
 // import React from "react";
-// import { NavLink } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 // function NavBar() {
 
@@ -9,16 +9,16 @@
 //                 transform: 'translate(-50%, -50%)'
 //             }}> 
 //             <nav className="navbar">
-//                         <NavLink exact to="/">Home</NavLink>
-//                         <NavLink to="/Login">
+//                         <Link exact to="/">Home</Link>
+//                         <Link to="/Login">
 //                             Login
-//                             </NavLink>
-//                             <NavLink to="/Signup">
+//                             </Link>
+//                             <Link to="/Signup">
 //                             Signup
-//                             </NavLink>
-//                             <NavLink to="/HikesContainer">
+//                             </Link>
+//                             <Link to="/HikesContainer">
 //                             Hikes
-//                             </NavLink>
+//                             </Link>
 //              </nav>
 //             </header>
 //         );

@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+// import { Routes, Route } from "react-router-dom";
 import Login from "./Components/Login";
 import HikesContainer from "./Components/HikesContainer";
 import Signup from "./Components/Signup";
@@ -10,9 +10,9 @@ function App() {
 
   return (
     <div className="app">
-      <HikesContainer/>
+      <HikesContainer />
     {/* <NavBar/> 
-        <Switch> 
+        <Routes> 
         <Route path="/">
             <App /> 
           </Route>
@@ -25,7 +25,7 @@ function App() {
           <Route path="/Hikes">
             <HikesContainer />
           </Route>
-        </Switch> */}
+        </Routes> */}
     </div>
   );
 }

@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 function LogIn() {
-    console.log("Login")
+const [inputName, setInputName] = useState("")
+const [inputPassword, setInputPassword] = useState("")
+const [loggedOut, setLoggedOut] = useState(true)
+const [user, setUser] = useState({})
+ //fetch hikers
+  function handleUser(e) {
+       e.preventDefault();
+       //map through users for params that match input, then setUser
+       console.log(inputName, inputPassword)
+       setLoggedOut(false)
+    //setUser(e.target.parentElement.firstChild.nextSibling.value);
+  }
     return (
-        <div>Login!</div>
+        <div style={{display: loggedOut ? 'visible' : 'none' }}>Log in
+            <form className="login" onSubmit={handleUser}>  
+             <input 
+                type="text" 
+                id="inputname" 
+                placeholder="Username"
+                onChange={(e) => setInputName(e.target.value)}></input>  
+                 <input 
+                type="text" 
+                id="password" 
+                placeholder="Password"
+                onChange={(e) => setInputPassword(e.target.value)}></input>  
+                <button>Enter</button>
+            </form>
+        </div>
     )
 }
 export default LogIn; 

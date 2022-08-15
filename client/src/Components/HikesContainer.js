@@ -19,7 +19,11 @@ function HikesContainer() {
             // setSubmitted("true")
          });
         }, [])
-     console.log(hikes)
+        hikes.map(h => console.log(h.hikerhikes))
+        function handleComments(e) {
+            e.preventDefault();
+            // console.log(e.target.className)
+        }
     // function handleClicked(e, hike) {
         // setClicked(hike.name)
     // }
@@ -50,7 +54,7 @@ function HikesContainer() {
     // }
     return (
         <div className="container">
-          {hikes.map(h => <li>{h.name}</li>)}
+          {hikes.map(h => <ul>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}<li className={h.name} onClick={handleComments}>Comments</li><li>Images</li></ul>)}
         </div>
                );
 }

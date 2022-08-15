@@ -4,6 +4,8 @@
 // import { useHistory } from "react-router-dom";
 
 // function Welcomepage({ user, alert }) {
+
+//fetch hikes
 //   let history = useHistory(); 
 //   const [nextStep, setNextStep] = useState("");
 //     function handleNext(e) {
