@@ -1,8 +1,45 @@
 // import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-// function NavBar() {
+function NavBar({ hiker, onLogout }) {
+    function handleLogout() {
+      fetch("/logout", {
+        method: "DELETE",
+      }).then(() => onLogout());
+    }
+  
+    return (
+      <header>
+        <h1>
+          <Link to="/">Home          </Link>
+          <Link to="/login">Login          </Link>
+          <Link to="/signup">Sign Up         </Link>
+          <Link to="/hikes">Hikes</Link>
 
+        </h1>
+        {/* {hiker ? (
+          <div>
+            <p>Welcome, {hiker.hikername}!</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        ) : (
+          <Link to="/login">Login</Link>
+        
+
+        )} */}
+      </header>
+    );
+  }
+      export default NavBar;
+
+
+
+// function NavBar({ onLogout }) {
+    // function handleLogout() {
+    //     fetch("/logout", {
+    //       method: "DELETE",
+    //     }).then(() => onLogout());
+    //   }
 //         return (
 //             <header style={{
 //                 position: 'absolute', left: '50%', top: '50%',
@@ -13,6 +50,8 @@
 //                         <Link to="/Login">
 //                             Login
 //                             </Link>
+                            // <button onClick={handleLogout}>Logout</button>
+
 //                             <Link to="/Signup">
 //                             Signup
 //                             </Link>

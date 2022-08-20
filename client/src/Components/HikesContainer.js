@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; 
-// import AddNewHike from "./AddNewHike";
+import AddNewHike from "./AddNewHike";
 // import MyHikes from "./MyHikes";
 // import Card from "./Card";
 
@@ -19,7 +19,8 @@ function HikesContainer() {
             // setSubmitted("true")
          });
         }, [])
-        hikes.map(h => console.log(h.hikerhikes))
+        console.log(hikes)
+        // hikes.map(h => console.log(h.hikerhikes))
         function handleComments(e) {
             e.preventDefault();
             // console.log(e.target.className)
@@ -55,6 +56,7 @@ function HikesContainer() {
     return (
         <div className="container">
           {hikes.map(h => <ul>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}<li className={h.name} onClick={handleComments}>Comments</li><li>Images</li></ul>)}
+          <AddNewHike hikes={hikes} setHikes={setHikes} />
         </div>
                );
 }
