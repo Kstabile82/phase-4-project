@@ -7,7 +7,13 @@ class HikersController < ApplicationController
         render json: hiker, status: 200 
     end
     # def show
-    #     render json: Hiker.find_by(username = )
+    #     # hiker = Hiker.find_by(id: session[:hiker_id])
+    #     hiker = Hiker.find_by(hikername: [:hikername])
+    #     if hiker 
+    #         render json: hiker
+    #     else
+    #         render json: {message: "Not logged in"}, status: :unauthorized
+    #     end
     # end
 
 

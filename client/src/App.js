@@ -7,10 +7,22 @@ import Signup from "./Components/Signup";
 // import NavBar from "./Components/NavBar";
 
 function App() {
-
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/me")
+  //   .then(r => {
+  //     if (r.ok) {
+  //       r.json().then(
+  //         console.log("logged in: ", hiker)
+  //       )
+  //     }
+  //     else {
+  //       console.log("no one logged in")
+  //     }
+  //   })
+  // }, [])
   return (
     <div className="app">
-      <HikesContainer />
+      <Login />
     {/* <NavBar/> 
         <Routes> 
         <Route path="/">
