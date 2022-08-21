@@ -3,6 +3,7 @@ import AddNewHike from "./AddNewHike";
 // import MyHikes from "./MyHikes";
 // import Card from "./Card";
 
+//filter by state, difficulty, distance
 function HikesContainer() {
     // const [clicked, setClicked] = useState("");
     const [hikes, setHikes] = useState([]);
@@ -19,7 +20,6 @@ function HikesContainer() {
             // setSubmitted("true")
          });
         }, [])
-        console.log(hikes)
         // hikes.map(h => console.log(h.hikerhikes))
         function handleComments(e) {
             e.preventDefault();
@@ -42,20 +42,10 @@ function HikesContainer() {
     //         matches.sort((a,b) => (a.id > b.id) ? 1 : -1)
     //     }
     // }
-    // function postNewHikes(newHike) {
-    //     fetch ("http://localhost:3000/hikes", {
-    //         method: "POST",
-    //         headers: {
-    //         "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(newHike)
-    //         })
-    //     .then((r) => r.json())
-    //     .then(hike => setHikes([...hikes, hike], setMatches([...hikes, hike])))
-    // }
+
     return (
         <div className="container">
-          {hikes.map(h => <ul>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}<li className={h.name} onClick={handleComments}>Comments</li><li>Images</li></ul>)}
+          {hikes.map(h => <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}<li key={h.name} className={h.name} onClick={handleComments}>Comments</li><li key={h.likes}>Likes: {h.likes}</li></ul>)}
           <AddNewHike hikes={hikes} setHikes={setHikes} />
         </div>
                );

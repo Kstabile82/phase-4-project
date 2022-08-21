@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function AddNewHike({ hikes, setHikes, postNewHike }) { 
+function AddNewHike({ hikes, setHikes }) { 
     const [added, setAdded] = useState("");
     const [name, setName] = useState("");
     const [difficulty, setDifficulty] = useState("");
@@ -27,11 +27,12 @@ function AddNewHike({ hikes, setHikes, postNewHike }) {
         name,
         difficulty,
         location,
-        distance
+        distance, 
+        likes: 0
     }
     function handleSubmit(e) {
         e.preventDefault();
-        if (location == "" || difficulty == "" || name == "") {
+        if (location === "" || difficulty === "" || name === "") {
             setAdded("false") 
         }
         else {
@@ -98,6 +99,7 @@ function postNewHikes(newHike) {
                 ></input>
                 <button>Submit</button>
             </form>
+            {added ? <p>Thanks, your hike was added!</p> : null}
         </div>
     );
 }

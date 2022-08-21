@@ -9,7 +9,17 @@ import Signup from "./Signup";
 
 
 function App() {
-  const [hiker, setHiker] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loggedOut, setLoggedOut] = useState(true);
+
+  useEffect(() => {
+    fetch("/me").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+        setLoggedOut(false)
+      }
+    });
+  }, []);
 
   // useEffect(() => {
   //   fetch("/me")
@@ -22,29 +32,26 @@ function App() {
   //   });
   // }, []);
   function handleLogin(hiker) {
-    setHiker(hiker);
+    setUser(hiker);
+    setLoggedOut(false)
   }
-
   function handleLogout() {
-    setHiker(null);
+    setUser(null);
+    setLoggedOut(true)
   }
-
   return (
     <div className="App">
-    <NavBar hiker={hiker} onLogout={handleLogout} />
+    <NavBar user={user} onLogout={handleLogout} />
     <Switch>
       <Route exact path="/hikes">
         <HikesContainer />
       </Route>
       <Route exact path="/login">
-        <Login onLogin={handleLogin} />
+        <Login onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
       </Route>
       <Route exact path="/signup">
-        <Signup />
+        <Signup onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
       </Route>
-      {/* <Route exact path="/">
-        <App />
-      </Route> */}
     </Switch>
   </div>
 

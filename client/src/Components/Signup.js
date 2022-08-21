@@ -1,27 +1,42 @@
 import React, { useState } from "react";
 // import Welcomepage from "./Welcomepage";
 
-function Signup() {
-const [loggedOut, setLoggedOut] = useState(true);
+function Signup({ user, setUser, onLogin, loggedOut, setLoggedOut }) {
 // const [added, setAdded] = useState("");
-const [user, setUser] = useState({});
 const [userName, setUserName] = useState("")
 const [password, setPassword] = useState("")
 const [confirmPassword, setConfirmPassword] = useState("")
+const [errors, setErrors] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
+
 
     function handleNewUser(e) {
         e.preventDefault();
-        if (password === confirmPassword) {
-            //post request
-            setUser({name: userName, password: password})
-            setLoggedOut(false)
-        }
-        else {
-            console.log("Passwords don't match")
-        }
+        setErrors([]);
+        setIsLoading(true);
+        fetch("/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            hikername: userName,
+            password,
+            password_confirmation: confirmPassword
+                  }),
+        }).then((r) => {
+          setIsLoading(false);
+          if (r.ok) {
+            r.json().then((user) => onLogin(user));
+          } else {
+            r.json().then((err) => setErrors(err.errors));
+          }
+        });
     }
 return (
-    <div style={{display: loggedOut ? 'visible' : 'none' }}>Sign up
+    // <div style={{display: loggedOut ? 'visible' : 'none' }}>Sign up
+    <div>Sign up
+
     <form className="signup" onSubmit={handleNewUser}>  
      <input 
         type="text" 
@@ -40,6 +55,7 @@ return (
         onChange={(e) => setConfirmPassword(e.target.value)}></input>   
         <button>Enter</button>
     </form>
+    {/* {user} ? <Welcomepage user={user} loggedOut={loggedOut} setLoggedOut={setLoggedOut}/> */}
 </div>
 )
 // let hikername = "";

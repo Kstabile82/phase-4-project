@@ -1,5 +1,5 @@
 class Hiker < ApplicationRecord
-    # has_secure_password
+    has_secure_password
     has_many :hikerhikes 
     has_many :hikes, through: :hikerhikes
 

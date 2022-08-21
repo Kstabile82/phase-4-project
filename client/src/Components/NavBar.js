@@ -1,11 +1,12 @@
 // import React from "react";
 import { Link } from "react-router-dom";
 
-function NavBar({ hiker, onLogout }) {
+function NavBar({ onLogout, loggedOut, setLoggedOut }) {
     function handleLogout() {
       fetch("/logout", {
         method: "DELETE",
       }).then(() => onLogout());
+      setLoggedOut(true)
     }
   
     return (
@@ -27,6 +28,7 @@ function NavBar({ hiker, onLogout }) {
         
 
         )} */}
+              <button style={{display: loggedOut ? 'visible' : 'none' }} onClick={handleLogout}>Logout</button>
       </header>
     );
   }

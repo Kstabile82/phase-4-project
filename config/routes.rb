@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   resources :hikers, only: [:create, :show, :index]
   resources :hikes, only: [:create, :index, :show]
-
-  # get "/me", to "hikers#show"
-  # get "/hikes", to: "hikes#index"
-  post "/login", to: "sessions#login"
+  post "/signup", to: "hikers#create"
+  get "/me", to: "hikers#show"
+  post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

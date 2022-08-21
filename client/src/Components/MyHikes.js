@@ -1,43 +1,40 @@
-// import React, { useState } from "react"; 
-// import HikesContainer from "./HikesContainer";
-// import RenderUserWorkouts from "./RenderUserWorkouts";
-// import { useHistory } from "react-router-dom";
+import React, { useState } from "react"; 
 
-// function Welcomepage({ user, alert }) {
-//   let history = useHistory(); 
-//   const [nextStep, setNextStep] = useState("");
-//     function handleNext(e) {
-//         e.preventDefault();
-//         if (e.target.id === "createnew") {
-//             setNextStep(e.target.id)
-//         }
-//           else if (e.target.id === "seeworkouts") {
-//             setNextStep("seeworkouts")
-//           }     
-//           else {
-//             setNextStep("logout")
-//             history.push("/Home");
-//           }   
-//     }
-// return (
-//     <div>
-//       {user.name !== undefined ? 
-//          <div className="welcomeform">Welcome, {user.name.charAt(0).toUpperCase() + user.name.slice(1)}! 
-//                 <form>What would you like to do?
-//                     <button id="createnew" name="nextsteps" onClick={(handleNext)}>Create a New Workout</button>
-//                     {/* <button id="seeworkouts" name="nextsteps" onClick={handleNext}>See My Workout List</button>  */}
-//                     <button id="seeworkouts" name="nextsteps" style={{display: user.workouts.length !== 0 ? 'visible' : 'none' }} onClick={handleNext}>See My Workout List</button>
-//                     <button id="logout" name="logout" onClick={handleNext}>Log Out</button>
-//                 </form>
-//                  {(nextStep) === "createnew" ? <ExerciseContainer user={user} alert={alert} /> : null } 
-//                 <br></br>
-//                 <div >{(nextStep) === "seeworkouts" ? <RenderUserWorkouts user={user} /> : null }</div>
-//       </div>
-//     : null}
-//     </div>
-// )
+function MyHikes({ user }) { 
+  const [nextStep, setNextStep] = useState("");
+  const [myHikes, setMyHikes] = useState(user.hikerhikes[0].hikemethod)
+  //will need to map hikerhikes for the correct state above (or fetch hikerhikes)
+  //add button next to hike to update status (would update hikerhikes)
+  //hikeContainer - add + button visible only if user (would add to hikerhikes)
+  //add delete button on myHikes next to hikes (would delete from hikerhikes)
+  //hikeCard for container & myHikes. Status goes below the card on myHikes
+  //comment component
+    //hikecard add/delete comment - update comment itself
+    function handleNext(e) {
+        e.preventDefault();
+        if (e.target.id === "createnew") {
+            setNextStep(e.target.id)
+        }
+          else if (e.target.id === "seeworkouts") {
+            setNextStep("seeworkouts")
+          }     
+          else {
+            setNextStep("logout")
+          }   
+    }
+return (
+    <div>
+        {myHikes.name}
+                {/* <form>What would you like to do?
+                    <button id="seehikes" name="nextsteps" style={{display: user.hikershikes.length !== 0 ? 'visible' : 'none' }} onClick={handleNext}>See My Workout List</button>
+                    <button id="logout" name="logout" onClick={handleNext}>Log Out</button>
+                </form>
+                 {(nextStep) === "createnew" ? <ExerciseContainer user={user} alert={alert} /> : null } 
+                <br></br> */}
+    </div>
+)
 
 
 
-// }
-// export default Welcomepage; 
+}
+export default MyHikes; 

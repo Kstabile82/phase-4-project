@@ -1,20 +1,33 @@
 import React, { useState } from "react";
+import Welcomepage from "./Welcomepage";
 
-function LogIn() {
+function LogIn({ onLogin, onLogout, user, loggedOut, setLoggedOut }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
-const [loggedOut, setLoggedOut] = useState(true)
-const [user, setUser] = useState({})
- //fetch hikers
   function handleUser(e) {
        e.preventDefault();
-       //map through users for params that match input, then setUser
-       console.log(inputName, inputPassword)
-       setLoggedOut(false)
-    //setUser(e.target.parentElement.firstChild.nextSibling.value);
-  }
+       fetch("/login", {
+           method: "POST", 
+           headers: {
+               "Content-Type": "application/json"
+           },
+           body: JSON.stringify({ hikername: inputName, password: inputPassword }),
+       })
+       .then((r) => r.json())
+       .then((hiker) => onLogin(hiker))
+    // .then((r) => {
+    //     if (r.ok) {
+    //       r.json().then((hiker) => onLogin(hiker));
+    //     } 
+    //     else {
+
+    //     }
+    //    setLoggedOut(false)
+ // });
+}
     return (
-        <div style={{display: loggedOut ? 'visible' : 'none' }}>Log in
+        // <div style={{display: loggedOut ? 'visible' : 'none' }}>Log in
+        <div>
             <form className="login" onSubmit={handleUser}>  
              <input 
                 type="text" 
@@ -28,6 +41,7 @@ const [user, setUser] = useState({})
                 onChange={(e) => setInputPassword(e.target.value)}></input>  
                 <button>Enter</button>
             </form>
+           {user ? <Welcomepage user={user} onLogout={onLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} /> : null }
         </div>
     )
 }

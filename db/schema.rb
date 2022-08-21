@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_13_225037) do
+ActiveRecord::Schema.define(version: 2022_08_20_170622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2022_08_13_225037) do
     t.bigint "hike_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
     t.index ["hike_id"], name: "index_hikerhikes_on_hike_id"
     t.index ["hiker_id"], name: "index_hikerhikes_on_hiker_id"
   end
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 2022_08_13_225037) do
     t.integer "distance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes"
   end
 
   add_foreign_key "hikerhikes", "hikers"
