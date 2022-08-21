@@ -2,7 +2,7 @@ class HikesController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 # skip_before_action :authorize
    
-def index
+   def index
         hikes = Hike.all
         render json: hikes
     end
@@ -17,6 +17,12 @@ def index
         render json: hike, status: 200 
     end
     
+    def update
+      hike = Hike.find_by(id: params[:id])
+      hike.update(hike_params)
+      render json: hike
+    end
+
       private
     
       def render_not_found_response

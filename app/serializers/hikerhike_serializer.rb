@@ -1,7 +1,8 @@
 class HikerhikeSerializer < ActiveModel::Serializer
-  attributes :id, :hikermethod, :hikemethod
+  attributes :id, :hikermethod, :hikemethod, :status
   belongs_to :hiker
   belongs_to :hike
+
   def hikermethod
     self.object.hiker
   end

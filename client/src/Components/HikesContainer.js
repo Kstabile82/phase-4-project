@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"; 
 import AddNewHike from "./AddNewHike";
-// import MyHikes from "./MyHikes";
-// import Card from "./Card";
+import HikeCard from "./HikeCard";
 
 //filter by state, difficulty, distance
-function HikesContainer() {
+function HikesContainer({ user }) {
     // const [clicked, setClicked] = useState("");
     const [hikes, setHikes] = useState([]);
     // const [addedHikees, setAddeHikes] = useState([]);
@@ -20,11 +19,19 @@ function HikesContainer() {
             // setSubmitted("true")
          });
         }, [])
-        // hikes.map(h => console.log(h.hikerhikes))
-        function handleComments(e) {
-            e.preventDefault();
-            // console.log(e.target.className)
-        }
+      function addToMyHikes(e) {
+          e.preventDefault();
+        //   console.log(user.hikerhikes[0].hikemethod.id)
+        let hikeToAdd = hikes.find(h => h.name === e.target.className)
+        //post to myHikes
+      }
+    //   function handleUpdateHike(updatedHike) {
+    //     setHikes((hikes) =>
+    //       hikes.map((hike) => {
+    //         return hike.id === updatedHike.id ? updatedHike : hike;
+    //       })
+    //     );
+    //   }
     // function handleClicked(e, hike) {
         // setClicked(hike.name)
     // }
@@ -41,13 +48,15 @@ function HikesContainer() {
     //     else {
     //         matches.sort((a,b) => (a.id > b.id) ? 1 : -1)
     //     }
-    // }
-
+// }
     return (
         <div className="container">
-          {hikes.map(h => <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}<li key={h.name} className={h.name} onClick={handleComments}>Comments</li><li key={h.likes}>Likes: {h.likes}</li></ul>)}
+          {hikes.map(h => <div key={h.id}> 
+              <HikeCard hike={h} /> 
+              {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
+              </div> )} 
           <AddNewHike hikes={hikes} setHikes={setHikes} />
         </div>
-               );
+    );
 }
 export default HikesContainer;

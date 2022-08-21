@@ -41,7 +41,7 @@ const [inputPassword, setInputPassword] = useState("")
                 onChange={(e) => setInputPassword(e.target.value)}></input>  
                 <button>Enter</button>
             </form>
-           {user ? <Welcomepage user={user} onLogout={onLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} /> : null }
+           {user ? <Welcomepage user={user} onLogout={onLogout}loggedOut={loggedOut} setLoggedOut={setLoggedOut} /> : null }
         </div>
     )
 }

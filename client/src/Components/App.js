@@ -44,7 +44,7 @@ function App() {
     <NavBar user={user} onLogout={handleLogout} />
     <Switch>
       <Route exact path="/hikes">
-        <HikesContainer />
+        <HikesContainer user={user} />
       </Route>
       <Route exact path="/login">
         <Login onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
