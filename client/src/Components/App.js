@@ -39,6 +39,10 @@ function App() {
     setUser(null);
     setLoggedOut(true)
   }
+  function handleDelete() {
+    setUser(null);
+    setLoggedOut(true)
+  }
   return (
     <div className="App">
     <NavBar user={user} onLogout={handleLogout} />
@@ -47,10 +51,10 @@ function App() {
         <HikesContainer user={user} />
       </Route>
       <Route exact path="/login">
-        <Login onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
+        <Login onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete}/>
       </Route>
       <Route exact path="/signup">
-        <Signup onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
+        <Signup onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete} />
       </Route>
     </Switch>
   </div>

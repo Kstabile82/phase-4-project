@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MyHikes from "./MyHikes";
 // import { useHistory } from "react-router-dom";
 
-function Welcomepage({ user, loggedOut, setLoggedOut, onLogout }) {
+function Welcomepage({ user, loggedOut, setLoggedOut, onLogout, handleDelete }) {
 //   let history = useHistory(); 
 const [myHikes, setMyHikes] = useState([]);
 
@@ -35,10 +35,19 @@ useEffect(() => {
             }
         })
     }
+    function handleDelete(e){
+      e.preventDefault();
+      fetch("/deleteme", { method: "DELETE" }).then((r) => {
+        if (r.ok) {
+          handleDelete(user);
+        }
+    })
+    }
 return (
     <div>
         Welcome, {user.hikername}!
         <button onClick={handleLogOut}>Log Out</button>
+        <button onClick={handleDelete}>Delete My Account</button>
 
         {user.hikerhikes.length > 0 ? <MyHikes user={user} myHikes={myHikes} setMyHikes={setMyHikes} /> : null}
       {/* {user.name !== undefined ? 

@@ -1,5 +1,5 @@
 class HikersController < ApplicationController
-   before_action :authorize, only: [:create, :show]
+   before_action :authorize, only: [:show]
 
     def index
         render json: Hiker.all, status: 200
@@ -25,9 +25,14 @@ class HikersController < ApplicationController
     end
 
     def destroy
-        hiker = find_hiker
-        hiker.destroy
-        head :no_content
+        # hiker = find_hiker
+        # hiker.destroy
+        # head :no_content
+       
+        Hiker.find(session[:hiker_id]).destroy      
+            session[:hiker_id] = nil         
+            redirect_to '/login' 
+     
     end
 
     private 
