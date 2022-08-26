@@ -20,10 +20,21 @@ function HikesContainer({ user }) {
          });
         }, [])
       function addToMyHikes(e) {
-          e.preventDefault();
-        //   console.log(user.hikerhikes[0].hikemethod.id)
+        e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)
-        //post to myHikes
+        fetch("/myhikes", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              hiker_id: user.id,
+              hike_id: hikeToAdd.id,
+              status: "Bucket list"
+                    }),
+          })
+          .then((r) => r.json())
+          .then((hike) => console.log(hike));
       }
     //   function handleUpdateHike(updatedHike) {
     //     setHikes((hikes) =>

@@ -3,7 +3,8 @@ import HikeCard from "./HikeCard";
 
 function MyHikes({ user }) { 
   const [nextStep, setNextStep] = useState("");
-//   const [myHikes, setMyHikes] = useState([]);
+  user.hikerhikes.map(h => console.log(h.hikemethod.name))
+    //   const [myHikes, setMyHikes] = useState([]);
 //   const [myHikes, setMyHikes] = useState(user.hikerhikes[0].hikemethod)
   //will need to map hikerhikes for the correct state above (or fetch hikerhikes by hiker id)
   //add button next to hike to update status (would update hikerhikes)
@@ -39,6 +40,8 @@ function MyHikes({ user }) {
     }
 return (
     <div>
+        {user.hikerhikes.map(h => <HikeCard hike={h.hikemethod} />)}
+
         {/* <HikeCard hike={myHikes.hike} user={user} /> */}
         {/* {myHikes.map(myHike => <HikeCard hike={myHike} user={user}/> )} */}
                 {/* <form>What would you like to do?

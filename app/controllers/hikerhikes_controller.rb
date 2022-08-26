@@ -1,6 +1,6 @@
 class HikerhikesController < ApplicationController
     def create
-        hikerHike = Hikerhike.create!(Hikerhike_params)
+        hikerHike = Hikerhike.create!(hikerhike_params)
         render json: hikerHike, status: 200 
     end
     def show
@@ -19,13 +19,14 @@ class HikerhikesController < ApplicationController
     end
     def update
         hikerHike = Hikerhike.find_by(params[:id])
-        hikerHike.update(Hikerhike_params)
+        hikerHike.update(hikerhike_params)
         render json: hikerHike
       end
     
     private 
 
-    def Hikerhike_params
-        params.permit(:hiker_id, :hike_id)
+    def hikerhike_params
+        params.permit(:hiker_id, :hike_id, :status)
+
     end
 end
