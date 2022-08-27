@@ -40,7 +40,6 @@ function HikeCard({ hike, hikerhike, user, setStatusUpdate, status, statusUpdate
         .then((r) => r.json())
         .then((updatedHikerHike) => setH(updatedHikerHike))   
      }
-     console.log(user)
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}<li key={h.name} className={h.name} onClick={handleComments}>Comments</li><button onClick={handleLikes}>{h.likes} Likes</button>

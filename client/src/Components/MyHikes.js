@@ -4,8 +4,8 @@ import HikeCard from "./HikeCard";
 function MyHikes({ user }) { 
   const [nextStep, setNextStep] = useState("");
   const [newStatus, setNewStatus] = useState("");
-  const [hhs, setHhs] = useState([])
-
+//   let userHikes = [];
+//   user.hikerhikes.map(hhk => userHikes.push(hhk.hikemethod))
 //   useEffect(() => {
 //         fetch(`/myhikes`)
 //         .then((r) => r.json())
@@ -57,9 +57,19 @@ function MyHikes({ user }) {
         e.preventDefault();
        setNewStatus(e.target.value)
     }
+    function handleDelete(e) {
+     e.preventDefault();
+     let clickedId = parseInt(e.target.parentElement.className);
+     let toDelete = user.hikerhikes.find(uH => uH.hike_id === clickedId)
+        fetch(`/hikerhikes/${toDelete.id}`, { 
+            method: "DELETE" 
+        })
+        .then((r) => r.json());
+        // .then((deleted) => console.log(deleted));
+    }
 return (
     <div>
-        {user.hikerhikes.map(h => <HikeCard hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/>)}
+        {user.hikerhikes.map(h => <div className={h.hike_id}><HikeCard hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/> <button onClick={handleDelete}>Delete</button></div>)}
        
         {/* <HikeCard hike={myHikes.hike} user={user} /> */}
         {/* {myHikes.map(myHike => <HikeCard hike={myHike} user={user}/> )} */}

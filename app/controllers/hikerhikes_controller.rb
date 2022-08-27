@@ -14,7 +14,8 @@ class HikerhikesController < ApplicationController
     end
 
     def destroy
-        hikerHike = Hikerhike.find_by(params[:hiker_id, :hike_id])
+        # hikerHike = Hikerhike.find_by(params[:hiker_id, :hike_id])
+        hikerHike = Hikerhike.find_by(id: params[:id])
         hikerHike.destroy
         head :no_content
     end
