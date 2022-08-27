@@ -3,8 +3,9 @@ class HikerhikesController < ApplicationController
         hikerHike = Hikerhike.create!(hikerhike_params)
         render json: hikerHike, status: 200 
     end
+
     def show
-        hikerHike = Hikerhike.find_by(params[:hiker_id])
+        hikerHike = Hikerhike.select(hiker_id: params[:hiker_id])
         if hikerHike 
             render json: hikerHike
         else
@@ -13,20 +14,22 @@ class HikerhikesController < ApplicationController
     end
 
     def destroy
-        hikerHike = find_by(params[:hiker_id, :hike_id])
+        hikerHike = Hikerhike.find_by(params[:hiker_id, :hike_id])
         hikerHike.destroy
         head :no_content
     end
+
     def update
-        hikerHike = Hikerhike.find_by(params[:id])
+        hikerHike = Hikerhike.find_by(id: params[:id])
         hikerHike.update(hikerhike_params)
         render json: hikerHike
-      end
+    end
+  
     
     private 
 
     def hikerhike_params
-        params.permit(:hiker_id, :hike_id, :status)
+        params.permit(:id, :hiker_id, :hike_id, :status)
 
     end
 end

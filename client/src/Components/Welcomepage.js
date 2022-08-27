@@ -6,27 +6,16 @@ function Welcomepage({ user, loggedOut, setLoggedOut, onLogout, handleDelete }) 
 //   let history = useHistory(); 
 const [myHikes, setMyHikes] = useState([]);
 
-useEffect(() => {
-    fetch("/myhikes")
-    .then((r) => r.json())
-    .then((myHH) => {
-        setMyHikes(myHH);
-        // setMatches(currentHikes);
-        // setSubmitted("true")
-     });
-    }, [])
+// useEffect(() => {
+//     fetch(`/myhikes`)
+//     .then((r) => r.json())
+//     .then((myHH) => {
+//         setMyHikes(myHH);
+//         // setMatches(currentHikes);
+//         // setSubmitted("true")
+//      });
+//     }, [])
 
-  const [nextStep, setNextStep] = useState("");
-    function handleNext(e) {
-        e.preventDefault();
-          if (e.target.id === "seehikes") {
-            setNextStep("seehikes")
-          }     
-          else {
-            setNextStep("logout")
-            // history.push("/Home");
-          }   
-    }
     function handleLogOut(e){
         e.preventDefault(); 
         fetch("/logout", { method: "DELETE" }).then((r) => {

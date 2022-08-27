@@ -10,7 +10,7 @@ class HikersController < ApplicationController
         session[:hiker_id] = hiker.id
         render json: hiker, status: 200 
     end
-
+     
     # def show
     #     render json: @current_user
     # end

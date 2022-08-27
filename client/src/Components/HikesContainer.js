@@ -34,7 +34,7 @@ function HikesContainer({ user }) {
                     }),
           })
           .then((r) => r.json())
-          .then((hike) => console.log(hike));
+          .then((hike) => setHikes([...hikes,hike]));
       }
     //   function handleUpdateHike(updatedHike) {
     //     setHikes((hikes) =>

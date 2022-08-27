@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete "/deleteme", to: "hikers#destroy"
   get "/myhikes", to: "hikerhikes#show"
   post "/myhikes", to: "hikerhikes#create"
+  patch "/myhikes", to: "hikerhikes#update"
 
 
   # Routing logic: fallback requests for React Router.

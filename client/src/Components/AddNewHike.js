@@ -76,7 +76,7 @@ function postNewHikes(newHike) {
             {/* {added === "true" ? <Dashboard theText={successText} /> : null }
             {added === "false" ? <Dashboard theText={errorText} /> : null}
             {added === "taken" ? <Dashboard theText={takenText} /> : null} */}
-                <input onChange={handleAdd}
+               <input onChange={handleAdd}
                 type="text"
                 name="name"
                 placeholder="Name"
