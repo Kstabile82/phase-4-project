@@ -88,9 +88,9 @@ function postNewHikes(newHike) {
                 ></input>
                 <select name="difficulty" id="difficulty" onChange={handleAdd}>
                 <option value="" hidden>Difficulty</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
                 </select>
                 <input onChange={handleAdd}
                 type="text"

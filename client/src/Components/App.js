@@ -11,7 +11,6 @@ import Signup from "./Signup";
 function App() {
   const [user, setUser] = useState(null);
   const [loggedOut, setLoggedOut] = useState(true);
-
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
