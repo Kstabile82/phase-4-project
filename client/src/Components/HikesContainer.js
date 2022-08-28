@@ -8,6 +8,8 @@ function HikesContainer({ user }) {
     const [displayedHikes, setDisplayedHikes] = useState([]);
     const [filterL, setFilterL] = useState([]);
     const [filterD, setFilterD] = useState([]);
+    const [likesChecked, setLikesChecked] = useState(false);
+    const [distChecked, setDistChecked] = useState(false);
     let filterLoc;
     let filterDiff; 
     let filterMatchArray = []
@@ -39,7 +41,7 @@ function HikesContainer({ user }) {
               hiker_id: user.id,
               hike_id: hikeToAdd.id,
               status: "Bucket list"
-                    }),
+            }),
           })
           .then((r) => r.json())
           .then((hike) => setHikes([...hikes, hike]))
@@ -73,6 +75,23 @@ function HikesContainer({ user }) {
         }
         setDisplayedHikes(diffMatches)
     }
+    function handleSort(e) {
+        e.preventDefault();
+        setLikesChecked(!likesChecked)
+        setDistChecked(!distChecked)
+        if (e.target.name === "sortbylikes" && e.target.checked === true) {
+                displayedHikes.sort((a,b) => (a.likes > b.likes) ? -1 : 1)
+        }
+        else if (e.target.name === "sortbylikes" && e.target.checked === false) {
+            displayedHikes.sort((a,b) => (a.likes > b.likes) ? 1 : -1)
+        }
+        else if(e.target.name === "sortbydistance" && e.target.checked === true) { 
+                displayedHikes.sort((a,b) => (a.distance > b.distance) ? -1 : 1)
+        }
+        else if(e.target.name === "sortbydistance" && e.target.checked === false) { 
+            displayedHikes.sort((a,b) => (a.distance > b.distance) ? 1 : -1)
+      }
+    }
     return (
         <div className="container">
             <form onSubmit={handleSubmitFilter}>Filter
@@ -86,12 +105,18 @@ function HikesContainer({ user }) {
                 <select name="location" id="location" onChange={handleFilterChange}>
                 <option value="" hidden>Location</option>
                 {locations.map(l =>
-<option value={l}>{l}</option>
+                <option value={l}>{l}</option>
                 )}
                 <option value="All">All</option>
                 </select>
                 <button>Enter</button>
             </form>
+            <label name="sortbylikes"> Likes (most to fewest) 
+             <input name="sortbylikes" id="sortLikes" type="checkbox" onChange={handleSort} />
+            </label>
+            <label name="sortbydistance"> Distance (longest to shortest) 
+             <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
+            </label>
           {displayedHikes.map(h => <div key={h.id}> 
               <HikeCard hike={h} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
