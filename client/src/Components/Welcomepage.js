@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState } from "react"; 
 import MyHikes from "./MyHikes";
 // import { useHistory } from "react-router-dom";
 
-function Welcomepage({ user, loggedOut, setLoggedOut, onLogout, handleDelete }) {
+function Welcomepage({ user, loggedOut, setLoggedOut, onLogout }) {
 //   let history = useHistory(); 
 const [myHikes, setMyHikes] = useState([]);
 
