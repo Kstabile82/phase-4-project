@@ -90,7 +90,7 @@ function HikesContainer({ user }) {
         }
         else if(e.target.name === "sortbydistance" && e.target.checked === false) { 
             displayedHikes.sort((a,b) => (a.distance > b.distance) ? 1 : -1)
-      }
+       }
     }
     return (
         <div className="container">

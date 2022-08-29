@@ -68,7 +68,7 @@ function MyHikes({ user }) {
     }
 return (
     <div>
-        {user.hikerhikes.map(h => <div className={h.hike_id} key={h.id}><HikeCard hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/> <button onClick={handleDelete}>Delete</button></div>)}
+        {user.hikerhikes.map(h => <div className={h.hike_id} key={h.id}><HikeCard hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/> <button onClick={handleDelete}>Delete from my hikes</button></div>)}
        
         {/* <HikeCard hike={myHikes.hike} user={user} /> */}
         {/* {myHikes.map(myHike => <HikeCard hike={myHike} user={user}/> )} */}
