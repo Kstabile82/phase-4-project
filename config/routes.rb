@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :hikers, only: [:index, :create, :show, :destroy]
   resources :hikes
   resources :hikerhikes
-  resources :comments, only: [:create, :show, :destroy]
+  resources :comments, only: [:create, :index, :destroy]
   post "/signup", to: "hikers#create"
   get "/me", to: "hikers#show"
   post "/login", to: "sessions#create"
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   patch "/myhikes", to: "hikerhikes#update"
   post "/comments", to: "comments#create"
   delete "/comments", to: "comments#destroy"
-
+  get "/comments", to: "comments#index"
 
 
   # Routing logic: fallback requests for React Router.

@@ -1,12 +1,17 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus }) {
     const [h, setH] = useState(hike)
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
-
+   
+    useEffect(() => {
+        fetch(`/comments`)
+        .then((r) => r.json())
+        .then((currentComments) => setComments(currentComments.map(c => c.text)))
+        }, [])
     function handleComments(h) {
-        setComments(h.comments)
+
     }
     function handleCommentForm() {
         setCommentForm(true)
@@ -39,7 +44,7 @@ function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus
         })
         })
     .then((r) => r.json())
-    .then(comments => console.log(comments))
+    .then(newComm => setComments([...comments, newComm]))
    }
    function handleCommentChange(e){
     e.preventDefault();

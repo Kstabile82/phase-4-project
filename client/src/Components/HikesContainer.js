@@ -29,7 +29,6 @@ function HikesContainer({ user }) {
                locations.push(h.location)
             }
         })
-        console.log(hikes)
       function addToMyHikes(e) {
         e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)
