@@ -26,9 +26,20 @@ function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus
     }
    function handleAddComment(e){
     e.preventDefault();
-    //post request new comment
-    console.log(newComment)
-    console.log(h.id, user.id)
+    //post request newComment, h.id, user.id
+    fetch ("/comments", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            text: newComment,
+            hiker_id: user.id, 
+            hike_id: h.id
+        })
+        })
+    .then((r) => r.json())
+    .then(comments => console.log(comments))
    }
    function handleCommentChange(e){
     e.preventDefault();
