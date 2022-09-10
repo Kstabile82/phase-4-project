@@ -11,6 +11,7 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
         .then((r) => r.json())
         .then((currentComments) => setComments(currentComments.map(c => c)))
         }, [])
+
     function handleComments(h) {
       let hComments = comments.filter(c => c.hike.id === h.id)
        if (hComments.length > 0) {
@@ -39,7 +40,6 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
     }
    function handleAddComment(e){
     e.preventDefault();
-    //post request newComment, h.id, user.id
     fetch ("/comments", {
         method: "POST",
         headers: {
@@ -54,7 +54,7 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
     .then((r) => r.json())
     .then(newComm => {
         setComments([...comments, newComm])
-        // setHikeComments([...hikeComments, newComm])
+        setHikeComments([...hikeComments, newComm]);
     }) 
    }
    function handleCommentChange(e){
@@ -87,7 +87,6 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
                 <button>Submit</button>
         </form> : null}
         <li key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments</li>
-          {/* {hikeComments !== undefined && comments !== [] ?  */}
           {hikeComments !== [] || hikeComments.length > 0 ? 
              hikeComments.map(c => <p>{c.text}</p> )
            : <p>None</p> } 

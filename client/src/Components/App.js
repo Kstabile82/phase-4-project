@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import HikesContainer from "./HikesContainer";
 import Signup from "./Signup";
+import Welcomepage from "./Welcomepage";
 
 
 function App() {
@@ -57,13 +58,16 @@ function App() {
   }
   return (
     <div className="App">
-    <NavBar user={user} onLogout={handleLogout} />
+    <NavBar user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
         <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
         <Login onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+      </Route>
+      <Route exact path="/welcomepage">
+        <Welcomepage user={user} onLogout={handleLogout} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
         <Signup onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>

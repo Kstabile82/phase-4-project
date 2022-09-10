@@ -2,33 +2,24 @@
 import { Link } from "react-router-dom";
 
 function NavBar({ onLogout, loggedOut, setLoggedOut }) {
-    function handleLogout() {
-      fetch("/logout", {
-        method: "DELETE",
-      }).then(() => onLogout());
-      setLoggedOut(true)
-    }
-  
+    // function handleLogout() {
+    //   fetch("/logout", {
+    //     method: "DELETE",
+    //   }).then(() => onLogout());
+    //   setLoggedOut(true)
+    // }
     return (
       <header>
         <h1>
           <Link to="/">Home          </Link>
-          <Link to="/login">Login          </Link>
+          {loggedOut ? <Link to="/login">Log In</Link> : null } 
+          {!loggedOut ? <Link to="/welcomepage">My Page</Link> : null }
           <Link to="/signup">Sign Up         </Link>
           <Link to="/hikes">Hikes</Link>
 
         </h1>
-        {/* {hiker ? (
-          <div>
-            <p>Welcome, {hiker.hikername}!</p>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
-        ) : (
-          <Link to="/login">Login</Link>
-        
-
-        )} */}
-              <button style={{display: loggedOut ? 'visible' : 'none' }} onClick={handleLogout}>Logout</button>
+       
+              {/* <button style={{display: loggedOut ? 'visible' : 'none' }} onClick={handleLogout}>Logout</button> */}
       </header>
     );
   }

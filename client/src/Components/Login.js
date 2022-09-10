@@ -18,7 +18,10 @@ const [inputPassword, setInputPassword] = useState("")
        .then((hiker) => { 
         onLogin(hiker) 
         setUserHikes(hiker.hikerhikes)
+        setLoggedOut(false)
        })
+  }
+
     // .then((r) => {
     //     if (r.ok) {
     //       r.json().then((hiker) => onLogin(hiker));
@@ -28,10 +31,18 @@ const [inputPassword, setInputPassword] = useState("")
     //     }
     //    setLoggedOut(false)
  // });
-}
+//  if (!loggedOut) {
+//     console.log("Log Me Out")
+//     fetch("/logout", { method: "DELETE" }).then((r) => {
+//         if (r.ok) {
+//           onLogout();
+//         }
+//     })
+// }
     return (
         // <div style={{display: loggedOut ? 'visible' : 'none' }}>Log in
         <div>
+            {loggedOut ? 
             <form className="login" onSubmit={handleUser}>  
              <input 
                 type="text" 
@@ -44,8 +55,8 @@ const [inputPassword, setInputPassword] = useState("")
                 placeholder="Password"
                 onChange={(e) => setInputPassword(e.target.value)}></input>  
                 <button>Enter</button>
-            </form>
-           {user ? <Welcomepage user={user} onLogout={onLogout}loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/> : null }
+            </form> : null }
+           {user && !loggedOut ? <Welcomepage user={user} onLogout={onLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/> : null }
         </div>
     )
 }

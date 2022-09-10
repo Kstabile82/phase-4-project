@@ -15,15 +15,16 @@ const [myHikes, setMyHikes] = useState([]);
 //         // setSubmitted("true")
 //      });
 //     }, [])
-
     function handleLogOut(e){
         e.preventDefault(); 
+        setLoggedOut(true)
         fetch("/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
-              onLogout(user);
+              onLogout();
             }
         })
     }
+    
     function handleDelete(e){
       e.preventDefault();
       fetch("/deleteme", { method: "DELETE" }).then((r) => {
