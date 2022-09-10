@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from "react"; 
-function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus }) {
+function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, handleChangeStatus, newStatus }) {
     const [h, setH] = useState(hike)
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
+    const [hikeComments, setHikeComments] = useState([])
    
     useEffect(() => {
         fetch(`/comments`)
         .then((r) => r.json())
-        .then((currentComments) => setComments(currentComments.map(c => c.text)))
+        .then((currentComments) => setComments(currentComments.map(c => c)))
         }, [])
     function handleComments(h) {
-
+      let hComments = comments.filter(c => c.hike.id === h.id)
+       if (hComments.length > 0) {
+        setHikeComments(hComments);
+       } 
+       else {
+        setHikeComments([{text: "No comments yet"}])
+       }
     }
+
     function handleCommentForm() {
         setCommentForm(true)
     }
@@ -44,7 +52,10 @@ function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus
         })
         })
     .then((r) => r.json())
-    .then(newComm => setComments([...comments, newComm]))
+    .then(newComm => {
+        setComments([...comments, newComm])
+        // setHikeComments([...hikeComments, newComm])
+    }) 
    }
    function handleCommentChange(e){
     e.preventDefault();
@@ -52,7 +63,7 @@ function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus
    }
     function handleSubmitStatus(e) {
         e.preventDefault();
-        fetch(`/hikerhikes/${hikerhike.id}`, {
+        fetch(`/myhikes/${hikerhike.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -76,8 +87,9 @@ function HikeCard({ hike, hikerhike, user, status, handleChangeStatus, newStatus
                 <button>Submit</button>
         </form> : null}
         <li key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments</li>
-          {comments !== undefined && comments !== [] ? 
-             comments.map(c => <p>{c}</p> )
+          {/* {hikeComments !== undefined && comments !== [] ?  */}
+          {hikeComments !== [] || hikeComments.length > 0 ? 
+             hikeComments.map(c => <p>{c.text}</p> )
            : <p>None</p> } 
            <button onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

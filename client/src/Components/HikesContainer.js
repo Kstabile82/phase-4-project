@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 
-function HikesContainer({ user }) {
+function HikesContainer({ user, userHikes, setUserHikes }) {
     const [hikes, setHikes] = useState([]);
     let locations = [];
     const [displayedHikes, setDisplayedHikes] = useState([]);
@@ -24,11 +24,11 @@ function HikesContainer({ user }) {
             setDisplayedHikes(currentHikes);
          });
         }, [])
-            hikes.map(h => {
+      hikes.map(h => {
             if (!locations.includes(h.location)) {
                locations.push(h.location)
             }
-        })
+      })
       function addToMyHikes(e) {
         e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)
@@ -44,7 +44,18 @@ function HikesContainer({ user }) {
             }),
           })
           .then((r) => r.json())
-          .then((hike) => setHikes([...hikes, hike]))
+        //   .then((hike) => setHikes([...hikes, hike]))
+        .then((hike) => { 
+            userHikes.map(uH => {
+                if (uH.hike_id === hike.hike_id) {
+                    console.log("Already listed")
+                }
+                else {
+                    setUserHikes([...userHikes, hike])
+                }
+            })
+         } )
+        
       }
     function handleFilterChange(e) {
         e.preventDefault();
@@ -121,7 +132,7 @@ function HikesContainer({ user }) {
               <HikeCard hike={h} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
               </div> )} 
-          <AddNewHike hikes={hikes} setHikes={setHikes} />
+          <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} />
         </div>
     );
 }

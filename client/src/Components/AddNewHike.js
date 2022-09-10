@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function AddNewHike({ hikes, setHikes }) { 
+function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) { 
     const [added, setAdded] = useState("");
     const [name, setName] = useState("");
     const [difficulty, setDifficulty] = useState("");
@@ -65,7 +65,10 @@ function postNewHikes(newHike) {
         body: JSON.stringify(newHike)
         })
     .then((r) => r.json())
-    .then(hike => setHikes([...hikes, hike]))
+    .then(hike => {
+        setHikes([...hikes, hike])
+        setDisplayedHikes([...displayedHikes, hike])
+    })
 
     // .then(hike => setHikes([...hikes, hike], setMatches([...hikes, hike])))
 }

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import MyHikes from "./MyHikes";
 // import { useHistory } from "react-router-dom";
 
-function Welcomepage({ user, loggedOut, setLoggedOut, onLogout }) {
+function Welcomepage({ user, userHikes, setUserHikes, loggedOut, setLoggedOut, onLogout, handleDeleteHH }) {
 //   let history = useHistory(); 
 const [myHikes, setMyHikes] = useState([]);
-
+// setUserHikes(user.hikerhikes)
 // useEffect(() => {
 //     fetch(`/myhikes`)
 //     .then((r) => r.json())
@@ -38,7 +38,7 @@ return (
         <button onClick={handleLogOut}>Log Out</button>
         <button onClick={handleDelete}>Delete My Account</button>
 
-        {user.hikerhikes.length > 0 ? <MyHikes user={user} myHikes={myHikes} setMyHikes={setMyHikes} /> : null}
+        {user.hikerhikes.length > 0 ? <MyHikes user={user} myHikes={myHikes} setMyHikes={setMyHikes} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH} /> : null}
       {/* {user.name !== undefined ? 
          <div className="welcomeform">Welcome, {user.hikername.charAt(0).toUpperCase() + user.hikername.slice(1)}! 
                 <form>What would you like to do?

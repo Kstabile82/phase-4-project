@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Welcomepage from "./Welcomepage";
 
-function LogIn({ onLogin, onLogout, user, loggedOut, setLoggedOut }) {
+function LogIn({ onLogin, onLogout, user, userHikes, setUserHikes, loggedOut, setLoggedOut, handleDeleteHH }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
+
   function handleUser(e) {
        e.preventDefault();
        fetch("/login", {
@@ -14,7 +15,10 @@ const [inputPassword, setInputPassword] = useState("")
            body: JSON.stringify({ hikername: inputName, password: inputPassword }),
        })
        .then((r) => r.json())
-       .then((hiker) => onLogin(hiker))
+       .then((hiker) => { 
+        onLogin(hiker) 
+        setUserHikes(hiker.hikerhikes)
+       })
     // .then((r) => {
     //     if (r.ok) {
     //       r.json().then((hiker) => onLogin(hiker));
@@ -41,7 +45,7 @@ const [inputPassword, setInputPassword] = useState("")
                 onChange={(e) => setInputPassword(e.target.value)}></input>  
                 <button>Enter</button>
             </form>
-           {user ? <Welcomepage user={user} onLogout={onLogout}loggedOut={loggedOut} setLoggedOut={setLoggedOut} /> : null }
+           {user ? <Welcomepage user={user} onLogout={onLogout}loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/> : null }
         </div>
     )
 }

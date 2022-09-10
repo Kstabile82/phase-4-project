@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
 import HikeCard from "./HikeCard";
 
-function MyHikes({ user }) { 
+function MyHikes({ user, userHikes, setUserHikes, handleDeleteHH }) { 
   const [newStatus, setNewStatus] = useState("");
 //   let userHikes = [];
 //   user.hikerhikes.map(hhk => userHikes.push(hhk.hikemethod))
@@ -51,24 +51,40 @@ function MyHikes({ user }) {
     //     .then((r) => r.json())
     //     // .then((updatedHike) => setH(updatedHike))   
     //  }
-
     function handleChangeStatus(e) {
-        e.preventDefault();
+       e.preventDefault();
        setNewStatus(e.target.value)
     }
     function handleDelete(e) {
      e.preventDefault();
      let clickedId = parseInt(e.target.parentElement.className);
-     let toDelete = user.hikerhikes.find(uH => uH.hike_id === clickedId)
-        fetch(`/hikerhikes/${toDelete.id}`, { 
+     let toDelete = userHikes.find(uH => uH.hike_id === clickedId)
+      console.log(toDelete.id)
+        fetch(`/myhikes/${toDelete.id}`, { 
             method: "DELETE" 
         })
-        .then((r) => r.json());
-        // .then((deleted) => console.log(deleted));
+        .then((r) => {
+          if (r.ok) {
+            // handleDeleteHH(toDelete);
+            console.log(r)
+          }
+      })
+      
+    // fetch(`/myhikes/${toDelete.id}`, { 
+    //         method: "DELETE"
+    //   })
+    //   .then((r) => r.json())
+    //   .then((deleted) => console.log(deleted))
+
+        // .then((deleted) => {
+        //     let idx = userHikes.indexOf(deleted); 
+        //     setUserHikes(userHikes.splice(idx, 1))
+        // })
+        // setUserHikes(userHikes)
     }
 return (
     <div>
-        {user.hikerhikes.map(h => <div className={h.hike_id} key={h.id}><HikeCard hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/> <button onClick={handleDelete}>Delete from my hikes</button></div>)}
+        {userHikes.map(h => <div className={h.hike_id} key={h.id}><HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/> <button onClick={handleDelete}>Delete from my hikes</button></div>)}
        
         {/* <HikeCard hike={myHikes.hike} user={user} /> */}
         {/* {myHikes.map(myHike => <HikeCard hike={myHike} user={user}/> )} */}

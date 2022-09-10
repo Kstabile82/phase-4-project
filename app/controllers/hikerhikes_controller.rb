@@ -1,7 +1,14 @@
 class HikerhikesController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
     def create
         hikerHike = Hikerhike.create!(hikerhike_params)
         render json: hikerHike, status: 200 
+    end
+
+    def index
+        hikerHike = Hikerhike.all
+        render json: hikerHike, status: 200
     end
 
     def show
@@ -14,7 +21,6 @@ class HikerhikesController < ApplicationController
     end
 
     def destroy
-        # hikerHike = Hikerhike.find_by(params[:hiker_id, :hike_id])
         hikerHike = Hikerhike.find_by(id: params[:id])
         hikerHike.destroy
         head :no_content
@@ -33,4 +39,7 @@ class HikerhikesController < ApplicationController
         params.permit(:id, :hiker_id, :hike_id, :status)
 
     end
+    def render_not_found_response
+        render json: { error: "ID not found" }, status: :not_found
+      end
 end
