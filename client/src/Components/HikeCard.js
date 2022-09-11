@@ -63,6 +63,7 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
    }
     function handleSubmitStatus(e) {
         e.preventDefault();
+        console.log(newStatus)
         fetch(`/myhikes/${hikerhike.id}`, {
             method: "PATCH",
             headers: {

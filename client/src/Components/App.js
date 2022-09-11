@@ -26,7 +26,6 @@ function App() {
       }
     })
   }, []);
-
   // useEffect(() => {
   //   fetch("/me")
   //   .then(r => {
@@ -42,11 +41,16 @@ function App() {
     setLoggedOut(false)
     setUserHikes(hiker.hikerhikes)
   }
+
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)
     setUserHikes([])
   }
+    // setUser(null);
+    // setLoggedOut(true)
+    // setUserHikes([])
+  
   function handleDelete() {
     setUser(null);
     setLoggedOut(true)
@@ -73,6 +77,7 @@ function App() {
         <Signup onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
     </Switch>
+    {/* { !loggedOut && user ? <button onClick={handleLogout}>Log Out</button> : null } */}
   </div>
 
     //  <div className="app">

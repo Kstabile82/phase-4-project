@@ -1,7 +1,7 @@
 class Hiker < ApplicationRecord
     has_secure_password
-    has_many :hikerhikes 
-    has_many :comments
+    has_many :hikerhikes, dependent: :destroy
+    has_many :comments, dependent: :destroy
     has_many :hikes, through: :comments
     has_many :hikes, through: :hikerhikes
 

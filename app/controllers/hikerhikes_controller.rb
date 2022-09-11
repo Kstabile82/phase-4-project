@@ -1,5 +1,5 @@
 class HikerhikesController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def create
         hikerHike = Hikerhike.create!(hikerhike_params)
@@ -21,14 +21,15 @@ class HikerhikesController < ApplicationController
     end
 
     def destroy
-        hikerHike = Hikerhike.find_by(id: params[:id])
+        hikerHike = Hikerhike.find(params[:id])
         hikerHike.destroy
         head :no_content
+        render json: {}
     end
 
     def update
-        hikerHike = Hikerhike.find_by(id: params[:id])
-        hikerHike.update(hikerhike_params)
+        hikerHike = Hikerhike.find(params[:id])
+        hikerHike.update!(hikerhike_params)
         render json: hikerHike
     end
   

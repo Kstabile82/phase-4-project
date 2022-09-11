@@ -59,16 +59,24 @@ function MyHikes({ user, userHikes, setUserHikes, handleDeleteHH }) {
      e.preventDefault();
      let clickedId = parseInt(e.target.parentElement.className);
      let toDelete = userHikes.find(uH => uH.hike_id === clickedId)
-      console.log(toDelete.id)
-        fetch(`/myhikes/${toDelete.id}`, { 
-            method: "DELETE" 
-        })
-        .then((r) => {
-          if (r.ok) {
-            // handleDeleteHH(toDelete);
-            console.log(r)
-          }
-      })
+      //   fetch(`/myhikes/${toDelete.id}`, { 
+      //       method: "DELETE" 
+      //   })
+      //   .then((r) => {
+      //     if (r.ok) {
+      //       // handleDeleteHH(toDelete);
+      //       console.log(r)
+      //     }
+      // })
+      fetch(`/myhikes/${toDelete.id}`, { 
+        method: 'DELETE'
+    })
+    .then((r) => {
+      if (r.ok) {
+        // handleDeleteHH(toDelete);
+        console.log(r)
+      }
+  })
       
     // fetch(`/myhikes/${toDelete.id}`, { 
     //         method: "DELETE"
