@@ -64,7 +64,6 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
    }
     function handleSubmitStatus(e) {
         e.preventDefault();
-        console.log(hikerhike, newStatus)
         fetch(`/hikerhikes/${hikerhike.id}`, {
             method: "PATCH",
             headers: {
@@ -75,7 +74,6 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
         .then((r) => r.json())
         .then((updatedHikerHike) => setHH(updatedHikerHike))   
      }
-     console.log(h)
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}

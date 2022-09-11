@@ -32,8 +32,8 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
       function addToMyHikes(e) {
         e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)
-        userHikes.map(uH => {
-            if (uH.hike_id === hikeToAdd.id) {
+        let alreadyListed = userHikes.find(uH => uH.hike_id === hikeToAdd.id)
+            if (alreadyListed) {
                 console.log("Already listed")
             }
             else {
@@ -52,8 +52,7 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
                 .then((hike) => {
                 setUserHikes([...userHikes, hike])
                 })
-        }
-      })
+              }
     }
     function handleFilterChange(e) {
         e.preventDefault();
