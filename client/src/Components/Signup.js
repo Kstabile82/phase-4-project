@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import Welcomepage from "./Welcomepage";
 
 function Signup({ user, setUser, onLogin, loggedOut, setLoggedOut }) {
-// const [added, setAdded] = useState("");
 const [userName, setUserName] = useState("")
 const [password, setPassword] = useState("")
 const [confirmPassword, setConfirmPassword] = useState("")
 const [errors, setErrors] = useState([]);
-
 
     function handleNewUser(e) {
         e.preventDefault();
@@ -31,9 +29,7 @@ const [errors, setErrors] = useState([]);
         });
     }
 return (
-    // <div style={{display: loggedOut ? 'visible' : 'none' }}>Sign up
     <div>Sign up
-
     <form className="signup" onSubmit={handleNewUser}>  
      <input 
         type="text" 

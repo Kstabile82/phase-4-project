@@ -1,4 +1,3 @@
-// import React from "react";
 import { Link } from "react-router-dom";
 
 function NavBar({ onLogout, loggedOut, setLoggedOut }) {
@@ -19,9 +18,7 @@ function NavBar({ onLogout, loggedOut, setLoggedOut }) {
           <Link to="/hikes">Hikes</Link>
 
         </h1>
-       
-              {/* <button style={{display: loggedOut ? 'visible' : 'none' }} onClick={handleLogout}>Logout</button> */}
-      </header>
+             </header>
     );
   }
       export default NavBar;

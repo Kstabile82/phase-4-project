@@ -21,26 +21,7 @@ const [inputPassword, setInputPassword] = useState("")
         setLoggedOut(false)
        })
   }
-
-    // .then((r) => {
-    //     if (r.ok) {
-    //       r.json().then((hiker) => onLogin(hiker));
-    //     } 
-    //     else {
-
-    //     }
-    //    setLoggedOut(false)
- // });
-//  if (!loggedOut) {
-//     console.log("Log Me Out")
-//     fetch("/logout", { method: "DELETE" }).then((r) => {
-//         if (r.ok) {
-//           onLogout();
-//         }
-//     })
-// }
     return (
-        // <div style={{display: loggedOut ? 'visible' : 'none' }}>Log in
         <div>
             {loggedOut ? 
             <form className="login" onSubmit={handleUser}>  

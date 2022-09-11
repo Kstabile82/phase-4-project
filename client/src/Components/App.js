@@ -1,13 +1,11 @@
 import './App.css';
 import { useState, useEffect } from "react";
-// import { Routes, Route } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import HikesContainer from "./HikesContainer";
 import Signup from "./Signup";
 import Welcomepage from "./Welcomepage";
-
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,16 +24,7 @@ function App() {
       }
     })
   }, []);
-  // useEffect(() => {
-  //   fetch("/me")
-  //   .then(r => {
-  //    console.log(r)
-//      if (r.ok) {
-//       r.json().then(
-//  r.json().then((hiker) => setHiker(hiker))
-//     }
-  //   });
-  // }, []);
+
   function handleLogin(hiker) {
     setUser(hiker);
     setLoggedOut(false)
@@ -47,10 +36,7 @@ function App() {
     setLoggedOut(true)
     setUserHikes([])
   }
-    // setUser(null);
-    // setLoggedOut(true)
-    // setUserHikes([])
-  
+
   function handleDelete() {
     setUser(null);
     setLoggedOut(true)
@@ -77,27 +63,7 @@ function App() {
         <Signup onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDelete={handleDelete} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
     </Switch>
-    {/* { !loggedOut && user ? <button onClick={handleLogout}>Log Out</button> : null } */}
   </div>
-
-    //  <div className="app">
-    //    <Login />
-    //  <NavBar/> 
-    //     <Routes> 
-    //     <Route path="/">
-    //         <App /> 
-    //       </Route>
-    //       <Route path="/Login">
-    //         <Login />
-    //       </Route>
-    //       <Route path="/Signup">
-    //         <Signup />
-    //       </Route>
-    //       <Route path="/Hikes">
-    //         <HikesContainer />
-    //       </Route>
-    //     </Routes> 
-    //  </div>
   );
 }
 

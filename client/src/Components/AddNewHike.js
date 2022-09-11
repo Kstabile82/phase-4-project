@@ -6,7 +6,6 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
     const [location, setLocation] = useState("");
     const [distance, setDistance] = useState(0);
 
-
     function handleAdd(e) {
         e.preventDefault();
         if (e.target.name === "name") {
@@ -21,7 +20,6 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
         else if (e.target.name === "distance"){
             setDistance(e.target.value);
         }
-
     }
     let newHike = {
         name,
@@ -40,16 +38,6 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
         if (findMatch === undefined) {
             postNewHikes(newHike)
             setAdded("true")
-            // fetch ("/hikes", {
-            //     method: "POST",
-            //     headers: {
-            //     "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(newHike)
-            //     })
-            // .then((r) => r.json())
-            // .then(hike => setHikes([...hikes, hike]))
-            // setAdded("true");
         }
          else {
             setAdded("taken");
@@ -69,16 +57,11 @@ function postNewHikes(newHike) {
         setHikes([...hikes, hike])
         setDisplayedHikes([...displayedHikes, hike])
     })
-
-    // .then(hike => setHikes([...hikes, hike], setMatches([...hikes, hike])))
 }
     return (
         <div className="add-hike-form">
             <h3>Add New Hike</h3>
             <form onSubmit={handleSubmit}>
-            {/* {added === "true" ? <Dashboard theText={successText} /> : null }
-            {added === "false" ? <Dashboard theText={errorText} /> : null}
-            {added === "taken" ? <Dashboard theText={takenText} /> : null} */}
                <input onChange={handleAdd}
                 type="text"
                 name="name"
