@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, handleChangeStatus, newStatus }) {
     const [h, setH] = useState(hike)
+    const [hh, setHH] = useState(hikerhike)
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
@@ -63,8 +64,8 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
    }
     function handleSubmitStatus(e) {
         e.preventDefault();
-        console.log(newStatus)
-        fetch(`/myhikes/${hikerhike.id}`, {
+        console.log(hikerhike, newStatus)
+        fetch(`/hikerhikes/${hikerhike.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -72,8 +73,9 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
             body: JSON.stringify({ status: newStatus }),
         })
         .then((r) => r.json())
-        .then((updatedHikerHike) => setH(updatedHikerHike))   
+        .then((updatedHikerHike) => setHH(updatedHikerHike))   
      }
+     console.log(h)
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/myhikes", to: "hikerhikes#show"
   get "/myhikes", to: "hikerhikes#index"
   post "/myhikes", to: "hikerhikes#create"
-  patch "/myhikes", to: "hikerhikes#update"
+  patch "/hikerhikes", to: "hikerhikes#update"
   delete "/hikerhikes", to: "hikerhikes#destroy"
   post "/comments", to: "comments#create"
   delete "/comments", to: "comments#destroy"
