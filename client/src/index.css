@@ -1,10 +1,149 @@
 body {
   margin: 0;
+  background-color: rgb(242, 242, 247);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.image {
+  text-align: center;
+}
+
+
+/* .navbar {
+  top: 2em;
+  background-color: rgb(194, 31, 153);
+  overflow: hidden;
+  justify-content: center;
+} */
+/* .home {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+} */
+.navbar li {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: nowrap; /* assumes you only want one row */
+}
+.login {
+  top: 2em;
+  background-color: rgb(13, 16, 185);
+  overflow: hidden;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.welcomepage {
+  justify-content: center;
+  text-align: center;
+  font-size: 25px;
+}
+.signup {
+  top: 2em;
+  background-color: rgb(13, 16, 185);
+  overflow: hidden;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.hikescontainer {
+  top: 80em;
+  white-space: normal;
+  border-style: outset;
+  display: block;
+  break-inside: avoid;
+}
+.hikes {
+  border-style: solid; 
+  background-color: white;
+  position: absolute;
+  padding: 5em;
+}
+.hikecard {
+  border-style: solid; 
+  background-color: white;
+  position: absolute;
+  padding: 10em;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+} 
+h1 a {
+  display: block;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+h1 a:hover {
+  background-color: #555;
+  color: rgb(137, 135, 135);
+}
+h1 {
+  background-color: rgb(21, 8, 119);
+  padding: 2em;
+  text-align: center;
+  text-decoration-color: white;
+  font-size: 17px;
+}
+
+.Home {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.Login {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.Signup {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.Hikes {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.Myhikes {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
 code {

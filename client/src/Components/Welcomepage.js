@@ -21,8 +21,9 @@ const [myHikes, setMyHikes] = useState([]);
 return (
     <div>
         Welcome, {user.hikername}!
+        <br></br><br></br>
         <button onClick={handleDelete}>Delete My Account</button>
-        {user.hikerhikes.length > 0 ? <MyHikes onDelete={onDelete} user={user} myHikes={myHikes} setMyHikes={setMyHikes} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH} /> : null}
+        {/* {user.hikerhikes.length > 0 ? <MyHikes onDelete={onDelete} user={user} myHikes={myHikes} setMyHikes={setMyHikes} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH} /> : null} */}
     </div>
 )
 }
