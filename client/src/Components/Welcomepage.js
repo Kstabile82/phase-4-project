@@ -15,18 +15,6 @@ const [myHikes, setMyHikes] = useState([]);
 //         // setSubmitted("true")
 //      });
 //     }, [])
-
-    function handleLogout(e){
-        e.preventDefault(); 
-        fetch("/logout", { method: "DELETE" }).then((r) => {
-            if (r.ok) {
-              onLogout();
-              setLoggedOut(true)
-            }
-        })
-    }
-
-
     function handleDelete(e){
       e.preventDefault();
       fetch("/deleteme", { method: "DELETE" }).then((r) => {
@@ -40,7 +28,6 @@ return (
         Welcome, {user.hikername}!
         {/* <button onClick={handleLogOut}>Log Out</button> */}
         <button onClick={handleDelete}>Delete My Account</button>
-        <button onClick={handleLogout}>Log Out</button> 
         {user.hikerhikes.length > 0 ? <MyHikes user={user} myHikes={myHikes} setMyHikes={setMyHikes} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH} /> : null}
       {/* {user.name !== undefined ? 
          <div className="welcomeform">Welcome, {user.hikername.charAt(0).toUpperCase() + user.hikername.slice(1)}! 

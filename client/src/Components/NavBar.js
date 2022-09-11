@@ -2,12 +2,12 @@
 import { Link } from "react-router-dom";
 
 function NavBar({ onLogout, loggedOut, setLoggedOut }) {
-    // function handleLogout() {
-    //   fetch("/logout", {
-    //     method: "DELETE",
-    //   }).then(() => onLogout());
-    //   setLoggedOut(true)
-    // }
+    function handleLogout() {
+      fetch("/logout", {
+        method: "DELETE",
+      }).then(() => onLogout());
+      setLoggedOut(true)
+    }
     return (
       <header>
         <h1>
@@ -15,6 +15,7 @@ function NavBar({ onLogout, loggedOut, setLoggedOut }) {
           {loggedOut ? <Link to="/login">Log In</Link> : null } 
           {!loggedOut ? <Link to="/welcomepage">My Page</Link> : null }
           {loggedOut ? <Link to="/signup">Sign Up </Link> : null }
+          {!loggedOut ? <Link to="/" onClick={handleLogout}>Log Out</Link> : null }
           <Link to="/hikes">Hikes</Link>
 
         </h1>
