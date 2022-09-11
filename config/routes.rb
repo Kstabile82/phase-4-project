@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :hikers, only: [:index, :create, :show, :destroy]
+  resources :hikers
   resources :hikes
   resources :hikerhikes
   resources :comments, only: [:create, :index, :destroy]
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get "/myhikes", to: "hikerhikes#index"
   post "/myhikes", to: "hikerhikes#create"
   patch "/myhikes", to: "hikerhikes#update"
-  delete "/myhikes", to: "hikerhikes#destroy"
+  delete "/hikerhikes", to: "hikerhikes#destroy"
   post "/comments", to: "comments#create"
   delete "/comments", to: "comments#destroy"
   get "/comments", to: "comments#index"

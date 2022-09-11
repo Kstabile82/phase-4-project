@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Welcomepage from "./Welcomepage";
 
-function LogIn({ onLogin, onLogout, user, userHikes, setUserHikes, loggedOut, setLoggedOut, handleDeleteHH }) {
+function LogIn({ handleDeleteUser, onLogin, onLogout, user, userHikes, setUserHikes, loggedOut, setLoggedOut, handleDeleteHH }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
 
@@ -21,6 +21,10 @@ const [inputPassword, setInputPassword] = useState("")
         setLoggedOut(false)
        })
   }
+//   function onDelete(id) {
+//     const updatedHikes = userHikes.filter((hike) => hike.id !== id);
+//     setUserHikes(updatedHikes)
+//   }
     return (
         <div>
             {loggedOut ? 
@@ -37,7 +41,7 @@ const [inputPassword, setInputPassword] = useState("")
                 onChange={(e) => setInputPassword(e.target.value)}></input>  
                 <button>Enter</button>
             </form> : null }
-           {user && !loggedOut ? <Welcomepage user={user} onLogout={onLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/> : null }
+           {user && !loggedOut ? <Welcomepage user={user} onLogout={onLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH} handleDeleteUser={handleDeleteUser} /> : null }
         </div>
     )
 }

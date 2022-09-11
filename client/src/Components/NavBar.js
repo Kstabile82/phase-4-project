@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function NavBar({ onLogout, loggedOut, setLoggedOut }) {
+function NavBar({ onLogout, loggedOut, setLoggedOut, handleDeleteHH, userHikes, setUserHikes }) {
     function handleLogout() {
       fetch("/logout", {
         method: "DELETE",
@@ -12,7 +12,7 @@ function NavBar({ onLogout, loggedOut, setLoggedOut }) {
         <h1>
           <Link to="/">Home          </Link>
           {loggedOut ? <Link to="/login">Log In</Link> : null } 
-          {!loggedOut ? <Link to="/welcomepage">My Page</Link> : null }
+          {!loggedOut ? <Link to="/myhikes">My Hikes</Link> : null }
           {loggedOut ? <Link to="/signup">Sign Up </Link> : null }
           {!loggedOut ? <Link to="/" onClick={handleLogout}>Log Out</Link> : null }
           <Link to="/hikes">Hikes</Link>

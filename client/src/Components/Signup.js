@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Welcomepage from "./Welcomepage";
 
-function Signup({ user, setUser, onLogin, loggedOut, setLoggedOut }) {
+function Signup({ user, setUser, onLogin, loggedOut, setLoggedOut, handleDeleteUser }) {
 const [userName, setUserName] = useState("")
 const [password, setPassword] = useState("")
 const [confirmPassword, setConfirmPassword] = useState("")
@@ -48,7 +48,7 @@ return (
         onChange={(e) => setConfirmPassword(e.target.value)}></input>   
         <button>Enter</button>
     </form>
-    {user ? <Welcomepage user={user} loggedOut={loggedOut} setLoggedOut={setLoggedOut} /> : null }
+    {user ? <Welcomepage user={user} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleDeleteUser={handleDeleteUser} /> : null }
 </div>
 )
 }

@@ -32,31 +32,29 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
       function addToMyHikes(e) {
         e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)
-        fetch("/myhikes", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              hiker_id: user.id,
-              hike_id: hikeToAdd.id,
-              status: "Bucket list"
-            }),
-          })
-          .then((r) => r.json())
-        //   .then((hike) => setHikes([...hikes, hike]))
-        .then((hike) => { 
-            userHikes.map(uH => {
-                if (uH.hike_id === hike.hike_id) {
-                    console.log("Already listed")
-                }
-                else {
-                    setUserHikes([...userHikes, hike])
-                }
-            })
-         } )
-        
-      }
+        userHikes.map(uH => {
+            if (uH.hike_id === hikeToAdd.id) {
+                console.log("Already listed")
+            }
+            else {
+                fetch("/myhikes", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                    hiker_id: user.id,
+                    hike_id: hikeToAdd.id,
+                    status: "Bucket list"
+                    }),
+                })
+                .then((r) => r.json())
+                .then((hike) => {
+                setUserHikes([...userHikes, hike])
+                })
+        }
+      })
+    }
     function handleFilterChange(e) {
         e.preventDefault();
         setDisplayedHikes(hikes)
