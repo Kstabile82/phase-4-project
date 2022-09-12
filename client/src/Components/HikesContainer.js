@@ -102,6 +102,7 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
     }
     return (
         <div className="container">
+           <p>All Hikes</p>
             <form onSubmit={handleSubmitFilter}>Filter:
             <br></br>
                 <select name="difficulty" id="difficulty" onChange={handleFilterChange}>
@@ -118,7 +119,7 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
                 <option value={l}>{l}</option>
                 )}
                 <option value="All">All</option>
-                </select>
+                </select>    
                 <button>Enter</button>
             </form>
             Sort: 
@@ -127,7 +128,7 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
             </label>
             <label name="sortbydistance"> Distance (longest to shortest) 
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
-            </label>
+            </label> 
           {displayedHikes.map(h => <div key={h.id}> 
              <br></br> <HikeCard hike={h} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 

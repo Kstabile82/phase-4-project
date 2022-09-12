@@ -28,7 +28,8 @@ function MyHikes({ user, userHikes, setUserHikes }) {
     setUserHikes(userHikes.filter(uH => uH.id !== toDelete.id))
   }
 return (
-    <div>{user.hikername}'s Hikes:
+    <div>
+      <p>{user.hikername}'s Hikes</p>
         {userHikes.map(h => <div className={h.hike_id} key={h.id}><br></br><HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hikerhike={h} hike={h.hikemethod} handleChangeStatus={handleChangeStatus} status={h.status} newStatus={newStatus} user={user}/> <button onClick={handleDelete}>Delete from my hikes</button><br></br></div>)}
     </div>
 )
