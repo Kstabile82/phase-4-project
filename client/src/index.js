@@ -17,6 +17,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
+import "./icon.png"
 import App from "./Components/App";
 
 ReactDOM.render(

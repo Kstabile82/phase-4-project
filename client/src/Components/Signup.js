@@ -29,7 +29,7 @@ const [errors, setErrors] = useState([]);
         });
     }
 return (
-    <div>Sign up
+    <div>
     <form className="signup" onSubmit={handleNewUser}>  
      <input 
         type="text" 

@@ -34,9 +34,18 @@ body {
   justify-content: space-around;
   flex-wrap: nowrap; /* assumes you only want one row */
 }
+.Hello {
+  font-family: Papyrus; 
+  color: rgb(13, 16, 185);
+  background-color: rgb(242, 242, 247);
+  text-align: left;
+  font-size: 30px;
+  padding: 0;
+  margin-left: 1em;
+}
 .login {
   top: 2em;
-  background-color: rgb(13, 16, 185);
+  background-color: rgb(21, 8, 119);
   overflow: hidden;
   justify-content: center;
   text-align: center;
@@ -51,7 +60,7 @@ body {
 }
 .signup {
   top: 2em;
-  background-color: rgb(13, 16, 185);
+  background-color: rgb(21, 8, 119);
   overflow: hidden;
   justify-content: center;
   text-align: center;
@@ -72,17 +81,21 @@ body {
   position: absolute;
   padding: 5em;
 }
-.hikecard {
+/* .hikecard {
   border-style: solid; 
-  background-color: white;
   position: absolute;
-  padding: 10em;
-  font-style: bold;
-}
+  padding: 3em;
+  font-style: italic;
+} */
 ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin-left: 25em;
+  margin-right: 25em;
+  padding: .5em;
+  border-style: solid;
+  font-family: Papyrus;
+  background-color:rgb(21, 8, 119);
+  color: white;
 } 
 p {
   font-family: Papyrus;
@@ -91,6 +104,9 @@ p {
 }
 button {
   margin-left: .24em;
+  font-family: Papyrus;
+  background-color: white;
+  color: black;
 }
 h1 a {
   display: block;
@@ -119,7 +135,22 @@ select {
   border: solid;
   border-radius: 4px;
   background-color: #f1f1f1;
+  font-family: Papyrus;
+  padding: .5em;
 }
+.formbutton {
+  background-color:rgb(21, 8, 119);
+  color: white;
+}
+form {
+  font-family: Papyrus;
+}
+.filter {
+  font-family: Papyrus;
+  margin: 0;
+  padding: 0;
+}
+
 .Home {
   float: left;
   color: #f2f2f2;
@@ -165,6 +196,17 @@ select {
   font-size: 17px;
 }
 
+.heart-shape{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: rgba(250,184,66, 1);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

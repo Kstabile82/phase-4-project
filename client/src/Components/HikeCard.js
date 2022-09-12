@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react"; 
-function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, handleChangeStatus, newStatus }) {
+import { FaThumbsUp } from "react-icons/fa"
+
+function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, status, handleChangeStatus, newStatus }) {
     const [h, setH] = useState(hike)
-    const [hh, setHH] = useState(hikerhike)
+    // const [hh, setHH] = useState(hikerhike)
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
@@ -62,23 +64,24 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
     e.preventDefault();
     setNewComment(e.target.value)
    }
-    function handleSubmitStatus(e) {
-        e.preventDefault();
-        fetch(`/hikerhikes/${hikerhike.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ status: newStatus }),
-        })
-        .then((r) => r.json())
-        .then((updatedHikerHike) => setHH(updatedHikerHike))   
-     }
+    // function handleSubmitStatus(e) {
+    //     e.preventDefault();
+    //     fetch(`/hikerhikes/${hikerhike.id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({ status: newStatus }),
+    //     })
+    //     .then((r) => r.json())
+    //     .then((updatedHikerHike) => setHH(updatedHikerHike))   
+    //  }
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
-            <br></br><button onClick={handleLikes}>{h.likes} Likes</button>
-            {user !== null && user !== undefined ? <form onSubmit={handleSubmitStatus}>
+            <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes}     
+</button>
+            {/* {user !== null && user !== undefined ? <form onSubmit={handleSubmitStatus}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>Status: {status}</option>
                 <option value="Planned">Planned</option>
@@ -86,10 +89,10 @@ function HikeCard({ hike, hikerhike, user, userHikes, setUserHikes, status, hand
                 <option value="Bucket list">Bucket List</option>
                 </select>
                 <button>Submit</button>
-        </form> : null}
-        <li key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments</li>
+        </form> : null} */}
+        <li key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</li>
           {hikeComments !== [] || hikeComments.length > 0 ? 
-             hikeComments.map(c => <p>{c.text}</p> )
+             hikeComments.map(c => <li>{c.text}</li> )
            : <p>None</p> } 
            <button onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

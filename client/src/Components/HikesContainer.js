@@ -16,6 +16,7 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
     let locMatches = [];
     let diffMatches = [];
    
+    console.log(user)
     useEffect(() => {
         fetch("/hikes")
         .then((r) => r.json())
@@ -103,8 +104,8 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
     return (
         <div className="container">
            <p>All Hikes</p>
-            <form onSubmit={handleSubmitFilter}>Filter:
-            <br></br>
+           <div className="filter">Filter:
+            <form onSubmit={handleSubmitFilter}>
                 <select name="difficulty" id="difficulty" onChange={handleFilterChange}>
                 <option value="" hidden>Difficulty</option>
                 <option value="Advanced" >Advanced</option>
@@ -120,17 +121,18 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
                 )}
                 <option value="All">All</option>
                 </select>    
-                <button>Enter</button>
-            </form>
-            Sort: 
+                <button className="formbutton">Enter</button>
+            </form> 
+            </div>
+            <div className="filter">Sort:
             <br></br><label name="sortbylikes"> Likes (most to fewest) 
              <input name="sortbylikes" id="sortLikes" type="checkbox" onChange={handleSort} />
             </label>
             <label name="sortbydistance"> Distance (longest to shortest) 
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
-            </label> 
+            </label> </div> 
           {displayedHikes.map(h => <div key={h.id}> 
-             <br></br> <HikeCard hike={h} /> 
+             <br></br> <HikeCard hike={h} user={user} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
               </div> )} 
           <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} />

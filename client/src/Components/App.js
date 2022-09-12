@@ -48,6 +48,7 @@ function App() {
   }
   return (
     <div className="App">
+      <h1 className="Hello">Hiker's Hub</h1>
     <NavBar user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
@@ -59,9 +60,9 @@ function App() {
       <Route exact path="/signup">
         <Signup handleDeleteUser={handleDeleteUser} onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
-      <Route exact path="/myhikes">
+      {user ? <Route exact path="/myhikes">
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
-      </Route>
+      </Route> : null}
     </Switch>
   </div>
   );

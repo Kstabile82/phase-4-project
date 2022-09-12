@@ -5,6 +5,7 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
     const [difficulty, setDifficulty] = useState("");
     const [location, setLocation] = useState("");
     const [distance, setDistance] = useState(0);
+    const [showingForm, setShowingForm] = useState(false);
 
     function handleAdd(e) {
         e.preventDefault();
@@ -21,6 +22,10 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
             setDistance(e.target.value);
         }
     }
+    function showAddForm(){
+        setShowingForm(true)
+    }
+
     let newHike = {
         name,
         difficulty,
@@ -43,6 +48,7 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
             setAdded("taken");
         }
     }
+    setShowingForm(false);
 }
 function postNewHikes(newHike) {
     fetch ("/hikes", {
@@ -60,8 +66,8 @@ function postNewHikes(newHike) {
 }
     return (
         <div className="add-hike-form">
-            <h3>Add New Hike</h3>
-            <form onSubmit={handleSubmit}>
+            <button onClick={showAddForm}>Add New Hike</button>
+            {showingForm ? <form onSubmit={handleSubmit}>
                <input onChange={handleAdd}
                 type="text"
                 name="name"
@@ -83,8 +89,8 @@ function postNewHikes(newHike) {
                 name="distance"
                 placeholder="Miles"
                 ></input>
-                <button>Submit</button>
-            </form>
+                <button className="formbutton">Submit</button>
+            </form> : null} 
             {added ? <p>Thanks, your hike was added!</p> : null}
         </div>
     );
