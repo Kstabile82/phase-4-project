@@ -16,7 +16,6 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
     let locMatches = [];
     let diffMatches = [];
    
-    console.log(user)
     useEffect(() => {
         fetch("/hikes")
         .then((r) => r.json())

@@ -40,17 +40,20 @@ function MyHikes({ user, userHikes, setUserHikes }) {
         body: JSON.stringify({ status: newStatus }),
     })
     .then((r) => r.json())
-    // .then((updatedHikerHike) => setHH(updatedHikerHike))   
     .then((updatedHikerHike) => {
-      let newUH = userHikes.filter(uH => uH.id !== updatedHikerHike.id) 
-      setUserHikes([...newUH, updatedHikerHike])
+      let del = userHikes.find(uH => uH.id === updatedHikerHike.id)
+      let idx = userHikes.indexOf(del)
+      userHikes.splice(idx, 1, updatedHikerHike)
+      setUserHikes(userHikes)
+      // let newUH = userHikes.filter(uH => uH.id !== updatedHikerHike.id) 
+      // setUserHikes([...newUH, updatedHikerHike])
     })   
  }
 return (
     <div>
       <p>{user.hikername}'s Hikes</p>
         {userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
-        <HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hikerhike={h} hike={h.hikemethod} user={user}/> <button onClick={handleDelete}>Delete from my hikes</button><br></br>
+        <HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hikerhike={h} hike={h.hikemethod} user={user}/> 
         <form onSubmit={(e)=> handleSubmitStatus(h, e)}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>{h.status}</option>
@@ -60,6 +63,8 @@ return (
                 </select>
                 <button>Submit</button>
         </form> 
+        <br></br>
+          <button onClick={handleDelete}>Delete from my hikes</button><br></br>
           </div>)}
     </div>
 )

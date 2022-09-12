@@ -87,12 +87,11 @@ body {
   padding: 3em;
   font-style: italic;
 } */
-ul {
+.hikecard {
   list-style: none;
   margin-left: 25em;
   margin-right: 25em;
-  padding: .5em;
-  border-style: solid;
+  /* padding: .5em; */
   font-family: Papyrus;
   background-color:rgb(21, 8, 119);
   color: white;
@@ -131,6 +130,17 @@ input[type=text] {
   margin: 8px 0;
   box-sizing: border-box;
 }
+.userhikes {
+  list-style: none;
+  border-style: solid;
+  /* padding: .5em; */
+  margin-left: 25em;
+  margin-right: 25em;
+  font-family: Papyrus;
+  background-color:rgb(21, 8, 119);
+  color: white;
+}
+
 select {
   border: solid;
   border-radius: 4px;

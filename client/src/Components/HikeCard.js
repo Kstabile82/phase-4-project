@@ -90,7 +90,7 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
                 </select>
                 <button>Submit</button>
         </form> : null} */}
-        <li key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</li>
+        <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul>
           {hikeComments !== [] || hikeComments.length > 0 ? 
              hikeComments.map(c => <li>{c.text}</li> )
            : <p>None</p> } 
