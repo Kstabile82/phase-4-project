@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import { FaThumbsUp } from "react-icons/fa"
+import HikesContainer from "./HikesContainer";
 
 function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, status, handleChangeStatus, newStatus }) {
     const [h, setH] = useState(hike)
@@ -64,7 +65,7 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
     e.preventDefault();
     setNewComment(e.target.value)
    }
-    // function handleSubmitStatus(e) {
+// function handleSubmitStatus(e) {
     //     e.preventDefault();
     //     fetch(`/hikerhikes/${hikerhike.id}`, {
     //         method: "PATCH",
@@ -83,7 +84,7 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
 </button>
        <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul>
           {hikeComments !== [] || hikeComments.length > 0 ? 
-             hikeComments.map(c => <li>{c.text}</li> )
+             hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )
            : <p>None</p> } 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>
