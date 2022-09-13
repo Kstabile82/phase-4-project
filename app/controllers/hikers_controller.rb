@@ -10,10 +10,6 @@ class HikersController < ApplicationController
         session[:hiker_id] = hiker.id
         render json: hiker, status: 200 
     end
-     
-    # def show
-    #     render json: @current_user
-    # end
 
     def show
         hiker = Hiker.find_by(id: session[:hiker_id])
@@ -25,10 +21,6 @@ class HikersController < ApplicationController
     end
 
     def destroy
-        # hiker = find_hiker
-        # hiker.destroy
-        # head :no_content
-       
         Hiker.find(session[:hiker_id]).destroy      
             session[:hiker_id] = nil         
             redirect_to '/login' 

@@ -12,23 +12,12 @@ function MyHikes({ user, userHikes, setUserHikes }) {
        setNewStatus(e.target.value)
     }
 
-    function handleDelete(e) {
+    function handleDelete(h, e) {
      e.preventDefault();
-     let clickedId = parseInt(e.target.parentElement.className);
-     let toDelete = userHikes.find(uH => uH.hike_id === clickedId)
-      //   fetch(`/myhikes/${toDelete.id}`, { 
-      //       method: "DELETE" 
-      //   })
-      //   .then((r) => {
-      //     if (r.ok) {
-      //       // handleDeleteHH(toDelete);
-      //       console.log(r)
-      //     }
-      // })
-      fetch(`/hikerhikes/${toDelete.id}`, { 
+        fetch(`/hikerhikes/${h.id}`, { 
         method: 'DELETE'
     })
-    setUserHikes(userHikes.filter(uH => uH.id !== toDelete.id))
+    setUserHikes(userHikes.filter(uH => uH.id !== h.id))
   }
   function handleSubmitStatus(h, e) {
     e.preventDefault();
@@ -64,8 +53,8 @@ return (
                 <button>Submit</button>
         </form> 
         <br></br>
-          <button onClick={handleDelete}>Delete from my hikes</button><br></br>
-          </div>)}
+        <button onClick={(e) => handleDelete(h, e)}>Delete from my hikes</button><br></br>
+        </div>)}
     </div>
 )
 }
