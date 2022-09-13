@@ -81,20 +81,11 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
             <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes}     
 </button>
-            {/* {user !== null && user !== undefined ? <form onSubmit={handleSubmitStatus}>
-            <select name="Status" id="status" onChange={handleChangeStatus}>
-                <option value="" hidden>Status: {status}</option>
-                <option value="Planned">Planned</option>
-                <option value="Completed">Completed</option>
-                <option value="Bucket list">Bucket List</option>
-                </select>
-                <button>Submit</button>
-        </form> : null} */}
-        <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul>
+       <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul>
           {hikeComments !== [] || hikeComments.length > 0 ? 
              hikeComments.map(c => <li>{c.text}</li> )
            : <p>None</p> } 
-           <button onClick={() => handleCommentForm()}>Add Comment</button>
+           <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>
                 <input onChange={handleCommentChange}
                 type="text"
@@ -103,7 +94,7 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
                 ></input>
                 <button>Submit</button>
             </form> : null}
-            </ul>
+            </ul> 
         </div>
     )
 }
