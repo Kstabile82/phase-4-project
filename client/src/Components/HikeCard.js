@@ -21,11 +21,11 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
        if (hComments.length > 0) {
         setHikeComments(hComments);
        } 
-       else {
-        setHikeComments([{text: "No comments yet"}])
-       }
-    }
 
+    //    else {
+    //     setHikeComments([{text: "No comments yet"}])
+    //    }
+    }
     function handleCommentForm() {
         setCommentForm(true)
     }
@@ -80,12 +80,14 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
-            <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes}     
-</button>
-       <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul>
-          {hikeComments !== [] || hikeComments.length > 0 ? 
+            <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes} </button>
+            {hike.comments.length === 0 ? <ul>No Comments Yet</ul> : 
+                <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> }
+          {/* {hikeComments !== [] || hikeComments.length !== 0 ? 
              hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )
-           : <p>None</p> } 
+           : <li>None</li> }  </ul>  */}
+       {hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )}
+            </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>
                 <input onChange={handleCommentChange}
@@ -95,7 +97,7 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
                 ></input>
                 <button>Submit</button>
             </form> : null}
-            </ul> 
+           
         </div>
     )
 }
