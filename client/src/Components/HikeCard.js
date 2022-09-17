@@ -81,7 +81,7 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
             <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes} </button>
-            {hike.comments.length === 0 ? <ul>No Comments Yet</ul> : 
+            {hikeComments.length === 0 ? <ul>No Comments Yet</ul> : 
                 <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> }
           {/* {hikeComments !== [] || hikeComments.length !== 0 ? 
              hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )
