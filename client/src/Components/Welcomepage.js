@@ -17,7 +17,6 @@ const [myHikes, setMyHikes] = useState([]);
       const updatedHikes = myHikes.filter((hike) => hike.id !== id);
       setMyHikes(updatedHikes)
     }
-
 return (
     <div>
         Welcome, {user.hikername}!

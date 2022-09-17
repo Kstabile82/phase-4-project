@@ -10,12 +10,13 @@ function NavBar({ onLogout, loggedOut, setLoggedOut, handleDeleteHH, userHikes, 
     return (
       <header>
         <h1>
-          <Link to="/">Home          </Link>
+          {loggedOut ? <Link to="/">Home          </Link> : null}
+          {!loggedOut ? <Link to="/welcomepage">Welcome Page</Link> : null}
           {loggedOut ? <Link to="/login">Log In</Link> : null } 
           {!loggedOut ? <Link to="/myhikes">My Hikes</Link> : null }
           {loggedOut ? <Link to="/signup">Sign Up </Link> : null }
-          {!loggedOut ? <Link to="/" onClick={handleLogout}>Log Out</Link> : null }
           <Link to="/hikes">Hikes</Link>
+          {!loggedOut ? <Link to="/" onClick={handleLogout}>Log Out</Link> : null }
 
         </h1>
              </header>

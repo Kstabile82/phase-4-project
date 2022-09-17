@@ -6,7 +6,7 @@ import Login from "./Login";
 import HikesContainer from "./HikesContainer";
 import Signup from "./Signup";
 import MyHikes from "./MyHikes";
-// import Welcomepage from "./Welcomepage";
+import Welcomepage from "./Welcomepage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -62,6 +62,9 @@ function App() {
       </Route>
       {user ? <Route exact path="/myhikes">
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+      </Route> : null}
+      {user ? <Route exact path="/welcomepage">
+        <Welcomepage user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route> : null}
     </Switch>
   </div>
