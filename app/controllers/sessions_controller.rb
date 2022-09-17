@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-
+# skip_before_action :authorize, only: :create
 #     def login
 #        hiker = Hiker.find_by(hikername: params[:hiker][:hikername])
 #        if hiker.authenticate(params[:hikername][:password])
@@ -10,10 +10,17 @@ class SessionsController < ApplicationController
 #   end
     
     def create
+        # hiker = Hiker.find_by(hikername: params[:hikername])
+        # session[:hiker_id] = hiker.id
+        # render json: hiker
         hiker = Hiker.find_by(hikername: params[:hikername])
-        session[:hiker_id] = hiker.id
-        render json: hiker
-    end
+        if hiker&.authenticate(params[:password])
+          session[:hiker_id] = hiker.id
+          render json: hiker
+        else
+          render json: { errors: ["Invalid username or password"] }, status: :unauthorized
+        end
+     end
 
     # def create
     #     hiker = Hiker.find_by(hikername: params[:hikername])
@@ -30,4 +37,7 @@ class SessionsController < ApplicationController
         head :no_content
       end
 
+    # def authorize  
+    # return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+    # end
 end

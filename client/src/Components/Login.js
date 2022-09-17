@@ -14,12 +14,21 @@ const [inputPassword, setInputPassword] = useState("")
            },
            body: JSON.stringify({ hikername: inputName, password: inputPassword }),
        })
-       .then((r) => r.json())
-       .then((hiker) => { 
-        onLogin(hiker) 
-        setUserHikes(hiker.hikerhikes)
-        setLoggedOut(false)
-       })
+    //    .then((r) => r.json())
+    //    .then((hiker) => { 
+    //     onLogin(hiker) 
+    //     setUserHikes(hiker.hikerhikes)
+    //     setLoggedOut(false)
+    //    })
+    .then((r) => {
+        if (r.ok) {
+          r.json().then((hiker) => {
+            onLogin(hiker)
+            setUserHikes(hiker.hikerhikes)
+            setLoggedOut(false)
+          })
+        }
+      });
   }
 
     return (

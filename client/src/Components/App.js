@@ -64,7 +64,7 @@ function App() {
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route> : null}
       {user ? <Route exact path="/welcomepage">
-        <Welcomepage user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Welcomepage user={user} handleDeleteUser={handleDeleteUser} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route> : null}
     </Switch>
   </div>

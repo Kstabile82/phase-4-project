@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/me", to: "hikers#show"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-  delete "/deleteme", to: "hikers#destroy"
+  delete "/deleteme/:id", to: "hikers#destroy"
   get "/myhikes", to: "hikerhikes#show"
   get "/myhikes", to: "hikerhikes#index"
   post "/myhikes", to: "hikerhikes#create"
