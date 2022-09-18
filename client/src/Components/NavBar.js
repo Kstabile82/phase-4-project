@@ -1,3 +1,4 @@
+import { useImperativeHandle } from "react";
 import { Link } from "react-router-dom";
 
 function NavBar({ onLogout, loggedOut, setLoggedOut, handleDeleteHH, userHikes, setUserHikes }) {

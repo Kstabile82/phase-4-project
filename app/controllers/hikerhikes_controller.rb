@@ -24,7 +24,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
         hikerHike = Hikerhike.find(params[:id])
         hikerHike.destroy
         head :no_content
-        # render json: {}
     end
 
     def update
@@ -33,7 +32,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
         render json: hikerHike
     end
   
-    
     private 
 
     def hikerhike_params

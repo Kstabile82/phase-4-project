@@ -2,8 +2,6 @@ class SessionsController < ApplicationController
     
     def create
        hiker = Hiker.find_by(hikername: params[:hikername])
-        # hiker = Hiker.find_by(hikername: params[:hiker][:hikername])
-        # if hiker.authenticate(params[:hiker][:password])
         if hiker&.authenticate(params[:password])
            session[:hiker_id] = hiker.id
            render json: hiker

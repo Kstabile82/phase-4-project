@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaThumbsUp } from "react-icons/fa"
 import HikesContainer from "./HikesContainer";
 
-function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, status, handleChangeStatus, newStatus }) {
+function HikeCard({ hike, user }) {
     const [h, setH] = useState(hike)
-    // const [hh, setHH] = useState(hikerhike)
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
@@ -21,11 +20,11 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
      if (hComments.length > 0) {
         setHikeComments(hComments);
        } 
-
        else {
         setHikeComments(["none"])
        }
     }
+
     function handleCommentForm() {
         setCommentForm(true)
     }
@@ -58,7 +57,12 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
     .then((r) => r.json())
     .then(newComm => {
         setComments([...comments, newComm])
-        setHikeComments([...hikeComments, newComm]);
+        if (hikeComments.length > 0) {
+            setHikeComments([...hikeComments, newComm])
+        }
+        else {
+            setHikeComments([newComm])
+        }
     }) 
    }
    function handleCommentChange(e){
@@ -86,7 +90,9 @@ function HikeCard({ hh, setHH, hike, hikerhike, user, userHikes, setUserHikes, s
           {/* {hikeComments !== [] || hikeComments.length !== 0 ? 
              hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )
            : <li>None</li> }  </ul>  */}
-       {hikeComments[0] === "none" ? <li>No Comments Yet</li> : hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )}
+       {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
+       {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> ) : null}
+       {hikeComments[0] !== "none" && hikeComments.length === 1 ? <li>"{hikeComments[0].text}" -{hikeComments[0].hiker.hikername}</li> : null}
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

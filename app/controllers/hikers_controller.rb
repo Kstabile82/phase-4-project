@@ -13,10 +13,6 @@ class HikersController < ApplicationController
     end
 
     def show
-        # @current_hiker
-        # or 
-        # hiker = Hiker.find_by(id: session[:hiker_id])
-        # render json: hiker 
         hiker = Hiker.find_by(id: session[:hiker_id])
         if hiker 
             render json: hiker
@@ -26,15 +22,9 @@ class HikersController < ApplicationController
     end
 
     def destroy
-        # Hiker.find(session[:hiker_id]).destroy      
-        #     session[:hiker_id] = nil         
-        #     redirect_to '/login' 
        hiker = Hiker.find(params[:id])
        hiker.destroy
        session[:hiker_id] = nil
-       redirect_to '/login'
-
-     
     end
 
     private 

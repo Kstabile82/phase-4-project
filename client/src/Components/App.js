@@ -34,11 +34,11 @@ function App() {
     setLoggedOut(true)
     setUserHikes([])
   }
-  function handleDeleteUser() {
-    setUser(null);
-    setLoggedOut(true)
-    setUserHikes([])
-  }
+  // function handleDeleteUser() {
+  //   setUser(null);
+  //   setLoggedOut(true)
+  //   setUserHikes([])
+  // }
   function handleDeleteHH() {
     setUserHikes(user.hikerhikes)
   }
@@ -51,16 +51,16 @@ function App() {
         <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
-        <Login handleLogIn={handleLogIn} handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
-        <Signup handleLogIn={handleLogIn} handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Signup handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
-      {user ? <Route exact path="/myhikes">
+      {user && !loggedOut ? <Route exact path="/myhikes">
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route> : null}
-      {user ? <Route exact path="/welcomepage">
-        <Welcomepage user={user} handleDeleteUser={handleDeleteUser} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+      {user && !loggedOut ? <Route exact path="/welcomepage">
+        <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route> : null}
     </Switch>
   </div>
