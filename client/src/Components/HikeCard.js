@@ -69,6 +69,13 @@ function HikeCard({ hike, user }) {
     e.preventDefault();
     setNewComment(e.target.value)
    }
+   function handleDeleteComment(c) {
+    console.log(c)
+           fetch(`/comments/${c.id}`, { 
+           method: 'DELETE'
+       })
+       setHikeComments(hikeComments.filter(hc => hc.id !== c.id))
+   }
 // function handleSubmitStatus(e) {
     //     e.preventDefault();
     //     fetch(`/hikerhikes/${hikerhike.id}`, {
@@ -91,8 +98,8 @@ function HikeCard({ hike, user }) {
              hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )
            : <li>None</li> }  </ul>  */}
        {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
-       {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> ) : null}
-       {hikeComments[0] !== "none" && hikeComments.length === 1 ? <li>"{hikeComments[0].text}" -{hikeComments[0].hiker.hikername}</li> : null}
+       {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.hiker.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
+       {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].hiker.hikername}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

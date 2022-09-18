@@ -3,7 +3,6 @@ import React, { useState } from "react";
 function Welcomepage({ user, handleLogout }) {
 const [myHikes, setMyHikes] = useState([]);
 
-console.log(handleLogout)
     function handleDelete(e){
       e.preventDefault();
       fetch(`/deleteme/${user.id}`, { method: "DELETE" }).then((r) => {
