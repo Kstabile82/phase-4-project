@@ -24,11 +24,11 @@ function App() {
       }
     })
   }, []);
-  // function handleLogin(hiker) {
-  //   setUser(hiker);
-  //   setLoggedOut(false)
-  //   setUserHikes(hiker.hikerhikes)
-  // }
+  function handleLogIn(hiker) {
+    setUser(hiker);
+    setLoggedOut(false)
+    setUserHikes(hiker.hikerhikes)
+  }
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)
@@ -51,10 +51,10 @@ function App() {
         <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
-        <Login handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login handleLogIn={handleLogIn} handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
-        <Signup handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Signup handleLogIn={handleLogIn} handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       {user ? <Route exact path="/myhikes">
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
