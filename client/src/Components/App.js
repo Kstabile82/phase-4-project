@@ -20,24 +20,20 @@ function App() {
         response.json().then((user) => {
           setUser(user)
           setLoggedOut(false)
-          setUserHikes(user.hikerhikes)
         })
       }
     })
   }, []);
-
-  function handleLogin(hiker) {
-    setUser(hiker);
-    setLoggedOut(false)
-    setUserHikes(hiker.hikerhikes)
-  }
-
+  // function handleLogin(hiker) {
+  //   setUser(hiker);
+  //   setLoggedOut(false)
+  //   setUserHikes(hiker.hikerhikes)
+  // }
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)
     setUserHikes([])
   }
-
   function handleDeleteUser() {
     setUser(null);
     setLoggedOut(true)
@@ -55,10 +51,10 @@ function App() {
         <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
-        <Login handleDeleteUser={handleDeleteUser} onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
-        <Signup handleDeleteUser={handleDeleteUser} onLogin={handleLogin} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Signup handleDeleteUser={handleDeleteUser} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       {user ? <Route exact path="/myhikes">
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>

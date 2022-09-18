@@ -1,6 +1,6 @@
 class HikersController < ApplicationController
    before_action :authorize, only: [:show]
-# skip_before_action :authorize, only: :create
+   skip_before_action :authorize, only: :create
 
     def index
         render json: Hiker.all, status: 200
@@ -42,11 +42,11 @@ class HikersController < ApplicationController
         Hiker.find(params[:id])
     end
     
-    def authorize
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :hiker_id
-    end
+    # def authorize
+    #     return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :hiker_id
+    # end
 
     def hiker_params
-        params.permit(:hikername, :password, :password_confirmation)
+        params.permit(:hikername, :password, :password_confirmation, :hikerhikes)
     end
 end

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Welcomepage from "./Welcomepage";
 
-function LogIn({ handleDeleteUser, onLogin, onLogout, user, userHikes, setUserHikes, loggedOut, setLoggedOut, handleDeleteHH }) {
+function LogIn({ user, setUser, userHikes, setUserHikes, loggedOut, setLoggedOut }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
+// const [userHikes, setUserHikes] = useState([])
 
   function handleUser(e) {
        e.preventDefault();
@@ -14,18 +14,15 @@ const [inputPassword, setInputPassword] = useState("")
            },
            body: JSON.stringify({ hikername: inputName, password: inputPassword }),
        })
-    //    .then((r) => r.json())
-    //    .then((hiker) => { 
-    //     onLogin(hiker) 
-    //     setUserHikes(hiker.hikerhikes)
-    //     setLoggedOut(false)
-    //    })
     .then((r) => {
         if (r.ok) {
           r.json().then((hiker) => {
-            onLogin(hiker)
             setUserHikes(hiker.hikerhikes)
+            setUser(hiker)
             setLoggedOut(false)
+            // onLogin(hiker.hiker, userHikes, setUserHikes)
+            // setUserHikes(hiker.hikerhikes)
+            // setLoggedOut(false)
           })
         }
       });
