@@ -1,20 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
-karina = Hiker.create(hikername: "Karina")
-dolly = Hiker.create(hikername: "Dolly")
-dexter = Hiker.create(hikername: "Dexter")
-roxy = Hiker.create(hikername: "Roxy")
-
-breakneck = Hike.create(name: "Breakneck Ridge", location: "NY", difficulty: "Difficult", distance: 6.5, likes: 0)
-capitol = Hike.create(name: "Capitol Peak", location: "CO", difficulty: "Difficult", distance: 14, likes: 0)
-
-breakneck.hikerhikes.create(hiker_id: karina.id, hike_id: breakneck.id, status: "Completed")
-breakneck.hikerhikes.create(hiker_id: dolly.id, hike_id: breakneck.id, status: "Completed")
-capitol.hikerhikes.create(hiker_id: dexter.id, hike_id: capitol.id, status: "Bucket list")
-capitol.hikerhikes.create(hiker_id: roxy.id, hike_id: capitol.id, status: "Bucket list")
+breakneck = Hike.create(name: "Breakneck Ridge", location: "NY", difficulty: "Advanced", distance: 6.5, likes: 0)
+capitol = Hike.create(name: "Capitol Peak", location: "CO", difficulty: "Advanced", distance: 13, likes: 0)
+mtB = Hike.create(name: "Mt. Beacon", location: "NY", difficulty: "Intermediate", distance: 4, likes: 0)
+longs = Hike.create(name: "Long's Peak", location: "CO", difficulty: "Advanced", distance: 14, likes: 0)
+maroon = Hike.create(name: "Maroon Peak", location: "CO", difficulty: "Advanced", distance: 12, likes: 0)
+levy = Hike.create(name: "Levy Trail", location: "NY", difficulty: "Beginner", distance: 7, likes: 0)
+dem = Hike.create(name: "Mt. Democrat", location: "CO", difficulty: "Intermediate", distance: 3.5, likes: 0)
+wash = Hike.create(name: "Mt. Washington", location: "NY", difficulty: "Advanced", distance: 13, likes: 0)
+kaaterskill = Hike.create(name: "Kaaterskill Falls", location: "NY", difficulty: "Beginner", distance: 3, likes: 0)
