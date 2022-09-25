@@ -34,8 +34,6 @@ function MyHikes({ user, userHikes, setUserHikes }) {
       let idx = userHikes.indexOf(del)
       userHikes.splice(idx, 1, updatedHikerHike)
       setUserHikes(userHikes)
-      // let newUH = userHikes.filter(uH => uH.id !== updatedHikerHike.id) 
-      // setUserHikes([...newUH, updatedHikerHike])
     })   
  }
 return (

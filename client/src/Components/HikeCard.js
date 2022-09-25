@@ -76,30 +76,14 @@ function HikeCard({ hike, user }) {
        })
        setHikeComments(hikeComments.filter(hc => hc.id !== c.id))
    }
-// function handleSubmitStatus(e) {
-    //     e.preventDefault();
-    //     fetch(`/hikerhikes/${hikerhike.id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({ status: newStatus }),
-    //     })
-    //     .then((r) => r.json())
-    //     .then((updatedHikerHike) => setHH(updatedHikerHike))   
-    //  }
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
             <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes} </button>
-            {/* {hikeComments.length === 0 ? <ul>No Comments Yet</ul> :  */}
-                <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
-          {/* {hikeComments !== [] || hikeComments.length !== 0 ? 
-             hikeComments.map(c => <li>"{c.text}" -{c.hiker.hikername}</li> )
-           : <li>None</li> }  </ul>  */}
-       {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
-       {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.hiker.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
-       {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].hiker.hikername}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
+            <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
+                {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
+                {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.hiker.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
+                {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].hiker.hikername}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>
