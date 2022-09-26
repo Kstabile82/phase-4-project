@@ -1,14 +1,15 @@
 Hiker's Hub
-This is a hiking app that allows users to -----------------. This is a React front end and Ruby back end, with data converted to JSON.
+This is a hiking app that allows users to browse a database of hikes, add to it, see other hikers' comments and likes, and add hikes to their own bucketlist, completed list or planned list. 
+This is a React front end and Rails back end, with data converted to JSON.
 
 Usage
-A user should see ...........
+A user should see a homepage with a navbar that contains login, signup and hikes buttons. A user does not have to log in just to see the database of hikes. Upon signing up or logging in, though, the navbar changes to include welcome page, logout and my hikes buttons. Logged in users can add hikes from the database to their own my hikes page by clicking the "+" button. They can then set the status (bucket list, planned, completed) to the hike listing on their my hikes page. Users can also click the like button to update the hike's number of likes. 
 
-The ........... buttons should each pull up ......... 
+The "Add Hike" button at the bottom of the hikes list should pull up a form, where users can add a new hike to the database. If users click "See Comments" where listed on each hike, they should see the comments that have been left. Those without any will say "No comments yet." 
 
-Additionally, users have the option to sort and filter hikes by location, distance, likes and difficulty.
+Additionally, users have the option to sort and filter hikes by location, distance, likes and difficulty on the hikes page. 
 
-Clicking .......will allow ........to be easily deleted by rendering a delete button right next to the comment. The add and delete buttons will trigger event listeners that send delete and post requests to the back end, while updating the input and select forms send a patch request that updates that hike.
+On the welcome page, logged in users should see their name and a button to delete their account. Clicking that will destroy their account. Clicking Log Out will end the session and bring users back to the original homepage and navbar. 
 
 For support, please email karina.stabile@gmail.com
 
