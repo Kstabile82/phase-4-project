@@ -10,26 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_30_014121) do
+ActiveRecord::Schema.define(version: 2022_10_24_183355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
+    t.integer "hikerhike_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "hikerhike_id"
-    t.integer "hiker_id"
-    t.integer "hike_id"
   end
 
   create_table "hikerhikes", force: :cascade do |t|
     t.bigint "hiker_id", null: false
     t.bigint "hike_id", null: false
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "status"
     t.index ["hike_id"], name: "index_hikerhikes_on_hike_id"
     t.index ["hiker_id"], name: "index_hikerhikes_on_hiker_id"
   end
@@ -46,9 +44,9 @@ ActiveRecord::Schema.define(version: 2022_08_30_014121) do
     t.string "location"
     t.string "difficulty"
     t.integer "distance"
+    t.integer "likes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "likes"
   end
 
   add_foreign_key "hikerhikes", "hikers"

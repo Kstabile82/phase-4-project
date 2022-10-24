@@ -2,10 +2,10 @@ class CommentsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 # skip before_action :set_comment, only: [:create, :destroy]
 
-   def index
-        comments = Comment.all
-        render json: comments
-    end
+  #  def index
+  #       comments = Comment.all
+  #       render json: comments
+  #   end
 
     def show
         comments = Comment.find(params[:id])
@@ -30,6 +30,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
       end
 
       def comment_params
-        params.permit(:text, :hike_id, :hiker_id)
+        params.permit(:text, :hikerhike_id)
       end
     end

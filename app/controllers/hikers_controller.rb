@@ -37,6 +37,6 @@ class HikersController < ApplicationController
     # end
 
     def hiker_params
-        params.permit(:hikername, :password, :password_confirmation, :hikerhikes)
+        params.permit(:hikername, :password, :passwordconfirmation, :hikerhikes)
     end
 end

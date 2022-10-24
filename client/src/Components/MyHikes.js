@@ -5,8 +5,7 @@ function MyHikes({ user, userHikes, setUserHikes }) {
   const [newStatus, setNewStatus] = useState("");
   // const [hh, setHH] = useState(hikerhike)
   const [hh, setHH] = useState({})
-
-
+  setUserHikes(user.hikes)
     function handleChangeStatus(e, h) {
        e.preventDefault();
        setNewStatus(e.target.value)
@@ -19,6 +18,7 @@ function MyHikes({ user, userHikes, setUserHikes }) {
     })
     setUserHikes(userHikes.filter(uH => uH.id !== h.id))
   }
+
   function handleSubmitStatus(h, e) {
     e.preventDefault();
     fetch(`/hikerhikes/${h.id}`, {
@@ -40,7 +40,9 @@ return (
     <div>
       <p>{user.hikername}'s Hikes</p>
         {userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
-        <HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hikerhike={h} hike={h.hikemethod} user={user}/> 
+        {/* <HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hikerhike={h} hike={h.hikemethod} user={user}/> 
+         */}
+         <HikeCard hike={h}/>
         <form onSubmit={(e)=> handleSubmitStatus(h, e)}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>{h.status}</option>

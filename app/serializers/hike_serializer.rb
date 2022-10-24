@@ -3,6 +3,4 @@ class HikeSerializer < ActiveModel::Serializer
   has_many :hikerhikes
   has_many :comments
 
-
-
 end

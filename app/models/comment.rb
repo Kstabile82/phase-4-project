@@ -1,4 +1,3 @@
 class Comment < ApplicationRecord
-    belongs_to :hike
-    belongs_to :hiker
+    belongs_to :hikerhike
 end

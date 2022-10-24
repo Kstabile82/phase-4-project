@@ -24,6 +24,7 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
             setDisplayedHikes(currentHikes);
          });
         }, [])
+
       hikes.map(h => {
             if (!locations.includes(h.location)) {
                locations.push(h.location)
@@ -130,8 +131,8 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
             <label name="sortbydistance"> Distance (longest to shortest) 
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
             </label> </div> 
-          {displayedHikes.map(h => <div key={h.id}> 
-             <br></br> <HikeCard hike={h} user={user} /> 
+          {displayedHikes.map(h => <div key={h.id}>  
+              <br></br> <HikeCard hike={h} user={user} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
               </div> )} 
           <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} />

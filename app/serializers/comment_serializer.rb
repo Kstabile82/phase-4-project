@@ -1,22 +1,20 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :text, :hikemethod, :hikermethod
-  belongs_to :hike
-  belongs_to :hiker
+  attributes :id, :text
 
 def index
-  comments = Comment.select(hike_id: params[:hike_id])
+  comments = Comment.select(hikerhike_id: params[:hikerhike_id])
   if comments 
-      render json: hikerHike
+      render json: comments
   else
       render json: {message: "No Comments"}, status: :unauthorized
   end
 end
 
-  def hikermethod
-    self.object.hiker
-  end
+  # def hikermethod
+  #   self.object.hiker
+  # end
 
-  def hikemethod
-    self.object.hike
-  end
+  # def hikemethod
+  #   self.object.hikerhike.
+  # end
 end

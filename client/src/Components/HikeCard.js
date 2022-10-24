@@ -2,19 +2,18 @@ import React, { useState, useEffect } from "react";
 import { FaThumbsUp } from "react-icons/fa"
 import HikesContainer from "./HikesContainer";
 
-function HikeCard({ hike, user }) {
+function HikeCard({ userHikes, setUserHikes, hike, user }) {
     const [h, setH] = useState(hike)
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
     const [hikeComments, setHikeComments] = useState([])
    
-    useEffect(() => {
-        fetch(`/comments`)
-        .then((r) => r.json())
-        .then((currentComments) => setComments(currentComments.map(c => c)))
-        }, [])
-
+    // useEffect(() => {
+    //     fetch(`/comments`)
+    //     .then((r) => r.json())
+    //     .then((currentComments) => setComments(currentComments.map(c => c)))
+    //     }, [])
     function handleComments(h) {
      let hComments = comments.filter(c => c.hike.id === h.id)
      if (hComments.length > 0) {
@@ -43,15 +42,15 @@ function HikeCard({ hike, user }) {
     }
    function handleAddComment(e){
     e.preventDefault();
-    fetch ("/comments", {
+   let hkrhk = user.hikerhikes.find(h => h.hike_id === hike.id && h.hiker_id === user.id)
+   fetch ("/comments", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
         },
         body: JSON.stringify({
             text: newComment,
-            hiker_id: user.id, 
-            hike_id: h.id
+            hikerhike_id: hkrhk.id 
         })
         })
     .then((r) => r.json())
@@ -68,9 +67,9 @@ function HikeCard({ hike, user }) {
    function handleCommentChange(e){
     e.preventDefault();
     setNewComment(e.target.value)
+    console.log(e.target.value)
    }
    function handleDeleteComment(c) {
-    console.log(c)
            fetch(`/comments/${c.id}`, { 
            method: 'DELETE'
        })
@@ -82,8 +81,8 @@ function HikeCard({ hike, user }) {
             <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes} </button>
             <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
                 {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
-                {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.hiker.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
-                {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].hiker.hikername}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
+                {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.hikerhike_id}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
+                {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].hikerhike_id}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

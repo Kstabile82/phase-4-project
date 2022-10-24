@@ -27,7 +27,7 @@ function App() {
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
-    setUserHikes(hiker.hikerhikes)
+    setUserHikes(hiker.hikes)
   }
   function handleLogout() {
     setUser(null);

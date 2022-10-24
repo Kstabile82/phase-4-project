@@ -8,6 +8,7 @@ const [confirmPassword, setConfirmPassword] = useState("")
 const [errors, setErrors] = useState([]);
 
     function handleNewUser(e) {
+      if (password === confirmPassword) {
         e.preventDefault();
         setErrors([]);
         fetch("/signup", {
@@ -27,6 +28,10 @@ const [errors, setErrors] = useState([]);
             r.json().then((err) => setErrors(err.errors));
           }
         });
+      }
+      else {
+       console.log("Passwords don't match") 
+      }
     }
 return (
     <div>
