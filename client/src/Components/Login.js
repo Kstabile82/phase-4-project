@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function LogIn({ handleLogIn, loggedOut, handleLogout }) {
+function LogIn({ handleLogIn, loggedOut, handleLogout, setUserHikes }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
 // const [userHikes, setUserHikes] = useState([])
@@ -18,6 +18,7 @@ const [inputPassword, setInputPassword] = useState("")
         if (r.ok) {
           r.json().then((hiker) => {
             handleLogIn(hiker)
+            setUserHikes(hiker.hikes)
           })
         }
       });

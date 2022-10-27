@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-# skip before_action :set_comment, only: [:create, :destroy]
+
+# skip before_action :authorize_comment, only: :show
 
   #  def index
   #       comments = Comment.all
@@ -9,6 +10,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def show
         comments = Comment.find(params[:id])
+        author = Hiker.find_by(id: comments[:id])
         render json: comments
       end
 
@@ -32,4 +34,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
       def comment_params
         params.permit(:text, :hikerhike_id)
       end
+
+      # def authorize_comment
+        # @current_hiker = Hiker.find_by(id: session[:hiker_id]) 
+        # hikerhk = Hikerhike.find_by(id: params[:id]) 
+        # if @current_hiker.hikerhikes.include(hikerhk)    
+        #   ok
+        # else 
+        #   unauthorized
+        # end
     end

@@ -1,5 +1,5 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :text
+  attributes :id, :text, :author
 
 def index
   comments = Comment.select(hikerhike_id: params[:hikerhike_id])
@@ -10,8 +10,13 @@ def index
   end
 end
 
+def author 
+  hh = self.object.hikerhike
+  authr = Hiker.find(hh[:hiker_id])
+end 
   # def hikermethod
-  #   self.object.hiker
+  #  let hh = self.object.hikerhike
+  #  Hiker.find(hh.hiker_id)
   # end
 
   # def hikemethod

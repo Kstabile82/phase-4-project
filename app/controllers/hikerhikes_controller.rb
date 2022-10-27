@@ -14,7 +14,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     def show
         hikerHike = Hikerhike.select(hiker_id: params[:hiker_id])
         if hikerHike 
-            render json: hikerHike
+            render json: hikerHike, serializer: HikerhikeSerializer
         else
             render json: {message: "No Hikes"}, status: :unauthorized
         end

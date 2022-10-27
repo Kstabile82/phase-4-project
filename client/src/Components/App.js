@@ -20,6 +20,7 @@ function App() {
         response.json().then((user) => {
           setUser(user)
           setLoggedOut(false)
+          setUserHikes(user.hikes)
         })
       }
     })
@@ -27,7 +28,20 @@ function App() {
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
-    setUserHikes(hiker.hikes)
+    // setUserHikes(hiker.hikes)
+  //     fetch ("/myhikes", {
+  //       method: "POST",
+  //       headers: {
+  //       "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //           hiker 
+  //       })
+  //       })
+  //   .then((r) => r.json())
+  //   .then(comms => {
+  //       console.log(comms)
+  //   }) 
   }
   function handleLogout() {
     setUser(null);
@@ -40,7 +54,7 @@ function App() {
   //   setUserHikes([])
   // }
   function handleDeleteHH() {
-    setUserHikes(user.hikerhikes)
+    setUserHikes(user.hikes)
   }
   return (
     <div className="App">
@@ -51,7 +65,7 @@ function App() {
         <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
-        <Login handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
         <Signup handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>

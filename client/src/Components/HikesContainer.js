@@ -15,7 +15,6 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
     let filterMatchArray = []
     let locMatches = [];
     let diffMatches = [];
-   
     useEffect(() => {
         fetch("/hikes")
         .then((r) => r.json())
@@ -24,12 +23,13 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
             setDisplayedHikes(currentHikes);
          });
         }, [])
-
+        
       hikes.map(h => {
             if (!locations.includes(h.location)) {
                locations.push(h.location)
             }
       })
+      console.log(hikes)
       function addToMyHikes(e) {
         e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)

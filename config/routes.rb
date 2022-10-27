@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   delete "/deleteme/:id", to: "hikers#destroy"
+  get "/hikes", to: "hikes#index"
   get "/myhikes", to: "hikerhikes#show"
   get "/myhikes", to: "hikerhikes#index"
   post "/myhikes", to: "hikerhikes#create"

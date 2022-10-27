@@ -1,7 +1,6 @@
 import React, { useState } from "react"; 
 
 function Welcomepage({ user, handleLogout }) {
-
     function handleDelete(e){
       e.preventDefault();
       fetch(`/deleteme/${user.id}`, { method: "DELETE" }).then((r) => {

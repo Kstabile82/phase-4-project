@@ -1,6 +1,5 @@
 class HikersController < ApplicationController
-   before_action :authorize, only: [:show]
-   skip_before_action :authorize, only: :create
+   before_action :authorize
 
     def index
         render json: Hiker.all, status: 200
