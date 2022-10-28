@@ -7,7 +7,6 @@ function MyHikes({ user, userHikes, setUserHikes }) {
 
   const [hh, setHH] = useState({})
   // setUserHikes(user.hikes)
-  console.log(userHikes)
     function handleChangeStatus(e, h) {
        e.preventDefault();
        setNewStatus(e.target.value)

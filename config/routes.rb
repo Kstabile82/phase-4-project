@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   patch "/hikerhikes", to: "hikerhikes#update"
   delete "/hikerhikes", to: "hikerhikes#destroy"
   post "/comments", to: "comments#create"
+  post "/findcomments", to: "comments#show"
   delete "/comments", to: "comments#destroy"
   get "/comments", to: "comments#index"
 

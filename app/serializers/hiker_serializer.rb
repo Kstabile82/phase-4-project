@@ -1,7 +1,8 @@
 class HikerSerializer < ActiveModel::Serializer
-  attributes :id, :hikername, :password_digest
+  attributes :id, :hikername, :password_digest, :hikerhikes
   has_many :hikes, serializer: HikeSerializer
   has_many :hikerhikes, serializer: HikerhikeSerializer
+  # has_many :comments, serializer: CommentSerializer
   # has_many :hikes
 
     # def hikemethod

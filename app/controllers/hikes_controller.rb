@@ -1,7 +1,9 @@
 class HikesController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 before_action :authorize
+before_action :authAddLike
 skip_before_action :authorize, only: [:show, :index]
+skip_before_action :authAddLike, only: [:show, :index]
    
    def index
         hikes = Hike.all

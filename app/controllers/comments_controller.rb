@@ -9,8 +9,21 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   #   end
 
     def show
-        comments = Comment.find(params[:id])
-        author = Hiker.find_by(id: comments[:id])
+        # comments = Comment.find(params[:id])
+        # author = Hiker.find_by(id: comments[:id])
+        # render json: comments
+        hh = Hikerhike.where(hike_id: params[:hike_id])
+        comments = []
+        hh.each do |h| 
+         comm = Comment.find_by(hikerhike_id: h.id)
+         if comm
+          comments << comm
+         end
+        end
+        # comments = []
+        # hh.each do |h| 
+        #  comments << Comment.where(hikerhike_id: h.id)
+        # end
         render json: comments
       end
 

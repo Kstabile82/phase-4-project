@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"; 
 import { FaThumbsUp } from "react-icons/fa"
-import HikesContainer from "./HikesContainer";
 
 function HikeCard({ userHikes, setUserHikes, hike, user }) {
     // const [h, setH] = useState(hike)
@@ -8,35 +7,31 @@ function HikeCard({ userHikes, setUserHikes, hike, user }) {
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
     const [hikeComments, setHikeComments] = useState([])
-    // const [hike, setHike] = useState(h)
     const [h, setH] = useState(hike)
-    // useEffect(() => {
-    //     fetch(`/comments`)
-    //     .then((r) => r.json())
-    //     .then((currentComments) => setComments(currentComments.map(c => c)))
-    //     }, [])
-    // fetch ("/comments", {
-    //     method: "POST",
-    //     headers: {
-    //     "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //         text: newComment,
-    //         hikerhike_id: h.hikerhike.id 
-    //     })
-    //     })
-    // .then((r) => r.json())
-    // .then(comms => {
-    //     console.log(comms)
-    // }) 
+
     function handleComments(hike) {
-    //  let hComments = comments.filter(c => c.hike.id === hike.id)
-     if (hike.comments.length > 0) {
-        setHikeComments(hike.comments)
-     }
+    //  if (hike.comments.length > 0) {
+    //     setHikeComments(hike.comments)
+    //  }
+    //     else {
+    //         setHikeComments(["none"])
+    //     }
+    fetch("/findcomments", {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ hike_id: hike.id }),
+    })
+    .then((r) => r.json())
+    .then((comms) => {
+        if (comms.length > 0) {
+        setHikeComments(comms)
+        } 
         else {
-            setHikeComments(["none"])
+            setHikeComments(['none'])
         }
+    })
     }
     function handleCommentForm() {
         setCommentForm(true)
@@ -57,7 +52,6 @@ function HikeCard({ userHikes, setUserHikes, hike, user }) {
     function handleAddComment(e){
     e.preventDefault();
    let hkrhk = user.hikerhikes.find(h => h.hike_id === hike.id && h.hiker_id === user.id)
-   console.log(hkrhk)
    fetch ("/comments", {
         method: "POST",
         headers: {
@@ -82,7 +76,6 @@ function HikeCard({ userHikes, setUserHikes, hike, user }) {
    function handleCommentChange(e){
     e.preventDefault();
     setNewComment(e.target.value)
-    let test = user.hikerhikes.find(h => h.hike_id === hike.id && h.hiker_id === user.id)
    }
    function handleDeleteComment(c) {
            fetch(`/comments/${c.id}`, { 
@@ -93,7 +86,7 @@ function HikeCard({ userHikes, setUserHikes, hike, user }) {
     return(
         <div>
             <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
-            <br></br><button onClick={handleLikes}><FaThumbsUp />    {h.likes} </button>
+            <br></br><button style={{display: user ? 'visible' : 'none' }} onClick={handleLikes}><FaThumbsUp /> </button><h5>Likes: {h.likes}</h5>
             <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
                 {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
                 {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
