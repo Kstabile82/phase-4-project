@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 
-function HikesContainer({ user, userHikes, setUserHikes }) {
-    const [hikes, setHikes] = useState([]);
+function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
+    // const [hikes, setHikes] = useState([]);
     let locations = [];
-    const [displayedHikes, setDisplayedHikes] = useState([]);
+    // const [displayedHikes, setDisplayedHikes] = useState([]);
     const [filterL, setFilterL] = useState([]);
     const [filterD, setFilterD] = useState([]);
     const [likesChecked, setLikesChecked] = useState(false);
@@ -15,21 +15,19 @@ function HikesContainer({ user, userHikes, setUserHikes }) {
     let filterMatchArray = []
     let locMatches = [];
     let diffMatches = [];
-    useEffect(() => {
-        fetch("/hikes")
-        .then((r) => r.json())
-        .then((currentHikes) => {
-            setHikes(currentHikes);
-            setDisplayedHikes(currentHikes);
-         });
-        }, [])
-        
+    // useEffect(() => {
+    //     fetch("/hikes")
+    //     .then((r) => r.json())
+    //     .then((currentHikes) => {
+    //         setHikes(currentHikes);
+    //         setDisplayedHikes(currentHikes);
+    //      });
+    //     }, [])
       hikes.map(h => {
             if (!locations.includes(h.location)) {
                locations.push(h.location)
             }
       })
-      console.log(hikes)
       function addToMyHikes(e) {
         e.preventDefault();
         let hikeToAdd = hikes.find(h => h.name === e.target.className)

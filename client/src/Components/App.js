@@ -15,6 +15,8 @@ function App() {
   const [userHikes, setUserHikes] = useState([])
   const [admin, setAdmin] = useState(false)
   const [users, setUsers] = useState([])
+  const [hikes, setHikes] = useState([])
+  const [displayedHikes, setDisplayedHikes] = useState([])
 
   useEffect(() => {
     fetch("/me")
@@ -23,7 +25,7 @@ function App() {
         response.json().then((user) => {
           setUser(user)
           setLoggedOut(false)
-          setUserHikes(user.hikes)
+          setUserHikes(user.hikerhikes)
           setAdmin(user.admin)
           if (user.admin) {
             fetch("/showallusers")
@@ -34,7 +36,14 @@ function App() {
       }
     })
   }, []);
-
+  useEffect(() => {
+    fetch("/hikes")
+    .then((r) => r.json())
+    .then((currentHikes) => {
+        setHikes(currentHikes);
+        setDisplayedHikes(currentHikes);
+     });
+    }, [])
 //   if (admin) {
 //     fetch("/showallusers")
 //     .then((r) => r.json())
@@ -44,9 +53,10 @@ function App() {
     setUser(hiker);
     setLoggedOut(false)
     setAdmin(hiker.admin)
+    setUserHikes(hiker.hikerhikes)
+    // hiker.hikerhikes.map(h => arr.push(h.hikemethod))
     }
-  
-    // setUserHikes(hiker.hikes)
+       // setUserHikes(hiker.hikes)
   //     fetch ("/myhikes", {
   //       method: "POST",
   //       headers: {
@@ -73,7 +83,7 @@ function App() {
   //   setUserHikes([])
   // }
   function handleDeleteHH() {
-    setUserHikes(user.hikes)
+    setUserHikes(user.hikerhikes)
   }
   return (
     <div className="App">
@@ -81,7 +91,7 @@ function App() {
     <NavBar admin={admin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
-        <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
+        <HikesContainer displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} hikes={hikes} setHikes={setHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
         <Login setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>

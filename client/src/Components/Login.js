@@ -4,7 +4,6 @@ function LogIn({ handleLogIn, loggedOut, handleLogout, setUserHikes }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
 // const [userHikes, setUserHikes] = useState([])
-
   function handleUser(e) {
        e.preventDefault();
        fetch("/login", {
@@ -18,7 +17,7 @@ const [inputPassword, setInputPassword] = useState("")
         if (r.ok) {
           r.json().then((hiker) => {
             handleLogIn(hiker)
-            setUserHikes(hiker.hikes)
+            // setUserHikes(hiker.hikes)
           })
         }
       });

@@ -18,6 +18,7 @@ function HikeCard({ hike, user }) {
     })
     .then((r) => r.json())
     .then((comms) => {
+        console.log(comms)
         if (comms.length > 0) {
         setHikeComments(comms)
         } 
@@ -78,9 +79,9 @@ function HikeCard({ hike, user }) {
    }
     return(
         <div>
-            <ul className={h.location} key={h.location}>{h.name} - {h.location} - {h.distance} miles - {h.difficulty}
-            <br></br><button style={{display: user ? 'visible' : 'none' }} onClick={handleLikes}><FaThumbsUp /> </button><h5>Likes: {h.likes}</h5>
-            <ul key={h.name} className={h.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
+            <ul className={hike.location} key={hike.location}>{hike.name} - {hike.location} - {hike.distance} miles - {hike.difficulty}
+            <br></br><button style={{display: user ? 'visible' : 'none' }} onClick={handleLikes}><FaThumbsUp /> </button><h5>Likes: {hike.likes}</h5>
+            <ul key={hike.name} className={hike.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
                 {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
                 {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
                 {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].author.hikername}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
