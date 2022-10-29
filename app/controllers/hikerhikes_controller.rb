@@ -3,7 +3,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def create
         hikerHike = Hikerhike.create!(hikerhike_params)
-        render json: hikerHike, status: 200 
+        # render json: hikerHike, status: 200 
+        render json: {message: "successfully added", hikerhike: hikerHike}, status:200
     end
 
     def index
@@ -28,8 +29,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def update
         hikerHike = Hikerhike.find(params[:id])
-        hikerHike.update(hikerhike_params)
-        render json: hikerHike
+        hikerHike.update!(hikerhike_params)
+        # render json: hikerHike
+        render json: {message: "successfully updated", hikerhike: hikerHike}, status:200
+
     end
   
     private 
@@ -39,6 +42,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     end
     def render_not_found_response
-        render json: { error: "ID not found" }, status: :not_found
+        render json: { error: "Hiker ID or Hike ID not found" }, status: :not_found
       end
 end

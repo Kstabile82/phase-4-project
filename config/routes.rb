@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post "/signup", to: "hikers#create"
   get "/me", to: "hikers#show"
   post "/login", to: "sessions#create"
+  get "/showallusers", to: "hikers#index"
   delete "/logout", to: "sessions#destroy"
   delete "/deleteme/:id", to: "hikers#destroy"
   get "/hikes", to: "hikes#index"
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
   post "/comments", to: "comments#create"
   post "/findcomments", to: "comments#show"
   delete "/comments", to: "comments#destroy"
-  get "/comments", to: "comments#index"
 
 
   # Routing logic: fallback requests for React Router.

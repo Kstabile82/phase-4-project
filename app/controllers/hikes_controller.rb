@@ -2,6 +2,8 @@ class HikesController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 before_action :authorize
 before_action :authAddLike
+before_action :authAdmin
+skip_before_action :authAdmin, only: [:create, :index, :show, :update]
 skip_before_action :authorize, only: [:show, :index]
 skip_before_action :authAddLike, only: [:show, :index]
    
@@ -22,9 +24,14 @@ skip_before_action :authAddLike, only: [:show, :index]
     
     def update
       hike = Hike.find_by(id: params[:id])
-      hike.update(hike_params)
+      hike.update!(hike_params)
       render json: hike
     end
+
+    def destroy
+      hike = Hike.find(params[:id])
+      hike.destroy
+   end
 
       private
     

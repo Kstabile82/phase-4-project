@@ -1,7 +1,7 @@
 // import { useImperativeHandle } from "react";
 import { Link } from "react-router-dom";
 
-function NavBar({ onLogout, loggedOut, setLoggedOut }) {
+function NavBar({ onLogout, loggedOut, setLoggedOut, admin }) {
     function handleLogout() {
       fetch("/logout", {
         method: "DELETE",
@@ -12,11 +12,12 @@ function NavBar({ onLogout, loggedOut, setLoggedOut }) {
       <header>
         <h1>
           {loggedOut ? <Link to="/">Home          </Link> : null}
-          {!loggedOut ? <Link to="/welcomepage">Welcome Page</Link> : null}
           {loggedOut ? <Link to="/login">Log In</Link> : null } 
-          {!loggedOut ? <Link to="/myhikes">My Hikes</Link> : null }
           {loggedOut ? <Link to="/signup">Sign Up </Link> : null }
-          <Link to="/hikes">Hikes</Link>
+          <Link to="/hikes">All Hikes</Link>
+          {!loggedOut ? <Link to="/welcomepage">Welcome Page</Link> : null}
+          {!loggedOut ? <Link to="/myhikes">My Hikes</Link> : null }
+          {!loggedOut ? <Link to="/allusers">Users</Link> : null }
           {!loggedOut ? <Link to="/" onClick={handleLogout}>Log Out</Link> : null }
 
         </h1>

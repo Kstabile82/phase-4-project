@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import { FaThumbsUp } from "react-icons/fa"
 
-function HikeCard({ userHikes, setUserHikes, hike, user }) {
-    // const [h, setH] = useState(hike)
+function HikeCard({ hike, user }) {
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
@@ -10,12 +9,6 @@ function HikeCard({ userHikes, setUserHikes, hike, user }) {
     const [h, setH] = useState(hike)
 
     function handleComments(hike) {
-    //  if (hike.comments.length > 0) {
-    //     setHikeComments(hike.comments)
-    //  }
-    //     else {
-    //         setHikeComments(["none"])
-    //     }
     fetch("/findcomments", {
         method: "POST", 
         headers: {

@@ -7,11 +7,14 @@ import HikesContainer from "./HikesContainer";
 import Signup from "./Signup";
 import MyHikes from "./MyHikes";
 import Welcomepage from "./Welcomepage";
+import Allusers from "./Allusers";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedOut, setLoggedOut] = useState(true);
   const [userHikes, setUserHikes] = useState([])
+  const [admin, setAdmin] = useState(false)
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     fetch("/me")
@@ -21,13 +24,28 @@ function App() {
           setUser(user)
           setLoggedOut(false)
           setUserHikes(user.hikes)
+          setAdmin(user.admin)
+          if (user.admin) {
+            fetch("/showallusers")
+            .then((r) => r.json())
+            .then((usrs) => setUsers(usrs));
+        }
         })
       }
     })
   }, []);
+
+//   if (admin) {
+//     fetch("/showallusers")
+//     .then((r) => r.json())
+//     .then((usrs) => setUsers(usrs));
+// }
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
+    setAdmin(hiker.admin)
+    }
+  
     // setUserHikes(hiker.hikes)
   //     fetch ("/myhikes", {
   //       method: "POST",
@@ -42,11 +60,12 @@ function App() {
   //   .then(comms => {
   //       console.log(comms)
   //   }) 
-  }
+  
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)
     setUserHikes([])
+    
   }
   // function handleDeleteUser() {
   //   setUser(null);
@@ -59,7 +78,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="Hello">Hiker's Hub</h1>
-    <NavBar user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
+    <NavBar admin={admin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
         <HikesContainer user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
@@ -70,12 +89,28 @@ function App() {
       <Route exact path="/signup">
         <Signup handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
-      {user && !loggedOut ? <Route exact path="/myhikes">
+      {/* {user && !loggedOut ? <Route exact path="/myhikes">
         <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route> : null}
       {user && !loggedOut ? <Route exact path="/welcomepage">
         <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
-      </Route> : null}
+        </Route> : null} */}
+        {user && !loggedOut && admin === true ? 
+        <Route exact path="/allusers">
+        <Allusers user={user} admin={admin} users={users} setUsers={setUsers}/> 
+        </Route> : null}
+      {user && !loggedOut ? <div>
+        <Route exact path="/myhikes">
+        <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        </Route> 
+        <Route exact path="/welcomepage">
+        <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        </Route> </div>
+        : null}
+      {/* {user && !loggedOut && admin === true ? 
+        <Route exact path="/allusers">
+        <Allusers user={user} admin={admin} users={users} setUsers={setUsers}/> 
+        </Route> : null} */}
     </Switch>
   </div>
   );

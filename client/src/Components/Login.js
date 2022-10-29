@@ -23,7 +23,6 @@ const [inputPassword, setInputPassword] = useState("")
         }
       });
   }
-
     return (
         <div>
             {loggedOut ? 
