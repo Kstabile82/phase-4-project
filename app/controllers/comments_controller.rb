@@ -36,13 +36,4 @@ skip_before_action :authorize_comment, only: :show
         params.permit(:text, :hikerhike_id)
       end
 
-      def authorize_comment
-        @current_hiker = Hiker.find_by(id: session[:hiker_id]) 
-        hikerhk = Hikerhike.find_by(id: params[:id]) 
-        if @current_hiker.hikerhikes.include(hikerhk)    
-          ok
-        else 
-          unauthorized
-        end
-    end
   end

@@ -25,6 +25,15 @@ def authAdmin
 
 end
 
+def authorize_comment
+  ids = []
+  @current_hiker = Hiker.find_by(id: session[:hiker_id]) 
+  @current_hiker.hikerhikes.each do |hh| 
+    ids << hh.id 
+  end
+  render json: { errors: ["Not authorized"] }, status: :unauthorized unless ids.include?(params[:hikerhike_id])
+end
+
 # def render_not_found(exception)
 #   render json: {error: exception.message}, status: :not_found
 # end

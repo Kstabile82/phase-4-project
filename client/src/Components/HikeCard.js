@@ -52,7 +52,7 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
         },
         body: JSON.stringify({
             text: newComment,
-            hikerhike_id: hkrhk.id 
+            hikerhike_id: hkrhk.id        
         })
         })
     .then((r) => r.json())
@@ -76,26 +76,19 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
        })
        setHikeComments(hikeComments.filter(hc => hc.id !== c.id))
    }
-//    function handleDeleteHike(e) {
-//     e.preventDefault(); 
-//     let idToDel = hike.id
-//         fetch(`/hikes/${idToDel}`, { 
-//             method: 'DELETE'
-//         })
-//         setHikes(hikes.filter(h => h.id !== idToDel))
-//         setDisplayedHikes(displayedHikes.filter(dh => dh.id !== idToDel))
-//       }
     return(
         <div>
             <ul className={hike.location} key={hike.location}>{hike.name} - {hike.location} - {hike.distance} miles - {hike.difficulty}
             <br></br><button style={{display: user ? 'visible' : 'none' }} onClick={handleLikes}><FaThumbsUp /> </button><h5>Likes: {hike.likes}</h5>
             <ul key={hike.name} className={hike.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
                 {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
-                {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li>
+                {hikeComments.length > 0 && hikeComments[0] !== "none" ? <li>{hikeComments[0].text}</li> : null }
+                {/* {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li>
                 {user && c.author.id === user.id ? <button onClick={(e) => handleDeleteComment(c)}>-</button> : null } </div> ) : null}
                 {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].author.hikername}</li>
                 {user && hikeComments[0].author.id === user.id ? <button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> : null} 
-                </div>: null}
+                </div>: null}  */}
+
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>
@@ -106,7 +99,6 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
                 ></input>
                 <button>Submit</button>
             </form> : null}
-            {/* { user && user.admin ? <button onClick={handleDeleteHike}>Delete Hike</button> : null} */}
            
         </div>
     )
