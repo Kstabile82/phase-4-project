@@ -8,3 +8,8 @@ levy = Hike.create(name: "Levy Trail", location: "NY", difficulty: "Beginner", d
 dem = Hike.create(name: "Mt. Democrat", location: "CO", difficulty: "Intermediate", distance: 3.5, likes: 0)
 wash = Hike.create(name: "Mt. Washington", location: "NY", difficulty: "Advanced", distance: 13, likes: 0)
 kaaterskill = Hike.create(name: "Kaaterskill Falls", location: "NY", difficulty: "Beginner", distance: 3, likes: 0)
+
+Hiker.create(hikername: "Karin", password_digest: "dolly", location: "Long Island, NY", admin: true)
+Hiker.create(hikername: "Dolly", password_digest: "bunny", location: "Long Island, NY", admin: true)
+Hiker.create(hikername: "Dexter", password_digest: "bunny", location: "Long Island, NY", admin: false)
+Hiker.create(hikername: "Roxy", password_digest: "bunny", location: "Long Island, NY", admin: false)

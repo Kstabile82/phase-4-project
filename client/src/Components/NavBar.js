@@ -17,7 +17,7 @@ function NavBar({ onLogout, loggedOut, setLoggedOut, admin }) {
           <Link to="/hikes">All Hikes</Link>
           {!loggedOut ? <Link to="/welcomepage">Welcome Page</Link> : null}
           {!loggedOut ? <Link to="/myhikes">My Hikes</Link> : null }
-          {!loggedOut ? <Link to="/allusers">Users</Link> : null }
+          {!loggedOut && admin ? <Link to="/allusers">Users</Link> : null }
           {!loggedOut ? <Link to="/" onClick={handleLogout}>Log Out</Link> : null }
 
         </h1>

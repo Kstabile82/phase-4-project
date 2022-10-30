@@ -1,8 +1,6 @@
 import React from "react";
 
 function Allusers({ user, admin, users, setUsers }) {
-    console.log(users)
-
     function handleAddAdmin(e, u) {
      fetch(`/hikers/${u.id}`, {
         method: "PATCH",

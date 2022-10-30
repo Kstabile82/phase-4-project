@@ -17,7 +17,7 @@ function MyHikes({ user, userHikes, setUserHikes }) {
     setUserHikes(userHikes.filter(uH => uH.id !== h.id))
   }
 
-  function handleSubmitStatus(h, e) {
+function handleSubmitStatus(h, e) {
     e.preventDefault();
     fetch(`/hikerhikes/${h.id}`, {
         method: "PATCH",
@@ -38,7 +38,8 @@ return (
     <div>
       <p>{user.hikername}'s Hikes</p>
         {userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
-        <HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>      
+        {h.hikemethod ? 
+        <HikeCard userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>   : null }  
             <form onSubmit={(e)=> handleSubmitStatus(h, e)}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>{h.status}</option>

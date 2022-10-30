@@ -18,6 +18,7 @@ const [confirmPassword, setConfirmPassword] = useState("")
           },
           body: JSON.stringify({
             hikername: userName,
+            admin: false, 
             password,
             password_confirmation: confirmPassword
                   }),
