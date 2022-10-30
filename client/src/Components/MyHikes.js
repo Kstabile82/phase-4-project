@@ -4,7 +4,6 @@ import HikeCard from "./HikeCard";
 function MyHikes({ user, userHikes, setUserHikes }) { 
   const [newStatus, setNewStatus] = useState("");
 
-  // setUserHikes(user.hikes)
     function handleChangeStatus(e, h) {
        e.preventDefault();
        setNewStatus(e.target.value)

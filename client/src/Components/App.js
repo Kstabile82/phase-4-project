@@ -44,44 +44,17 @@ function App() {
         setDisplayedHikes(currentHikes);
      });
     }, [])
-//   if (admin) {
-//     fetch("/showallusers")
-//     .then((r) => r.json())
-//     .then((usrs) => setUsers(usrs));
-// }
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
     setAdmin(hiker.admin)
     setUserHikes(hiker.hikerhikes)
-    // hiker.hikerhikes.map(h => arr.push(h.hikemethod))
     }
-       // setUserHikes(hiker.hikes)
-  //     fetch ("/myhikes", {
-  //       method: "POST",
-  //       headers: {
-  //       "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //           hiker 
-  //       })
-  //       })
-  //   .then((r) => r.json())
-  //   .then(comms => {
-  //       console.log(comms)
-  //   }) 
-  
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)
     setUserHikes([])
-    
   }
-  // function handleDeleteUser() {
-  //   setUser(null);
-  //   setLoggedOut(true)
-  //   setUserHikes([])
-  // }
   function handleDeleteHH() {
     setUserHikes(user.hikerhikes)
   }
@@ -94,17 +67,11 @@ function App() {
         <HikesContainer displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} hikes={hikes} setHikes={setHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
-        <Login setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
         <Signup handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
-      {/* {user && !loggedOut ? <Route exact path="/myhikes">
-        <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
-      </Route> : null}
-      {user && !loggedOut ? <Route exact path="/welcomepage">
-        <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
-        </Route> : null} */}
         {user && !loggedOut && admin === true ? 
         <Route exact path="/allusers">
         <Allusers user={user} admin={admin} users={users} setUsers={setUsers}/> 
@@ -117,10 +84,6 @@ function App() {
         <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
         </Route> </div>
         : null}
-      {/* {user && !loggedOut && admin === true ? 
-        <Route exact path="/allusers">
-        <Allusers user={user} admin={admin} users={users} setUsers={setUsers}/> 
-        </Route> : null} */}
     </Switch>
   </div>
   );

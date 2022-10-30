@@ -5,12 +5,12 @@ function Signup({ user, handleLogIn, loggedOut, setLoggedOut, handleLogout }) {
 const [userName, setUserName] = useState("")
 const [password, setPassword] = useState("")
 const [confirmPassword, setConfirmPassword] = useState("")
-const [errors, setErrors] = useState([]);
+// const [errors, setErrors] = useState([]);
 
     function handleNewUser(e) {
       if (password === confirmPassword) {
         e.preventDefault();
-        setErrors([]);
+        // setErrors([]);
         fetch("/signup", {
           method: "POST",
           headers: {
@@ -24,9 +24,10 @@ const [errors, setErrors] = useState([]);
         }).then((r) => {
           if (r.ok) {
             r.json().then((user) => handleLogIn(user));
-          } else {
-            r.json().then((err) => setErrors(err.errors));
-          }
+          } 
+          // else {
+          //   r.json().then((err) => setErrors(err.errors));
+          // }
         });
       }
       else {

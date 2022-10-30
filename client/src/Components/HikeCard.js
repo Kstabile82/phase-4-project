@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState } from "react"; 
 import { FaThumbsUp } from "react-icons/fa"
 
 function HikeCard({ hike, user }) {
@@ -18,7 +18,6 @@ function HikeCard({ hike, user }) {
     })
     .then((r) => r.json())
     .then((comms) => {
-        console.log(comms)
         if (comms.length > 0) {
         setHikeComments(comms)
         } 
@@ -83,8 +82,11 @@ function HikeCard({ hike, user }) {
             <br></br><button style={{display: user ? 'visible' : 'none' }} onClick={handleLikes}><FaThumbsUp /> </button><h5>Likes: {hike.likes}</h5>
             <ul key={hike.name} className={hike.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
                 {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
-                {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li><button onClick={(e) => handleDeleteComment(c)}>-</button></div> ) : null}
-                {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].author.hikername}</li><button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> </div>: null}
+                {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li>
+                {user && c.author.id === user.id ? <button onClick={(e) => handleDeleteComment(c)}>-</button> : null } </div> ) : null}
+                {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].author.hikername}</li>
+                {user && hikeComments[0].author.id === user.id ? <button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> : null} 
+                </div>: null}
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

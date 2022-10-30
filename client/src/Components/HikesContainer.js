@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState } from "react"; 
 import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 
 function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
     // const [hikes, setHikes] = useState([]);
     let locations = [];
-    // const [displayedHikes, setDisplayedHikes] = useState([]);
     const [filterL, setFilterL] = useState([]);
     const [filterD, setFilterD] = useState([]);
     const [likesChecked, setLikesChecked] = useState(false);
     const [distChecked, setDistChecked] = useState(false);
     let filterLoc;
     let filterDiff; 
-    let filterMatchArray = []
     let locMatches = [];
     let diffMatches = [];
-    // useEffect(() => {
-    //     fetch("/hikes")
-    //     .then((r) => r.json())
-    //     .then((currentHikes) => {
-    //         setHikes(currentHikes);
-    //         setDisplayedHikes(currentHikes);
-    //      });
-    //     }, [])
+
       hikes.map(h => {
             if (!locations.includes(h.location)) {
                locations.push(h.location)
             }
+            return locations; 
       })
       function addToMyHikes(e) {
         e.preventDefault();
@@ -65,7 +57,6 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
             setFilterD(filterDiff)
         }
     }
-    filterMatchArray = hikes;
     function handleSubmitFilter(e) {
         e.preventDefault();
         if (filterL === undefined || filterL === "All") {
@@ -133,7 +124,7 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
               <br></br> <HikeCard hike={h} user={user} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
               </div> )} 
-          <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} />
+          {user ? <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} /> : null } 
         </div>
     );
 }
