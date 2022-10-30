@@ -10,46 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_29_174754) do
+ActiveRecord::Schema.define(version: 2022_10_30_040820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string "text"
     t.integer "hikerhike_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "text"
   end
 
   create_table "hikerhikes", force: :cascade do |t|
-    t.bigint "hiker_id", null: false
-    t.bigint "hike_id", null: false
+    t.integer "hike_id"
+    t.integer "hiker_id"
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["hike_id"], name: "index_hikerhikes_on_hike_id"
-    t.index ["hiker_id"], name: "index_hikerhikes_on_hiker_id"
   end
 
   create_table "hikers", force: :cascade do |t|
-    t.string "hikername"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "password_digest"
+    t.string "name"
+    t.string "location"
+    t.string "password_default"
     t.boolean "admin"
   end
 
   create_table "hikes", force: :cascade do |t|
     t.string "name"
     t.string "location"
-    t.string "difficulty"
     t.integer "distance"
+    t.string "difficulty"
     t.integer "likes"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "hikerhikes", "hikers"
-  add_foreign_key "hikerhikes", "hikes"
 end
