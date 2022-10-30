@@ -30,7 +30,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     def update
         hikerHike = Hikerhike.find(params[:id])
         hikerHike.update!(hikerhike_params)
-        # render json: hikerHike
         render json: hikerHike, serializer: HikerhikeSerializer
 
     end

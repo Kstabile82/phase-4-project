@@ -39,7 +39,7 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
             setAdded("false") 
         }
         else {
-        let findMatch = hikes.find(hike => hike.name.toLowerCase() === name.toLowerCase());
+        let findMatch = hikes.find(hike => hike.name === name);
         if (findMatch === undefined) {
             postNewHikes(newHike)
             setAdded("true")
@@ -60,6 +60,7 @@ function postNewHikes(newHike) {
         })
     .then((r) => r.json())
     .then(hike => {
+        console.log(hike)
         setHikes([...hikes, hike])
         setDisplayedHikes([...displayedHikes, hike])
     })

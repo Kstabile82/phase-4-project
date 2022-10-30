@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
         if hiker&.authenticate(params[:password])
            session[:hiker_id] = hiker.id
            render json: hiker
-        # render json: {message: "successful login", hiker: hiker }, status:200
         else
           render json: { errors: ["Invalid username or password"] }, status: :unauthorized
         end

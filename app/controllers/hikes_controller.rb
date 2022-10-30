@@ -1,11 +1,11 @@
 class HikesController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 before_action :authorize
-before_action :authAddLike
-before_action :authAdmin
-skip_before_action :authAdmin, only: [:create, :index, :show, :update]
+# before_action :authAddLike
+before_action :authAdmin, only: :delete
+# skip_before_action :authAdmin, only: [:create, :index, :show, :update]
 skip_before_action :authorize, only: [:show, :index]
-skip_before_action :authAddLike, only: [:show, :index]
+# skip_before_action :authAddLike, only: [:show, :index]
    
    def index
         hikes = Hike.all
@@ -34,10 +34,6 @@ skip_before_action :authAddLike, only: [:show, :index]
    end
 
       private
-    
-      def render_not_found_response
-        render json: { error: "Hike not found" }, status: :not_found
-      end
 
       def hike_params
         params.permit(:name, :location, :difficulty, :distance, :likes)
