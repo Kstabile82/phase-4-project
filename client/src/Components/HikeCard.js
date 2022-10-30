@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaThumbsUp } from "react-icons/fa"
 
 function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHikes }) {
-    const [comments, setComments] = useState([])
+    const [commentsDisplayed, setCommentsDisplayed] = useState(false)
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
     const [hikeComments, setHikeComments] = useState([])
@@ -25,10 +25,13 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
             setHikeComments(['none'])
         }
     })
+    setCommentsDisplayed(!commentsDisplayed)
     }
+
     function handleCommentForm() {
-        setCommentForm(true)
+        setCommentForm(!commentForm)
     }
+
     function handleLikes(e) {
         e.preventDefault();
         const newLikes = hike.likes++
@@ -42,6 +45,7 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
         .then((r) => r.json())
         .then((updatedHike) => setH(updatedHike))
     }
+
     function handleAddComment(e){
     e.preventDefault();
    let hkrhk = user.hikerhikes.find(h => h.hike_id === hike.id && h.hiker_id === user.id)
@@ -57,11 +61,11 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
         })
     .then((r) => r.json())
     .then(newComm => {
-        setComments([...comments, newComm])
+        // setComments([...comments, newComm])
         if (hikeComments.length > 0) {
             setHikeComments([...hikeComments, newComm])
         }
-        else {
+        if (hikeComments === ['none']) {
             setHikeComments([newComm])
         }
     }) 
@@ -81,14 +85,12 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
             <ul className={hike.location} key={hike.location}>{hike.name} - {hike.location} - {hike.distance} miles - {hike.difficulty}
             <br></br><button style={{display: user ? 'visible' : 'none' }} onClick={handleLikes}><FaThumbsUp /> </button><h5>Likes: {hike.likes}</h5>
             <ul key={hike.name} className={hike.name} onClick={() => handleComments(h)}>Comments (click to view)</ul> 
-                {hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
-                {hikeComments.length > 0 && hikeComments[0] !== "none" ? <li>{hikeComments[0].text}</li> : null }
-                {/* {hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li>
+                {commentsDisplayed && hikeComments[0] === "none" ? <li>No Comments Yet</li> : null} 
+                {commentsDisplayed && hikeComments[0] !== "none" && hikeComments.length > 1 ? hikeComments.map(c => <div><li>"{c.text}" -{c.author.hikername}</li>
                 {user && c.author.id === user.id ? <button onClick={(e) => handleDeleteComment(c)}>-</button> : null } </div> ) : null}
-                {hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].author.hikername}</li>
+                {commentsDisplayed && hikeComments[0] !== "none" && hikeComments.length === 1 ? <div><li>"{hikeComments[0].text}" -{hikeComments[0].author.hikername}</li>
                 {user && hikeComments[0].author.id === user.id ? <button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> : null} 
-                </div>: null}  */}
-
+                </div>: null}  
             </ul> 
            <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>

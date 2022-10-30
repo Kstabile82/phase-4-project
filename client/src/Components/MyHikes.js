@@ -18,7 +18,7 @@ function MyHikes({ user, userHikes, setUserHikes }) {
   }
 
 function handleSubmitStatus(h, e) {
-    e.preventDefault();
+  e.preventDefault();
     fetch(`/hikerhikes/${h.id}`, {
         method: "PATCH",
         headers: {

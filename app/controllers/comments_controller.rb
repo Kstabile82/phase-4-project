@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-before_action :authorize_comment 
-skip_before_action :authorize_comment, only: :show
+before_action :authorize
+skip_before_action :authorize, only: :show
 
     def show
         hh = Hikerhike.where(hike_id: params[:hike_id])

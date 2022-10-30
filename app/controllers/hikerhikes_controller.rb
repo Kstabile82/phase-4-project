@@ -4,12 +4,12 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     def create
         hikerHike = Hikerhike.create!(hikerhike_params)
         # render json: hikerHike, status: 200 
-        render json: {message: "successfully added", hikerhike: hikerHike}, status:200
+        render json: hikerHike, status:200
     end
 
     def index
         hikerHike = Hikerhike.all
-        render json: hikerHike, status: 200
+        render json: hikerHike, serializer: HikerhikeSerializer
     end
 
     def show
@@ -31,14 +31,14 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
         hikerHike = Hikerhike.find(params[:id])
         hikerHike.update!(hikerhike_params)
         # render json: hikerHike
-        render json: {message: "successfully updated", hikerhike: hikerHike}, status:200
+        render json: hikerHike, serializer: HikerhikeSerializer
 
     end
   
     private 
 
     def hikerhike_params
-        params.permit(:id, :hiker_id, :hike_id, :status)
+        params.permit(:id, :hiker_id, :hike_id, :status, :hikemethod)
 
     end
     def render_not_found_response
