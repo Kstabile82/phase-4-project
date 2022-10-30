@@ -20,10 +20,9 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
             }
             return locations; 
       })
-      function addToMyHikes(e) {
-        e.preventDefault();
-        let hikeToAdd = hikes.find(h => h.name === e.target.className)
-        let alreadyListed = userHikes.find(uH => uH.hike_id === hikeToAdd.id)
+      function addToMyHikes(h, e) {
+        // let hikeToAdd = hikes.find(h => h.name === e.target.className)
+        let alreadyListed = userHikes.find(uH => uH.hike_id === h.id)
             if (alreadyListed) {
                 console.log("Already listed")
             }
@@ -35,7 +34,7 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
                     },
                     body: JSON.stringify({
                     hiker_id: user.id,
-                    hike_id: hikeToAdd.id,
+                    hike_id: h.id,
                     status: "Bucket list"
                     }),
                 })
@@ -90,6 +89,13 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
             displayedHikes.sort((a,b) => (a.distance > b.distance) ? 1 : -1)
        }
     }
+    function handleDeleteHike(h, e) {
+            fetch(`/hikes/${h.id}`, { 
+                method: 'DELETE'
+            })
+            setHikes(hikes.filter(hk => hk.id !== h.id))
+            setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
+          }
     return (
         <div className="container">
            <p>All Hikes</p>
@@ -122,7 +128,8 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
             </label> </div> 
           {displayedHikes.map(h => <div key={h.id}>  
               <br></br> <HikeCard hike={h} user={user} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} setHikes={setHikes} hikes={hikes} /> 
-              {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
+              {user ? <button className={h.name} onClick={(e) => addToMyHikes(h, e)}>+</button> : null} 
+              {user && user.admin ? <button onClick={(e) => handleDeleteHike(h, e)}>Delete hike</button> : null} <br></br>
               </div> )} 
           {user ? <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} /> : null } 
         </div>

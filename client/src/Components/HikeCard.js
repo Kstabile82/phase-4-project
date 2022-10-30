@@ -76,15 +76,15 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
        })
        setHikeComments(hikeComments.filter(hc => hc.id !== c.id))
    }
-   function handleDeleteHike(e) {
-    e.preventDefault(); 
-    let idToDel = hike.id
-        fetch(`/hikes/${idToDel}`, { 
-            method: 'DELETE'
-        })
-        setHikes(hikes.filter(h => h.id !== idToDel))
-        setDisplayedHikes(displayedHikes.filter(dh => dh.id !== idToDel))
-      }
+//    function handleDeleteHike(e) {
+//     e.preventDefault(); 
+//     let idToDel = hike.id
+//         fetch(`/hikes/${idToDel}`, { 
+//             method: 'DELETE'
+//         })
+//         setHikes(hikes.filter(h => h.id !== idToDel))
+//         setDisplayedHikes(displayedHikes.filter(dh => dh.id !== idToDel))
+//       }
     return(
         <div>
             <ul className={hike.location} key={hike.location}>{hike.name} - {hike.location} - {hike.distance} miles - {hike.difficulty}
@@ -106,7 +106,7 @@ function HikeCard({ hike, user, setHikes, setDisplayedHikes, hikes, displayedHik
                 ></input>
                 <button>Submit</button>
             </form> : null}
-            { user && user.admin ? <button onClick={handleDeleteHike}>Delete Hike</button> : null}
+            {/* { user && user.admin ? <button onClick={handleDeleteHike}>Delete Hike</button> : null} */}
            
         </div>
     )
