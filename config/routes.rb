@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :hikers
   resources :hikes
   resources :hikerhikes
-  resources :comments, only: [:create, :index, :destroy]
+  resources :comments, only: [:create, :index, :show, :destroy]
   post "/signup", to: "hikers#create"
   get "/me", to: "hikers#show"
   post "/login", to: "sessions#create"

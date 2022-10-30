@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
 import { FaThumbsUp } from "react-icons/fa"
 
-function HikeCard({ hike, user }) {
+function HikeCard({ hike, user, onSetHikes }) {
     const [comments, setComments] = useState([])
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
@@ -76,6 +76,13 @@ function HikeCard({ hike, user }) {
        })
        setHikeComments(hikeComments.filter(hc => hc.id !== c.id))
    }
+   function handleDeleteHike(e) {
+    e.preventDefault(); 
+        fetch(`/hikes/${hike.id}`, { 
+            method: 'DELETE'
+        })
+        onSetHikes(hike)
+   }
     return(
         <div>
             <ul className={hike.location} key={hike.location}>{hike.name} - {hike.location} - {hike.distance} miles - {hike.difficulty}
@@ -97,6 +104,7 @@ function HikeCard({ hike, user }) {
                 ></input>
                 <button>Submit</button>
             </form> : null}
+            { user && user.admin ? <button onClick={handleDeleteHike}>Delete Hike</button> : null}
            
         </div>
     )

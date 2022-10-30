@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 
-function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
+function HikesContainer({ onSetHikes, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
     // const [hikes, setHikes] = useState([]);
     let locations = [];
     const [filterL, setFilterL] = useState([]);
@@ -121,7 +121,7 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
             </label> </div> 
           {displayedHikes.map(h => <div key={h.id}>  
-              <br></br> <HikeCard hike={h} user={user} /> 
+              <br></br> <HikeCard hike={h} user={user} onSetHikes={onSetHikes} /> 
               {user ? <button className={h.name} onClick={addToMyHikes}>+</button> : null} 
               </div> )} 
           {user ? <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} /> : null } 

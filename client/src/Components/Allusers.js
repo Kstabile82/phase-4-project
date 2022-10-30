@@ -4,7 +4,6 @@ function Allusers({ user, admin, users, setUsers }) {
     console.log(users)
 
     function handleAddAdmin(e, u) {
-        // e.preventDefault();
      fetch(`/hikers/${u.id}`, {
         method: "PATCH",
         headers: {
@@ -20,7 +19,6 @@ function Allusers({ user, admin, users, setUsers }) {
     })   
 } 
     function handleDeleteAdmin(e, u) {
-        // e.preventDefault();
         fetch(`/hikers/${u.id}`, {
             method: "PATCH",
             headers: {

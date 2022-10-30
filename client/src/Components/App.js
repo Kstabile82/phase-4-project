@@ -44,6 +44,11 @@ function App() {
         setDisplayedHikes(currentHikes);
      });
     }, [])
+
+  function onSetHikes(hike) {
+    setHikes(hikes.filter(h => h.id !== hike.id))
+    setDisplayedHikes(displayedHikes.filter(h => h.id !== hike.id))
+  }
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
@@ -64,7 +69,7 @@ function App() {
     <NavBar admin={admin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
-        <HikesContainer displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} hikes={hikes} setHikes={setHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
+        <HikesContainer onSetHikes={onSetHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} hikes={hikes} setHikes={setHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
         <Login setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
