@@ -22,13 +22,20 @@ function App() {
     fetch("/me")
     .then((response) => {
       if (response.ok) {
-        response.json().then((user) => {
+        response.json()
+        .then((user) => {
           setUser(user)
           setLoggedOut(false)
           setUserHikes(user.hikerhikes)
           setAdmin(user.admin)
           if (user.admin) {
-            fetch("/showallusers")
+            fetch("/hikers", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(),
+              })
             .then((r) => r.json())
             .then((usrs) => setUsers(usrs));
         }
@@ -36,6 +43,7 @@ function App() {
       }
     })
   }, []);
+
   useEffect(() => {
     fetch("/hikes")
     .then((r) => r.json())

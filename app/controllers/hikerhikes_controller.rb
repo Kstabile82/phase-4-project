@@ -3,7 +3,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def create
         hikerHike = Hikerhike.create!(hikerhike_params)
-        # render json: hikerHike, status: 200 
         render json: hikerHike, status:200
     end
 

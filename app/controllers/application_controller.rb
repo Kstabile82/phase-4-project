@@ -8,13 +8,6 @@ def authorize
   render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_hiker
 end
 
-# def authAddLike
-#   hk = Hike.find(params[:id])
-#   @current_hiker = Hiker.find_by(id: session[:hiker_id])
-#   render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_hiker
-
-# end
-
 def render_not_found_response
   render json: { error: "Not found" }, status: :not_found
 end

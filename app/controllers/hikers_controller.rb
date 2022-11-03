@@ -3,7 +3,8 @@ class HikersController < ApplicationController
    before_action :authAdmin
    skip_before_action :authorize, only: [:create]
    skip_before_action :authAdmin, only: [:create, :show, :destroy]
-
+    wrap_parameters format: [] 
+    
     def index
         render json: Hiker.all, status: 200
     end

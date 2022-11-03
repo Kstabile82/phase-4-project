@@ -60,7 +60,6 @@ function postNewHikes(newHike) {
         })
     .then((r) => r.json())
     .then(hike => {
-        console.log(hike)
         setHikes([...hikes, hike])
         setDisplayedHikes([...displayedHikes, hike])
     })

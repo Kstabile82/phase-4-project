@@ -21,13 +21,12 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
             return locations; 
       })
       function addToMyHikes(h, e) {
-        // let hikeToAdd = hikes.find(h => h.name === e.target.className)
         let alreadyListed = userHikes.find(uH => uH.hike_id === h.id)
             if (alreadyListed) {
                 console.log("Already listed")
             }
             else {
-                fetch("/myhikes", {
+                fetch("/hikerhikes", {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/json",
