@@ -95,9 +95,33 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
             setHikes(hikes.filter(hk => hk.id !== h.id))
             setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
           }
+          function handlenumber(e) {
+            e.preventDefault();
+            let number = e.target.value
+            fetch(`/toplikes/${number}`)
+            .then((r) => r.json())
+            .then((returned) => console.log(returned))
+          }
+          function handleDist(e) {
+          e.preventDefault();
+          let dist = e.target.value
+          fetch(`/distance/${dist}`)
+          .then((r) => r.json())
+          .then((returned) => console.log(returned))
+        }
     return (
         <div className="container">
            <p>All Hikes</p>
+           <form>
+           <label name="test">Type a number
+             <input name="typeanumber" id="typenumber" type="text" onChange={handlenumber}/>
+            </label>
+           </form>
+           <form>
+           <label name="dist">Type a number
+             <input name="typeanumber" id="typedist" type="text" onChange={handleDist}/>
+            </label>
+           </form>
            <div className="filter">Filter:
             <form onSubmit={handleSubmitFilter}>
                 <select name="difficulty" id="difficulty" onChange={handleFilterChange}>

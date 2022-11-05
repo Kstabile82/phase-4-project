@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post "/findcomments", to: "comments#show"
   get "/hikesearchterm", to: "hikes#searchterm"
   get "/search/:searchterm", to: "hikes#spacesearch"
+  get "/toplikes/:number", to: "hikes#toplikes"
+  get "/distance/:dist", to: "hikes#dist"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

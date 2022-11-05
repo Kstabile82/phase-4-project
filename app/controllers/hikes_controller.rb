@@ -2,7 +2,7 @@ class HikesController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 before_action :authorize
 before_action :authAdmin, only: :delete
-skip_before_action :authorize, only: [:show, :index]
+skip_before_action :authorize, only: [:show, :index, :spacesearch, :toplikes, :dist]
    
    def index
         hikes = Hike.all
@@ -14,11 +14,22 @@ skip_before_action :authorize, only: [:show, :index]
         render json: hike
       end
 
-    def spacesearch
-      results =  Hike.select { |h| h.name.include?(params[:searchterm]) } 
-      render json: results
+     def spacesearch
+        results =  Hike.select { |h| h.name.downcase.include?(params[:searchterm].downcase) } 
+        render json: results
     end
 
+    def toplikes
+      mostliked = Hike.order('likes').reverse
+      topamount = mostliked.slice(0, params[:number].to_i)
+      render json: topamount
+    end
+
+    def dist 
+      hikedist = Hike.where("distance >= ?", params[:dist].to_i)
+      render json: hikedist
+    end
+ 
       def create
         hike = Hike.create!(hike_params)
         render json: hike, status: 200 
@@ -35,26 +46,24 @@ skip_before_action :authorize, only: [:show, :index]
       hike.destroy
    end
 
-   def searchterm
-    byebug
-
-    term
-    hikerhikes = []
-    hikeids = []
-    hikes = []
-    Comment.each do |c|
-      if c.text.includes(term)
-        hikerhikes << c.hikerhike_id 
-      end
-    end
-      hikerhikes.each do |hh| 
-        hikeids << hh.hike_id
-      end 
-      hikeids.each do |h| 
-        hikes << Hike.find(h)
-      end
-      render json: hikes
-   end
+  #  def searchterm
+  #   term
+  #   hikerhikes = []
+  #   hikeids = []
+  #   hikes = []
+  #   Comment.select { |c| c.text.includes?(params[:searchterm]) } 
+  #     if c.text.includes(term)
+  #       hikerhikes << c.hikerhike_id 
+  #     end
+  #   end
+  #     hikerhikes.each do |hh| 
+  #       hikeids << hh.hike_id
+  #     end 
+  #     hikeids.each do |h| 
+  #       hikes << Hike.find(h)
+  #     end
+  #     render json: hikes
+  #  end
 
   #  Create a GET custom route that includes a search term 
   # create route with hikes/:fun to hikes#searchterm
@@ -75,4 +84,4 @@ skip_before_action :authorize, only: [:show, :index]
       end
 
 
-end
+  end
