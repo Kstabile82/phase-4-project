@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) { 
-    const [added, setAdded] = useState("");
-    const [name, setName] = useState("");
-    const [difficulty, setDifficulty] = useState("");
-    const [location, setLocation] = useState("");
+
+function AddNewHike({ setIsOpen, setErrors, hikes, displayedHikes, setDisplayedHikes, setHikes }) { 
+    const [added, setAdded] = useState(false);
+    const [name, setName] = useState(null);
+    const [difficulty, setDifficulty] = useState(null);
+    const [location, setLocation] = useState(null);
     const [distance, setDistance] = useState(0);
     const [showingForm, setShowingForm] = useState(false);
 
@@ -25,44 +26,40 @@ function AddNewHike({ hikes, setHikes, displayedHikes, setDisplayedHikes }) {
     function showAddForm(){
         setShowingForm(true)
     }
-
-    let newHike = {
-        name,
-        difficulty,
-        location,
-        distance, 
-        likes: 0
-    }
     function handleSubmit(e) {
         e.preventDefault();
-        if (location === "" || difficulty === "" || name === "") {
-            setAdded("false") 
-        }
-        else {
-        let findMatch = hikes.find(hike => hike.name === name);
-        if (findMatch === undefined) {
-            postNewHikes(newHike)
-            setAdded("true")
-        }
-         else {
-            setAdded("taken");
-        }
-    }
-    setShowingForm(false);
-}
-function postNewHikes(newHike) {
-    fetch ("/hikes", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newHike)
-        })
-    .then((r) => r.json())
-    .then(hike => {
-        setHikes([...hikes, hike])
-        setDisplayedHikes([...displayedHikes, hike])
-    })
+        fetch ("/hikes", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name,
+                difficulty,
+                location,
+                distance, 
+                likes: 0
+            })
+            })
+            .then((r) => {
+            if (r.ok) {
+            r.json().then((hike) => {
+                setHikes([...hikes, hike])
+                setDisplayedHikes([...displayedHikes, hike])
+                setAdded(true)
+                setShowingForm(false);
+                // setSuccessSign(true)
+            })
+                }
+            else {
+            r.json()
+                .then((errorInfo) => { 
+                    setErrors(errorInfo)
+                    setIsOpen(true)
+                })
+                
+                    }
+            })
 }
     return (
         <div className="add-hike-form">
@@ -91,7 +88,6 @@ function postNewHikes(newHike) {
                 ></input>
                 <button className="formbutton">Submit</button>
             </form> : null} 
-            {added ? <p>Thanks, your hike was added!</p> : null}
         </div>
     );
 }

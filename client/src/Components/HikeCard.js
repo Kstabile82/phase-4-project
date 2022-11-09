@@ -59,16 +59,25 @@ function HikeCard({ hh, hike, user, setHikes, setDisplayedHikes, hikes, displaye
             hikerhike_id: hkrhk.id        
         })
         })
-    .then((r) => r.json())
-    .then(newComm => {
-        // setComments([...comments, newComm])
-        if (hikeComments.length > 0) {
-            setHikeComments([...hikeComments, newComm])
-        }
-        if (hikeComments === ['none']) {
-            setHikeComments([newComm])
-        }
-    }) 
+         .then((r) => {
+        if (r.ok) {
+           r.json().then((hike) => console.log(hike))
+             }
+         else {
+         r.json()
+            .then((errorInfo) => console.log(errorInfo))
+                }
+        })
+    // .then((r) => r.json())
+    // .then(newComm => {
+    //     // setComments([...comments, newComm])
+    //     if (hikeComments.length > 0) {
+    //         setHikeComments([...hikeComments, newComm])
+    //     }
+    //     if (hikeComments === ['none']) {
+    //         setHikeComments([newComm])
+    //     }
+    // }) 
    }
    function handleCommentChange(e){
     e.preventDefault();

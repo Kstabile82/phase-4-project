@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import Welcomepage from "./Welcomepage";
+import ReactModal from 'react-modal';
 
-function Signup({ user, handleLogIn, loggedOut, setLoggedOut, handleLogout }) {
+function Signup({ isOpen, setIsOpen, errors, setErrors, user, handleLogIn, loggedOut, setLoggedOut, handleLogout }) {
 const [userName, setUserName] = useState("")
 const [password, setPassword] = useState("")
 const [confirmPassword, setConfirmPassword] = useState("")
-// const [errors, setErrors] = useState([]);
-
     function handleNewUser(e) {
       if (password === confirmPassword) {
         e.preventDefault();
-        // setErrors([]);
         fetch("/signup", {
           method: "POST",
           headers: {
@@ -24,15 +22,17 @@ const [confirmPassword, setConfirmPassword] = useState("")
                   }),
         }).then((r) => {
           if (r.ok) {
-            r.json().then((user) => handleLogIn(user));
+            r.json()
+            .then((user) => handleLogIn(user));
           } 
-          // else {
-          //   r.json().then((err) => setErrors(err.errors));
-          // }
+          else {
+            r.json()
+                .then((errorInfo) => {
+                  setErrors(errorInfo.errors)
+                  setIsOpen(true)
+                })
+             }
         });
-      }
-      else {
-       console.log("Passwords don't match") 
       }
     }
 return (
@@ -55,6 +55,14 @@ return (
         onChange={(e) => setConfirmPassword(e.target.value)}></input>   
         <button>Enter</button>
     </form>
+    {errors ? <ReactModal
+                    isOpen={isOpen}
+                    contentLabel="Error Modal"
+                    ariaHideApp={false}                    
+                    onRequestClose={() => setIsOpen(false)}>
+                 {errors.map(e => <p>{e}</p>)}    
+                 <button onClick={() => setIsOpen(false)}>Close</button>
+                </ReactModal> : null }
     {user ? <Welcomepage user={user} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleLogout={handleLogout} /> : null }
 </div>
 )

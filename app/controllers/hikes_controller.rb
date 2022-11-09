@@ -1,8 +1,9 @@
 class HikesController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-before_action :authorize
+# rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+# rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+before_action :authorize, only: [:create, :delete, :update]
 before_action :authAdmin, only: :delete
-skip_before_action :authorize, only: [:show, :index, :spacesearch, :toplikes, :dist]
+# skip_before_action :authorize, only: [:show, :index, :spacesearch, :toplikes, :dist]
    
    def index
         hikes = Hike.all
@@ -30,10 +31,12 @@ skip_before_action :authorize, only: [:show, :index, :spacesearch, :toplikes, :d
       render json: hikedist
     end
  
-      def create
+    def create
         hike = Hike.create!(hike_params)
         render json: hike, status: 200 
-    end
+        rescue ActiveRecord::RecordInvalid => invalid 
+          render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+     end
     
     def update
       hike = Hike.find_by(id: params[:id])
@@ -82,6 +85,5 @@ skip_before_action :authorize, only: [:show, :index, :spacesearch, :toplikes, :d
       def hike_params
         params.permit(:name, :location, :difficulty, :distance, :likes)
       end
-
 
   end

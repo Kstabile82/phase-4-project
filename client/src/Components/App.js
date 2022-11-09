@@ -8,15 +8,18 @@ import Signup from "./Signup";
 import MyHikes from "./MyHikes";
 import Welcomepage from "./Welcomepage";
 import Allusers from "./Allusers";
+import ReactModal from 'react-modal';
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedOut, setLoggedOut] = useState(true);
   const [userHikes, setUserHikes] = useState([])
-  const [admin, setAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [users, setUsers] = useState([])
   const [hikes, setHikes] = useState([])
   const [displayedHikes, setDisplayedHikes] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
+  const [errors, setErrors] = useState(null)
 
   useEffect(() => {
     fetch("/me")
@@ -27,7 +30,7 @@ function App() {
           setUser(user)
           setLoggedOut(false)
           setUserHikes(user.hikerhikes)
-          setAdmin(user.admin)
+          setIsAdmin(user.admin)
           if (user.admin) {
             fetch("/hikers", {
                 method: "GET",
@@ -56,9 +59,11 @@ function App() {
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
-    setAdmin(hiker.admin)
+    setIsAdmin(hiker.admin)
     setUserHikes(hiker.hikerhikes)
+    setIsOpen(true)
     }
+
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)
@@ -67,23 +72,33 @@ function App() {
   function handleDeleteHH() {
     setUserHikes(user.hikerhikes)
   }
+  
   return (
     <div className="App">
       <h1 className="Hello">Hiker's Hub</h1>
-    <NavBar admin={admin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
+      {user ? <ReactModal
+        isOpen={isOpen}
+        contentLabel="Example Modal"
+        ariaHideApp={false}                    
+        onRequestClose={() => setIsOpen(false)}>
+        Welcome, {user.hikername}!
+        <button onClick={() => setIsOpen(false)}>Close</button>
+      </ReactModal> : null } 
+    <NavBar admin={isAdmin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
-        <HikesContainer setHikes={setHikes} hikes={hikes} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
+        <HikesContainer errors={errors} setErrors={setErrors} isOpen={isOpen} setIsOpen={setIsOpen} setHikes={setHikes} hikes={hikes} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
-        <Login setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/signup">
-        <Signup handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Signup isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
-      {!loggedOut && user.admin === true ? 
+      {/* {!loggedOut && user.admin === true ?  */}
+      {!loggedOut && isAdmin === true ? 
         <Route exact path="/allusers">
-        <Allusers user={user} admin={admin} users={users} setUsers={setUsers}/> 
+        <Allusers user={user} admin={isAdmin} users={users} setUsers={setUsers}/> 
         </Route> : null}
       {user && !loggedOut ? 
         <Route exact path="/myhikes">

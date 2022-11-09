@@ -1,8 +1,9 @@
 import React, { useState } from "react"; 
 import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
+import ReactModal from 'react-modal';
 
-function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
+function HikesContainer({ errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
     // const [hikes, setHikes] = useState([]);
     let locations = [];
     const [filterL, setFilterL] = useState([]);
@@ -109,8 +110,16 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
           .then((r) => r.json())
           .then((returned) => console.log(returned))
         }
-    return (
+return (
         <div className="container">
+               {errors ? <ReactModal
+                    isOpen={isOpen}
+                    contentLabel="Error Modal"
+                    ariaHideApp={false}                    
+                    onRequestClose={() => setIsOpen(false)}>
+                 {errors.errors.map(e => <p>{e}</p>)}    
+                 <button onClick={() => setIsOpen(false)}>Close</button>
+                </ReactModal> : null }
            <p>All Hikes</p>
            <form>
            <label name="test">Type a number
@@ -154,7 +163,7 @@ function HikesContainer({ displayedHikes, setDisplayedHikes, hikes, setHikes, us
               {user ? <button className={h.name} onClick={(e) => addToMyHikes(h, e)}>+</button> : null} 
               {user && user.admin ? <button onClick={(e) => handleDeleteHike(h, e)}>Delete hike</button> : null} <br></br>
               </div> )} 
-          {user ? <AddNewHike hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} /> : null } 
+          {user ? <AddNewHike setIsOpen={setIsOpen} setErrors={setErrors} hikes={hikes} setHikes={setHikes} displayedHikes={displayedHikes} setDisplayedHikes={setDisplayedHikes} /> : null } 
         </div>
     );
 }

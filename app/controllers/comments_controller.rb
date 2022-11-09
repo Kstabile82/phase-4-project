@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+# rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 before_action :authorize
 skip_before_action :authorize, only: :show
 
@@ -19,6 +19,8 @@ skip_before_action :authorize, only: :show
       def create
        comment = Comment.create!(comment_params)
         render json: comment, status: 200 
+      rescue ActiveRecord::RecordInvalid => invalid 
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def destroy
