@@ -18,6 +18,10 @@ private
 
   end
 
+  def render_unprocessable_entity_response(invalid)
+    render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+  end
+
 # def render_not_found(exception)
 #   render json: {error: exception.message}, status: :not_found
 # end

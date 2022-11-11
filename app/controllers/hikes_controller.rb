@@ -1,9 +1,7 @@
 class HikesController < ApplicationController
-# rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-# rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 before_action :authorize, only: [:create, :delete, :update]
 before_action :authAdmin, only: :delete
-# skip_before_action :authorize, only: [:show, :index, :spacesearch, :toplikes, :dist]
    
    def index
         hikes = Hike.all
@@ -34,8 +32,6 @@ before_action :authAdmin, only: :delete
     def create
         hike = Hike.create!(hike_params)
         render json: hike, status: 200 
-        rescue ActiveRecord::RecordInvalid => invalid 
-          render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
      end
     
     def update
@@ -48,37 +44,6 @@ before_action :authAdmin, only: :delete
       hike = Hike.find(params[:id])
       hike.destroy
    end
-
-  #  def searchterm
-  #   term
-  #   hikerhikes = []
-  #   hikeids = []
-  #   hikes = []
-  #   Comment.select { |c| c.text.includes?(params[:searchterm]) } 
-  #     if c.text.includes(term)
-  #       hikerhikes << c.hikerhike_id 
-  #     end
-  #   end
-  #     hikerhikes.each do |hh| 
-  #       hikeids << hh.hike_id
-  #     end 
-  #     hikeids.each do |h| 
-  #       hikes << Hike.find(h)
-  #     end
-  #     render json: hikes
-  #  end
-
-  #  Create a GET custom route that includes a search term 
-  # create route with hikes/:fun to hikes#searchterm
-
-  # (one word, no spaces, case insensitive).
-  #in searchterm method, define the search term 
-
-   #search all comments for comment.text includes search term 
-   #for each comment find the hike that it relates to
-
-  # This should return all the hikes that have a comment that 
-  # include the word in their text field.
 
       private
 

@@ -1,6 +1,7 @@
 class HikersController < ApplicationController
    before_action :authorize, only: [:show, :destroy, :update]
    before_action :authAdmin, only: :update 
+   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
    wrap_parameters format: [] 
    
 
@@ -12,8 +13,8 @@ class HikersController < ApplicationController
         hiker = Hiker.create!(hiker_params)
         session[:hiker_id] = hiker.id
         render json: hiker, status: 200 
-        rescue ActiveRecord::RecordInvalid => invalid 
-            render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+        # rescue ActiveRecord::RecordInvalid => invalid 
+        #     render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def update
@@ -25,8 +26,8 @@ class HikersController < ApplicationController
     def show
         hiker = Hiker.find_by(id: session[:hiker_id])
         render json: hiker
-        rescue ActiveRecord::RecordInvalid => invalid 
-        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+        # rescue ActiveRecord::RecordInvalid => invalid 
+        # render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def destroy

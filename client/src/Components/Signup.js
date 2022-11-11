@@ -60,7 +60,7 @@ return (
                     contentLabel="Error Modal"
                     ariaHideApp={false}                    
                     onRequestClose={() => setIsOpen(false)}>
-                 {errors.map(e => <p>{e}</p>)}    
+                 {errors.length > 1 ? errors.map(e => <p>{e}</p>) : <p>{errors}</p>}    
                  <button onClick={() => setIsOpen(false)}>Close</button>
                 </ReactModal> : null }
     {user ? <Welcomepage user={user} loggedOut={loggedOut} setLoggedOut={setLoggedOut} handleLogout={handleLogout} /> : null }
