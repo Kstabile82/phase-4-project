@@ -159,7 +159,7 @@ return (
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
             </label> </div> 
           {displayedHikes.map(h => <div key={h.id}>  
-              <br></br> <HikeCard hike={h} user={user} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} setHikes={setHikes} hikes={hikes} /> 
+              <br></br> <HikeCard isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} hike={h} user={user} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} setHikes={setHikes} hikes={hikes} /> 
               {user ? <button className={h.name} onClick={(e) => addToMyHikes(h, e)}>+</button> : null} 
               {user && user.admin ? <button onClick={(e) => handleDeleteHike(h, e)}>Delete hike</button> : null} <br></br>
               </div> )} 

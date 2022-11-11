@@ -20,6 +20,8 @@ function App() {
   const [displayedHikes, setDisplayedHikes] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [errors, setErrors] = useState(null)
+  const [admins, setAdmins] = useState([])
+  const [nonAdmins, setNonAdmins] = useState([])
 
   useEffect(() => {
     fetch("/me")
@@ -40,7 +42,12 @@ function App() {
                 body: JSON.stringify(),
               })
             .then((r) => r.json())
-            .then((usrs) => setUsers(usrs));
+            .then((usrs) => {
+              setAdmins(usrs.filter(us => us.admin === true))
+              setNonAdmins(usrs.filter(ur => ur.admin === false))
+              setUsers(usrs)
+            }  )
+            
         }
         })
       }
@@ -98,11 +105,11 @@ function App() {
       {/* {!loggedOut && user.admin === true ?  */}
       {!loggedOut && isAdmin === true ? 
         <Route exact path="/allusers">
-        <Allusers user={user} admin={isAdmin} users={users} setUsers={setUsers}/> 
+        <Allusers admins={admins} setAdmins={setAdmins} nonAdmins={nonAdmins} setNonAdmins={setNonAdmins} user={user} admin={isAdmin} users={users} setUsers={setUsers}/> 
         </Route> : null}
       {user && !loggedOut ? 
         <Route exact path="/myhikes">
-        <MyHikes user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <MyHikes setErrors={setErrors} errors={errors} isOpen={isOpen} setIsOpen={setIsOpen} user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
         </Route> : null}
         {user && !loggedOut ? 
         <Route exact path="/welcomepage">

@@ -4,7 +4,6 @@ import ReactModal from 'react-modal';
 function LogIn({ isOpen, setIsOpen, errors, setErrors, handleLogIn, loggedOut, handleLogout, setUserHikes }) {
 const [inputName, setInputName] = useState("")
 const [inputPassword, setInputPassword] = useState("")
-// const [userHikes, setUserHikes] = useState([])
   function handleUser(e) {
        e.preventDefault();
        fetch("/login", {

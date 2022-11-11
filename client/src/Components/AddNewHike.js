@@ -48,7 +48,6 @@ function AddNewHike({ setIsOpen, setErrors, hikes, displayedHikes, setDisplayedH
                 setDisplayedHikes([...displayedHikes, hike])
                 setAdded(true)
                 setShowingForm(false);
-                // setSuccessSign(true)
             })
                 }
             else {
@@ -58,7 +57,7 @@ function AddNewHike({ setIsOpen, setErrors, hikes, displayedHikes, setDisplayedH
                     setIsOpen(true)
                 })
                 
-                    }
+                }
             })
 }
     return (

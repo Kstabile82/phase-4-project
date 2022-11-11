@@ -1,6 +1,6 @@
 import React from "react";
 
-function Allusers({ user, admin, users, setUsers }) {
+function Allusers({ admins, setAdmins, nonAdmins, setNonAdmins, user, admin, users, setUsers }) {
     function handleAddAdmin(e, u) {
      fetch(`/hikers/${u.id}`, {
         method: "PATCH",
@@ -11,9 +11,8 @@ function Allusers({ user, admin, users, setUsers }) {
     })
     .then((r) => r.json())
     .then((updatedHiker) => {
-      let idx = users.indexOf(u)
-      users.splice(idx, 1, updatedHiker)
-      setUsers(users)
+        setAdmins([...admins, updatedHiker])
+        setNonAdmins(nonAdmins.filter(nas => nas.id !== updatedHiker.id))
     })   
 } 
     function handleDeleteAdmin(e, u) {
@@ -25,20 +24,19 @@ function Allusers({ user, admin, users, setUsers }) {
             body: JSON.stringify({ admin: false }),
         })
         .then((r) => r.json())
-        .then((updatedHiker) => {
-        //   let del = users.find(usr => usr.id === updatedHiker.id)
-          let idx = users.indexOf(u)
-          users.splice(idx, 1, updatedHiker)
-          setUsers(users)
+        .then((toDelete) => {
+            setNonAdmins([...nonAdmins, toDelete])
+            setAdmins(admins.filter(as => as.id !== toDelete.id))
+
         })   
     }
     return (
         <div>
             <ul key="admins">Admins:
-               {users.map(u => u.admin ? <div><li key={u.id}>{u.hikername}</li><button onClick={(e) => handleDeleteAdmin(e, u)}>Delete Admin</button></div> : null )}
+               {admins.map(a => <div><li key={a.id}>{a.hikername}</li><button onClick={(e) => handleDeleteAdmin(e, a)}>Delete Admin</button></div> )}
             </ul>
            <ul key="nonadmins">Other Users:
-            {users.map(u => !u.admin ? <div><li key={u.id}>{u.hikername}</li> <button onClick={(e) => handleAddAdmin(e, u)}>Make Admin</button></div>: null )}
+            {nonAdmins.map(na => <div><li key={na.id}>{na.hikername}</li> <button onClick={(e) => handleAddAdmin(e, na)}>Make Admin</button></div> )}
            </ul>
         </div>
     )

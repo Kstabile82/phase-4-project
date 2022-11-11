@@ -11,7 +11,6 @@ function Welcomepage({ user, handleLogout }) {
     }
 return (
     <div>
-        Welcome, {user.hikername}!
         <br></br><br></br>
         <button onClick={handleDelete}>Delete My Account</button>
     </div>

@@ -1,10 +1,10 @@
 import React, { useState } from "react"; 
 import HikeCard from "./HikeCard";
+import ReactModal from 'react-modal';
 
-function MyHikes({ user, userHikes, setUserHikes }) { 
+function MyHikes({ isOpen, setIsOpen, errors, setErrors, user, userHikes, setUserHikes }) { 
   const [newStatus, setNewStatus] = useState("");
   let hh = [];
-
   user.hikerhikes.map(h => hh.push(h.hikemethod))
 
   function handleChangeStatus(e, h) {
@@ -41,7 +41,7 @@ return (
       <p>{user.hikername}'s Hikes</p>
         {userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
         {h.hikemethod ? 
-        <HikeCard hh={hh} userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>   : null }  
+        <HikeCard setIsOpen={setIsOpen} setErrors={setErrors} hh={hh} userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>   : null }  
             <form onSubmit={(e)=> handleSubmitStatus(h, e)}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>{h.status}</option>
@@ -54,6 +54,14 @@ return (
         <br></br>
         <button onClick={(e) => handleDelete(h, e)}>Delete from my hikes</button><br></br>
         </div>)}
+        {errors ? <ReactModal
+                    isOpen={isOpen}
+                    contentLabel="Error Modal"
+                    ariaHideApp={false}                    
+                    onRequestClose={() => setIsOpen(false)}>
+                 {errors.errors.map(e => <p>{e}</p>)}    
+                 <button onClick={() => setIsOpen(false)}>Close</button>
+                </ReactModal> : null }
     </div>
 )
 }

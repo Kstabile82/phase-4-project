@@ -7,7 +7,7 @@ const [userName, setUserName] = useState("")
 const [password, setPassword] = useState("")
 const [confirmPassword, setConfirmPassword] = useState("")
     function handleNewUser(e) {
-      if (password === confirmPassword) {
+      // if (password === confirmPassword) {
         e.preventDefault();
         fetch("/signup", {
           method: "POST",
@@ -33,7 +33,7 @@ const [confirmPassword, setConfirmPassword] = useState("")
                 })
              }
         });
-      }
+      // }
     }
 return (
     <div>
