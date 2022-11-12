@@ -12,11 +12,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     end
 
     def show
-        hikerHike = Hikerhike.select(hiker_id: params[:hiker_id])
+        hikerHike = Hikerhike.where(hiker_id: params[:userId])
         if hikerHike 
-            render json: hikerHike, serializer: HikerhikeSerializer
+            render json: hikerHike
+
+            # render json: hikerHike, serializer: HikerhikeSerializer
         else
-            render json: {message: "No Hikes"}, status: :unauthorized
+            render json: {message: "No Hikes"}
         end
     end
 
@@ -36,7 +38,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     private 
 
     def hikerhike_params
-        params.permit(:id, :hiker_id, :hike_id, :status, :hikemethod)
+        params.permit(:id, :hiker_id, :hike_id, :status)
 
     end
     def render_not_found_response

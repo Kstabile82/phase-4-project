@@ -53,7 +53,6 @@ function App() {
       }
     })
   }, []);
-
   useEffect(() => {
     fetch("/hikes")
     .then((r) => r.json())
@@ -63,6 +62,17 @@ function App() {
      });
     }, [])
 
+  function handleHH(h, e) {
+    fetch(`/hikes/${h.id}`, { 
+      method: 'DELETE'
+    })
+    setHikes(hikes.filter(hk => hk.id !== h.id))
+    setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
+    if (user && user.userHikes !== []){
+      setUserHikes(user.hikerhikes)
+        // setUserHikes(userHikes.filter(dh => dh.id !== h.id))
+    }
+  }
   function handleLogIn(hiker) {
     setUser(hiker);
     setLoggedOut(false)
@@ -79,7 +89,7 @@ function App() {
   function handleDeleteHH() {
     setUserHikes(user.hikerhikes)
   }
-  
+
   return (
     <div className="App">
       <h1 className="Hello">Hiker's Hub</h1>
@@ -94,7 +104,7 @@ function App() {
     <NavBar admin={isAdmin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
-        <HikesContainer errors={errors} setErrors={setErrors} isOpen={isOpen} setIsOpen={setIsOpen} setHikes={setHikes} hikes={hikes} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
+        <HikesContainer handleHH={handleHH} errors={errors} setErrors={setErrors} isOpen={isOpen} setIsOpen={setIsOpen} setHikes={setHikes} hikes={hikes} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
       </Route>
       <Route exact path="/login">
         <Login isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>

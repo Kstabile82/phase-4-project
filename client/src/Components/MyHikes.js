@@ -1,12 +1,18 @@
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react"; 
 import HikeCard from "./HikeCard";
 import ReactModal from 'react-modal';
 
 function MyHikes({ isOpen, setIsOpen, errors, setErrors, user, userHikes, setUserHikes }) { 
   const [newStatus, setNewStatus] = useState("");
-  let hh = [];
-  user.hikerhikes.map(h => hh.push(h.hikemethod))
 
+  useEffect(() => {
+    fetch(`/hikerhikes/${user.id}`)
+    .then((r) => r.json())
+    .then((currentHikes) => {
+        setUserHikes(currentHikes);
+     });
+    }, [])
+    console.log(userHikes)
   function handleChangeStatus(e, h) {
        e.preventDefault();
        setNewStatus(e.target.value)
@@ -36,12 +42,13 @@ function handleSubmitStatus(h, e) {
       setUserHikes(userHikes)
     })   
  }
+
 return (
     <div>
       <p>{user.hikername}'s Hikes</p>
-        {userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
+        {userHikes.length > 0 ? userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
         {h.hikemethod ? 
-        <HikeCard setIsOpen={setIsOpen} setErrors={setErrors} hh={hh} userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>   : null }  
+        <HikeCard setIsOpen={setIsOpen} setErrors={setErrors} userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>   : null }  
             <form onSubmit={(e)=> handleSubmitStatus(h, e)}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>{h.status}</option>
@@ -53,13 +60,13 @@ return (
         </form> 
         <br></br>
         <button onClick={(e) => handleDelete(h, e)}>Delete from my hikes</button><br></br>
-        </div>)}
+        </div>) : null }
         {errors ? <ReactModal
                     isOpen={isOpen}
                     contentLabel="Error Modal"
                     ariaHideApp={false}                    
                     onRequestClose={() => setIsOpen(false)}>
-                 {errors.errors.map(e => <p>{e}</p>)}    
+                 {errors.map(e => <p>{e}</p>)}    
                  <button onClick={() => setIsOpen(false)}>Close</button>
                 </ReactModal> : null }
     </div>

@@ -3,7 +3,7 @@ import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 import ReactModal from 'react-modal';
 
-function HikesContainer({ errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
+function HikesContainer({ handleHH, errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
     // const [hikes, setHikes] = useState([]);
     let locations = [];
     const [filterL, setFilterL] = useState([]);
@@ -22,9 +22,9 @@ function HikesContainer({ errors, setErrors, isOpen, setIsOpen, displayedHikes, 
             return locations; 
       })
       function addToMyHikes(h, e) {
+        if (userHikes && userHikes.length > 0) { 
         let alreadyListed = userHikes.find(uH => uH.hike_id === h.id)
             if (alreadyListed) {
-                console.log("Already listed")
             }
             else {
                 fetch("/hikerhikes", {
@@ -43,6 +43,7 @@ function HikesContainer({ errors, setErrors, isOpen, setIsOpen, displayedHikes, 
                 setUserHikes([...userHikes, hike])
                 })
               }
+            }
     }
     function handleFilterChange(e) {
         e.preventDefault();
@@ -90,11 +91,16 @@ function HikesContainer({ errors, setErrors, isOpen, setIsOpen, displayedHikes, 
        }
     }
     function handleDeleteHike(h, e) {
-            fetch(`/hikes/${h.id}`, { 
-                method: 'DELETE'
-            })
-            setHikes(hikes.filter(hk => hk.id !== h.id))
-            setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
+        handleHH(h, e)
+            // fetch(`/hikes/${h.id}`, { 
+            //     method: 'DELETE'
+            // })
+            // setHikes(hikes.filter(hk => hk.id !== h.id))
+            // setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
+            // if (user && user.userHikes !== []){
+            //     handleHH()
+            //     // setUserHikes(userHikes.filter(dh => dh.id !== h.id))
+            // }
           }
           function handlenumber(e) {
             e.preventDefault();
@@ -121,8 +127,8 @@ return (
                  <button onClick={() => setIsOpen(false)}>Close</button>
                 </ReactModal> : null }
            <p>All Hikes</p>
-           <form>
-           <label name="test">Type a number
+           {/* <form> */}
+           {/* <label name="test">Type a number
              <input name="typeanumber" id="typenumber" type="text" onChange={handlenumber}/>
             </label>
            </form>
@@ -130,7 +136,7 @@ return (
            <label name="dist">Type a number
              <input name="typeanumber" id="typedist" type="text" onChange={handleDist}/>
             </label>
-           </form>
+           </form> */}
            <div className="filter">Filter:
             <form onSubmit={handleSubmitFilter}>
                 <select name="difficulty" id="difficulty" onChange={handleFilterChange}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaThumbsUp } from "react-icons/fa"
 import ReactModal from 'react-modal';
 
-function HikeCard({ setErrors, setIsOpen, hh, hike, user, setHikes, setDisplayedHikes, hikes, displayedHikes }) {
+function HikeCard({ setErrors, setIsOpen, hike, user, userHikes, setHikes, setDisplayedHikes, hikes, displayedHikes }) {
     const [commentsDisplayed, setCommentsDisplayed] = useState(false)
     const [commentForm, setCommentForm] = useState(false)
     const [newComment, setNewComment] = useState("")
@@ -73,10 +73,10 @@ function HikeCard({ setErrors, setIsOpen, hh, hike, user, setHikes, setDisplayed
          else {
          r.json()
             .then((errorInfo) => {
-                setErrors(errorInfo)
+                setErrors(errorInfo.errors)
                 setIsOpen(true)
             })
-                }
+         }
         })
     // .then((r) => r.json())
     // .then(newComm => {
@@ -111,7 +111,7 @@ function HikeCard({ setErrors, setIsOpen, hh, hike, user, setHikes, setDisplayed
                 {user && hikeComments[0].author.id === user.id ? <button onClick={(e) => handleDeleteComment(hikeComments[0])}>-</button> : null} 
                 </div>: null}  
             </ul> 
-           <button style={{display: user && hh && hh.includes(hike) ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
+           <button style={{display: user ? 'visible' : 'none' }} onClick={() => handleCommentForm()}>Add Comment</button>
             {commentForm ? <form onSubmit={handleAddComment}>
                 <input onChange={handleCommentChange}
                 type="text"
