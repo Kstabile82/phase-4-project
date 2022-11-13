@@ -33,6 +33,7 @@ function App() {
           setLoggedOut(false)
           setUserHikes(user.hikerhikes)
           setIsAdmin(user.admin)
+          console.log(user)
           if (user.admin) {
             fetch("/hikers", {
                 method: "GET",
@@ -77,10 +78,9 @@ function App() {
     setUser(hiker);
     setLoggedOut(false)
     setIsAdmin(hiker.admin)
-    setUserHikes(hiker.hikerhikes)
+    // setUserHikes(hiker.hikerhikes)
     setIsOpen(true)
     }
-
   function handleLogout() {
     setUser(null);
     setLoggedOut(true)

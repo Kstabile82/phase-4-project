@@ -22,11 +22,11 @@ function HikesContainer({ handleHH, errors, setErrors, isOpen, setIsOpen, displa
             return locations; 
       })
       function addToMyHikes(h, e) {
-        if (userHikes && userHikes.length > 0) { 
-        let alreadyListed = userHikes.find(uH => uH.hike_id === h.id)
-            if (alreadyListed) {
-            }
-            else {
+        let alreadyListed = null; 
+        if (user && userHikes && userHikes.length > 0) { 
+        alreadyListed = userHikes.find(uH => uH.hike_id === h.id)
+        }
+            if (alreadyListed === null || alreadyListed === "undefined" || alreadyListed === undefined) {
                 fetch("/hikerhikes", {
                     method: "POST",
                     headers: {
@@ -43,8 +43,12 @@ function HikesContainer({ handleHH, errors, setErrors, isOpen, setIsOpen, displa
                 setUserHikes([...userHikes, hike])
                 })
               }
+              else {
+                console.log(alreadyListed)
+              }
             }
-    }
+            
+console.log(userHikes)
     function handleFilterChange(e) {
         e.preventDefault();
         setDisplayedHikes(hikes)
@@ -116,7 +120,7 @@ function HikesContainer({ handleHH, errors, setErrors, isOpen, setIsOpen, displa
           .then((r) => r.json())
           .then((returned) => console.log(returned))
         }
-return (
+    return (
         <div className="container">
                {errors ? <ReactModal
                     isOpen={isOpen}

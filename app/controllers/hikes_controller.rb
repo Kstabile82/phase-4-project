@@ -24,6 +24,16 @@ before_action :authAdmin, only: :delete
       render json: topamount
     end
 
+    def rankings
+      rankedhikes = []; 
+      Hike.all.each do |hk|
+        rankedhikes << {hike: hk, rank: hk[:distance]}
+      end
+      finalrankings = rankedhikes.sort_by{|i| i[:rank]} 
+      # shortest = rankedhikes.sort_by do |i| i[:hike][:distance]  end
+      render json: finalrankings
+    end
+
     def dist 
       hikedist = Hike.where("distance >= ?", params[:dist].to_i)
       render json: hikedist

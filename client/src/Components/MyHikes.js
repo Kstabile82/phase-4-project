@@ -5,14 +5,13 @@ import ReactModal from 'react-modal';
 function MyHikes({ isOpen, setIsOpen, errors, setErrors, user, userHikes, setUserHikes }) { 
   const [newStatus, setNewStatus] = useState("");
 
-  useEffect(() => {
-    fetch(`/hikerhikes/${user.id}`)
-    .then((r) => r.json())
-    .then((currentHikes) => {
-        setUserHikes(currentHikes);
-     });
-    }, [])
-    console.log(userHikes)
+  // useEffect(() => {
+  //   fetch(`/hikerhikes/${user.id}`)
+  //   .then((r) => r.json())
+  //   .then((currentHikes) => {
+  //       setUserHikes(currentHikes);
+  //    });
+  //   }, [])
   function handleChangeStatus(e, h) {
        e.preventDefault();
        setNewStatus(e.target.value)
@@ -42,13 +41,12 @@ function handleSubmitStatus(h, e) {
       setUserHikes(userHikes)
     })   
  }
-
 return (
     <div>
       <p>{user.hikername}'s Hikes</p>
         {userHikes.length > 0 ? userHikes.map(h => <div className="userhikes" key={h.id}><br></br>
         {h.hikemethod ? 
-        <HikeCard setIsOpen={setIsOpen} setErrors={setErrors} userHikes={userHikes} setUserHikes={setUserHikes} hike={h.hikemethod} user={user}/>   : null }  
+        <HikeCard setIsOpen={setIsOpen} setErrors={setErrors} hike={h.hikemethod} user={user}/>   : null }  
             <form onSubmit={(e)=> handleSubmitStatus(h, e)}>
             <select name="Status" id="status" onChange={handleChangeStatus}>
                 <option value="" hidden>{h.status}</option>
