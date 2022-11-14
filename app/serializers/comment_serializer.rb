@@ -7,4 +7,5 @@ def author
   authr = Hiker.find(hh[:hiker_id])
 end 
 
+
 end

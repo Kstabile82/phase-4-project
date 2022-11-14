@@ -8,4 +8,8 @@ class Hike < ApplicationRecord
     has_many :comments, through: :hikerhikes
 
     
+    def rank
+        r = distance * 3
+       "#{r}"
+    end
 end

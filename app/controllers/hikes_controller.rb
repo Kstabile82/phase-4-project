@@ -2,7 +2,8 @@ class HikesController < ApplicationController
 rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 before_action :authorize, only: [:create, :delete, :update]
 before_action :authAdmin, only: :delete
-   
+wrap_parameters format: [] 
+
    def index
         hikes = Hike.all
         render json: hikes, include: [:comments]
@@ -13,11 +14,25 @@ before_action :authAdmin, only: :delete
         render json: hike
       end
 
+    # def myhikes
+    #  myhikerhikes = Hike.all.map do |h| 
+    #    Hikerhike.where(hike_id: h.id, hiker_id: params[:id])
+    #   end
+    #    myhikes = myhikerhikes.map do |mh|
+    #     Hike.find(mh.hike_id)
+    #       # finalrankings = Hike.all.map do |hk|
+    #   #   {hk: hk, rank: hk[:distance]}
+    #   # end
+    #    end
+      
+    #   render json: myhikes.to_json
+    # end
+
      def spacesearch
         results =  Hike.select { |h| h.name.downcase.include?(params[:searchterm].downcase) } 
         render json: results
     end
-
+    
     def toplikes
       mostliked = Hike.order('likes').reverse
       topamount = mostliked.slice(0, params[:number].to_i)
@@ -25,13 +40,12 @@ before_action :authAdmin, only: :delete
     end
 
     def rankings
-      rankedhikes = []; 
-      Hike.all.each do |hk|
-        rankedhikes << {hike: hk, rank: hk[:distance]}
-      end
-      finalrankings = rankedhikes.sort_by{|i| i[:rank]} 
-      # shortest = rankedhikes.sort_by do |i| i[:hike][:distance]  end
+      finalrankings = Hike.all.sort_by{|i| i.rank.to_i}
       render json: finalrankings
+      # finalrankings = Hike.all.map do |hk|
+      #   {hk: hk, rank: hk[:distance]}
+      # end
+      # render json: finalrankings.sort_by{|i| i[:rank]}
     end
 
     def dist 
@@ -58,7 +72,7 @@ before_action :authAdmin, only: :delete
       private
 
       def hike_params
-        params.permit(:name, :location, :difficulty, :distance, :likes)
+        params.permit(:id, :name, :location, :difficulty, :distance, :likes)
       end
 
   end

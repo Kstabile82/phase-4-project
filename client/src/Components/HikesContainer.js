@@ -3,13 +3,13 @@ import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 import ReactModal from 'react-modal';
 
-function HikesContainer({ handleHH, errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
-    // const [hikes, setHikes] = useState([]);
+function HikesContainer({ hikeComments, setHikeComments, handleHH, errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
     let locations = [];
     const [filterL, setFilterL] = useState([]);
     const [filterD, setFilterD] = useState([]);
     const [likesChecked, setLikesChecked] = useState(false);
     const [distChecked, setDistChecked] = useState(false);
+
     let filterLoc;
     let filterDiff; 
     let locMatches = [];
@@ -47,8 +47,7 @@ function HikesContainer({ handleHH, errors, setErrors, isOpen, setIsOpen, displa
                 console.log(alreadyListed)
               }
             }
-            
-console.log(userHikes)
+
     function handleFilterChange(e) {
         e.preventDefault();
         setDisplayedHikes(hikes)
@@ -96,30 +95,21 @@ console.log(userHikes)
     }
     function handleDeleteHike(h, e) {
         handleHH(h, e)
-            // fetch(`/hikes/${h.id}`, { 
-            //     method: 'DELETE'
-            // })
-            // setHikes(hikes.filter(hk => hk.id !== h.id))
-            // setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
-            // if (user && user.userHikes !== []){
-            //     handleHH()
-            //     // setUserHikes(userHikes.filter(dh => dh.id !== h.id))
-            // }
           }
-          function handlenumber(e) {
-            e.preventDefault();
-            let number = e.target.value
-            fetch(`/toplikes/${number}`)
-            .then((r) => r.json())
-            .then((returned) => console.log(returned))
-          }
-          function handleDist(e) {
-          e.preventDefault();
-          let dist = e.target.value
-          fetch(`/distance/${dist}`)
-          .then((r) => r.json())
-          .then((returned) => console.log(returned))
-        }
+        //   function handlenumber(e) {
+        //     e.preventDefault();
+        //     let number = e.target.value
+        //     fetch(`/toplikes/${number}`)
+        //     .then((r) => r.json())
+        //     .then((returned) => console.log(returned))
+        //   }
+        //   function handleDist(e) {
+        //   e.preventDefault();
+        //   let dist = e.target.value
+        //   fetch(`/distance/${dist}`)
+        //   .then((r) => r.json())
+        //   .then((returned) => console.log(returned))
+        // }
     return (
         <div className="container">
                {errors ? <ReactModal
@@ -169,7 +159,7 @@ console.log(userHikes)
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
             </label> </div> 
           {displayedHikes.map(h => <div key={h.id}>  
-              <br></br> <HikeCard isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} hike={h} user={user} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} setHikes={setHikes} hikes={hikes} /> 
+              <br></br> <HikeCard hikeComments={hikeComments} setHikeComments={setHikeComments} hikes={hikes} setHikes={setHikes} isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} hike={h} myComments={h.comments} user={user} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} setHikes={setHikes} hikes={hikes} /> 
               {user ? <button className={h.name} onClick={(e) => addToMyHikes(h, e)}>+</button> : null} 
               {user && user.admin ? <button onClick={(e) => handleDeleteHike(h, e)}>Delete hike</button> : null} <br></br>
               </div> )} 

@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
+  # include ActionController::Caching
+
   
 private
 
@@ -14,6 +16,8 @@ private
 
   def authAdmin
     @current_hiker = Hiker.find_by(id: session[:hiker_id])
+    # @current_hiker = Hiker.find_by(id: session)
+
     render json: { errors: ["Not authorized"] }, status: :unauthorized unless @current_hiker.admin === true
 
   end
