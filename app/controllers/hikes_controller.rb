@@ -14,20 +14,6 @@ wrap_parameters format: []
         render json: hike
       end
 
-    # def myhikes
-    #  myhikerhikes = Hike.all.map do |h| 
-    #    Hikerhike.where(hike_id: h.id, hiker_id: params[:id])
-    #   end
-    #    myhikes = myhikerhikes.map do |mh|
-    #     Hike.find(mh.hike_id)
-    #       # finalrankings = Hike.all.map do |hk|
-    #   #   {hk: hk, rank: hk[:distance]}
-    #   # end
-    #    end
-      
-    #   render json: myhikes.to_json
-    # end
-
      def spacesearch
         results =  Hike.select { |h| h.name.downcase.include?(params[:searchterm].downcase) } 
         render json: results

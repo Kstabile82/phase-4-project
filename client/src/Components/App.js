@@ -66,7 +66,9 @@ function App() {
     }, [])
     
     if (user) {
-     fetch(`/hikerhikes/${user.id}`)
+    //  fetch(`/hikerhikes/${user.id}`)
+    fetch(`/getmyhikes`)
+
      .then((r) => r.json())
      .then((hh) => setUserHikes(hh))
     }

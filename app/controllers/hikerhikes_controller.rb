@@ -12,7 +12,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     end
 
     def show
-        hikerHike = Hikerhike.where(hiker_id: params[:hiker_id])
+        hikerHike = Hikerhike.where(hiker_id: session[:hiker_id])
         if hikerHike 
             render json: hikerHike
             # render json: hikerHike, serializer: HikerhikeSerializer

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   # get "/search/:searchterm", to: "hikes#spacesearch"
   # get "/toplikes/:number", to: "hikes#toplikes"
   # get "/distance/:dist", to: "hikes#dist"
-  get "/hikerhikes/:hiker_id", to: "hikerhikes#show"
+  # get "/hikerhikes/:hiker_id", to: "hikerhikes#show"
+  get "/getmyhikes", to: "hikerhikes#show"
   # get "/rankings", to: "hikes#rankings"
   # get "/myhikes/:id", to: "hikes#myhikes"
   # Routing logic: fallback requests for React Router.
