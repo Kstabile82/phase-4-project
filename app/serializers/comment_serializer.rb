@@ -1,6 +1,6 @@
 class CommentSerializer < ActiveModel::Serializer
   attributes :id, :text, :author
-  belongs_to :hikerhike
+  # belongs_to :hikerhike
 
 def author 
   hh = self.object.hikerhike

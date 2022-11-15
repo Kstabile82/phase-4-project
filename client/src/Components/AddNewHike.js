@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function AddNewHike({ setIsOpen, setErrors, hikes, displayedHikes, setDisplayedHikes, setHikes }) { 
-    const [added, setAdded] = useState(false);
     const [name, setName] = useState(null);
     const [difficulty, setDifficulty] = useState(null);
     const [location, setLocation] = useState(null);
@@ -46,7 +45,6 @@ function AddNewHike({ setIsOpen, setErrors, hikes, displayedHikes, setDisplayedH
             r.json().then((hike) => {
                 setHikes([...hikes, hike])
                 setDisplayedHikes([...displayedHikes, hike])
-                setAdded(true)
                 setShowingForm(false);
             })
                 }

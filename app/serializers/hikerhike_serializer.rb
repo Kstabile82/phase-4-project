@@ -1,6 +1,6 @@
 class HikerhikeSerializer < ActiveModel::Serializer
   # attributes :id, :hike_id, :hiker_id, :status, :comments
-  attributes :id, :hike_id, :hiker_id, :status, :comments, :hike
+  attributes :id, :hike_id, :hiker_id, :status, :comments
   belongs_to :hike
   has_many :comments, serializer: CommentSerializer
   # def hikermethod

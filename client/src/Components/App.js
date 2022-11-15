@@ -22,7 +22,11 @@ function App() {
   const [errors, setErrors] = useState(null)
   const [admins, setAdmins] = useState([])
   const [nonAdmins, setNonAdmins] = useState([])
-  const [hikeComments, setHikeComments] = useState([])
+  const [hikeComments, setHikeComments] = useState(null)
+  const [myHikes, setMyHikes] = useState([])
+  let toupdate; 
+  let idx;
+
   useEffect(() => {
     fetch("/me")
     .then((response) => {
@@ -31,7 +35,6 @@ function App() {
         .then((user) => {
           setUser(user)
           setLoggedOut(false)
-          // setUserHikes(user.hikerhikes)
           setIsAdmin(user.admin)
           if (user.admin) {
             fetch("/hikers", {
@@ -59,23 +62,70 @@ function App() {
     .then((currentHikes) => {
         setHikes(currentHikes);
         setDisplayedHikes(currentHikes);
-     });
+     })
     }, [])
-
+    
     if (user) {
      fetch(`/hikerhikes/${user.id}`)
      .then((r) => r.json())
      .then((hh) => setUserHikes(hh))
     }
-console.log(userHikes)
+
+function handleLikeAdd(hike) {
+  fetch(`/hikes/${hike.id}`, {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ likes: hike.likes + 1 }),
+})
+.then((r) => r.json())
+.then((updatedHike) => {
+    toupdate = hikes.find(h => h.id === hike.id)
+    idx = hikes.indexOf(toupdate)
+    setHikes(hikes.splice(idx, 1, updatedHike))
+})
+}
+function updateWithComment(hkrhk, newComment){
+  fetch ("/comments", {
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        text: newComment,
+        hikerhike_id: hkrhk.id        
+    })
+    })
+     .then((r) => {
+    if (r.ok) {
+       r.json().then((comm) => {
+        if (hikeComments === null) {
+            setHikeComments([comm])
+        }
+        else {
+            setHikeComments([...hikeComments, comm])
+        }
+       }) 
+         }
+     else {
+     r.json()
+        .then((errorInfo) => {
+            setErrors(errorInfo.errors)
+            setIsOpen(true)
+        })
+     }
+    })
+}
   function handleHH(h, e) {
     fetch(`/hikes/${h.id}`, { 
       method: 'DELETE'
     })
     setHikes(hikes.filter(hk => hk.id !== h.id))
     setDisplayedHikes(displayedHikes.filter(dh => dh.id !== h.id))
-    if (user && user.userHikes !== []){
-      setUserHikes(user.hikerhikes)
+
+    if (user && userHikes !== []){
+      setUserHikes(userHikes)
     }
   }
   function handleLogIn(hiker) {
@@ -89,9 +139,9 @@ console.log(userHikes)
     setLoggedOut(true)
     setUserHikes([])
   }
-  function handleDeleteHH() {
-    setUserHikes(user.hikerhikes)
-  }
+  // function handleDeleteHH() {
+  //   setUserHikes(userHikes)
+  // }
   return (
     <div className="App">
       <h1 className="Hello">Hiker's Hub</h1>
@@ -106,13 +156,13 @@ console.log(userHikes)
     <NavBar admin={isAdmin} user={user} onLogout={handleLogout} loggedOut={loggedOut} setLoggedOut={setLoggedOut} />
     <Switch>
       <Route exact path="/hikes">
-        <HikesContainer hikeComments={hikeComments} setHikeComments={setHikeComments} handleHH={handleHH} errors={errors} setErrors={setErrors} isOpen={isOpen} setIsOpen={setIsOpen} setHikes={setHikes} hikes={hikes} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} handleDeleteHH={handleDeleteHH}/>
+        <HikesContainer updateWithComment={updateWithComment} handleLikeAdd={handleLikeAdd} hikeComments={hikeComments} setHikeComments={setHikeComments} handleHH={handleHH} errors={errors} setErrors={setErrors} isOpen={isOpen} setIsOpen={setIsOpen} setHikes={setHikes} hikes={hikes} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} user={user} userHikes={userHikes} setUserHikes={setUserHikes} />
       </Route>
       <Route exact path="/login">
-        <Login isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Login isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} setUserHikes={setUserHikes} handleLogIn={handleLogIn} handleLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} userHikes={userHikes} />
       </Route>
       <Route exact path="/signup">
-        <Signup isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Signup isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} handleLogIn={handleLogIn} handleLogout={handleLogout} onLogout={handleLogout} user={user} setUser={setUser} loggedOut={loggedOut} setLoggedOut={setLoggedOut} setUserHikes={setUserHikes} userHikes={userHikes} />
       </Route>
       {!loggedOut && isAdmin === true ? 
         <Route exact path="/allusers">
@@ -120,11 +170,11 @@ console.log(userHikes)
         </Route> : null}
       {user && !loggedOut ? 
         <Route exact path="/myhikes">
-        <MyHikes hikeComments={hikeComments} setHikeComments={setHikeComments} hikes={hikes} setHikes={setHikes} setErrors={setErrors} errors={errors} isOpen={isOpen} setIsOpen={setIsOpen} user={user} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <MyHikes updateWithComment={updateWithComment} hikes={hikes} handleLikeAdd={handleLikeAdd} myHikes={myHikes} setMyHikes={setMyHikes} hikeComments={hikeComments} setHikeComments={setHikeComments} setHikes={setHikes} setErrors={setErrors} errors={errors} isOpen={isOpen} setIsOpen={setIsOpen} user={user} setUserHikes={setUserHikes} userHikes={userHikes}/>
         </Route> : null}
         {user && !loggedOut ? 
         <Route exact path="/welcomepage">
-        <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} handleDeleteHH={handleDeleteHH}/>
+        <Welcomepage user={user} handleLogout={handleLogout} setUserHikes={setUserHikes} userHikes={userHikes} />
         </Route> : null } 
     </Switch>
   </div>

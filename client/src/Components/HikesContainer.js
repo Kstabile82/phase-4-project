@@ -3,7 +3,7 @@ import AddNewHike from "./AddNewHike";
 import HikeCard from "./HikeCard";
 import ReactModal from 'react-modal';
 
-function HikesContainer({ hikeComments, setHikeComments, handleHH, errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
+function HikesContainer({ updateWithComment, handleLikeAdd, hikeComments, setHikeComments, handleHH, errors, setErrors, isOpen, setIsOpen, displayedHikes, setDisplayedHikes, hikes, setHikes, user, userHikes, setUserHikes }) {
     let locations = [];
     const [filterL, setFilterL] = useState([]);
     const [filterD, setFilterD] = useState([]);
@@ -159,7 +159,7 @@ function HikesContainer({ hikeComments, setHikeComments, handleHH, errors, setEr
              <input name="sortbydistance" id="sortDistance" type="checkbox" onChange={handleSort} />
             </label> </div> 
           {displayedHikes.map(h => <div key={h.id}>  
-              <br></br> <HikeCard hikeComments={hikeComments} setHikeComments={setHikeComments} hikes={hikes} setHikes={setHikes} isOpen={isOpen} setIsOpen={setIsOpen} errors={errors} setErrors={setErrors} hike={h} myComments={h.comments} user={user} setDisplayedHikes={setDisplayedHikes} displayedHikes={displayedHikes} setHikes={setHikes} hikes={hikes} /> 
+              <br></br> <HikeCard updateWithComment={updateWithComment} handleLikeAdd={handleLikeAdd} hike={h} hikeComments={h.comments} setHikeComments={setHikeComments} hikes={hikes} user={user}/> 
               {user ? <button className={h.name} onClick={(e) => addToMyHikes(h, e)}>+</button> : null} 
               {user && user.admin ? <button onClick={(e) => handleDeleteHike(h, e)}>Delete hike</button> : null} <br></br>
               </div> )} 
